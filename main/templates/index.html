@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block content%}
+<section id="slider"><!--slider-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#slider-carousel" data-slide-to="1"></li>
+							<li data-target="#slider-carousel" data-slide-to="2"></li>
+						</ol>
+						
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="col-sm-6">
+									<h1><span>Vendelo</span>Fácil</h1>
+									<h2>Rapido y sencillo</h2>
+								
+								</div>
+								<div class="col-sm-6">
+									<img src="{% static 'media/slid1.png' %}" class="girl img-responsive" alt="" /> 	
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-sm-6">
+									<h1><span>Vendelo</span>Fácil</h1>
+									<h2>Aqui lo encuentras todo</h2>
+									
+								</div>
+								<div class="col-sm-6">
+									<img src="{% static 'media/slide2.png' %}" class="girl img-responsive" alt="" />
+								</div>
+							</div>
+							
+							<div class="item">
+								<div class="col-sm-6">
+									<h1><span>Vendelo</span>Fácil</h1>
+									<h2>Es tu mejor opción</h2>
+							</div>
+								<div class="col-sm-6">
+									<img src="{% static 'media/slid3.png' %}" class="girl img-responsive" alt="" />
+								</div>
+							</div>
+							
+						</div>
+						
+						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section><!--/slider-->
+
+	<div class="container"> 
+  		<div class="row">
+	    	<div class="col-sm-12">
+	        	<div class="jumbotron">
+	            	<center><h2>¿Que estas buscando?</h2>
+	            	<input class="form-control input-lg" id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
+	            	</center>
+	        	</div>
+	    	</div>
+	  	</div>
+	</div>
+
+{%endblock content%}
+
+ {%block scripts%}
+ 		<script src="{%static 'js/jquery.js'%}"></script>
+	    <script src="{%static 'js/contact.js'%}"></script>
+	    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+	    <script src="{%static 'js/gmaps.js'%}"></script>
+	    <script src="{%static 'js/html5shiv.js'%}"></script>
+	    <script src="{%static 'js/jquery.prettyPhoto.js'%}"></script>
+	    <script src="{%static 'js/jquery.scrollUp.min.js'%}"></script>
+	    <script src="{%static 'js/main.js'%}"></script>
+	    <script src="{%static 'js/price-range.js'%}"></script>
+{%endblock scripts%}
