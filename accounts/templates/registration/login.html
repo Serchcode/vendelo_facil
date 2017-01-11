@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{%if form.errors%}
+<center><h5>Tu usuario y contraseña no concuerdan, porfavor intenta nuevamente</h5></center>
+{%else%}
+<center><h5>Ingresa con tu nombre de usuario y contraseña</h5></center>
+{%endif%}
+<div class="login-form container">
+<form action="{%url 'login'%}" method="post">
+	{%csrf_token%}
+	{{form.as_p}}
+	<input type="hidden" name="next" value="{{next}}"> 
+	<br>
+	<br>
+	<center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Iniciar Sesión"></center>
+
+</form>
+<br>
+<br>
+<br>
+<center><p>Si aún no tienes un usuario puedes crearla <a href="{%url 'registro'%}">aquí</a></p></center>
+
+</div>
+
+{%endblock content%}	

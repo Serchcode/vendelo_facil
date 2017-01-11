@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Date de alta</title>
+	<style type="text/css">
+	.errorlist{
+		background: red;
+		color:white;
+	}
+	</style>
+</head>
+<body>
+<center><h4>Usuario nuevo</h4></center>
+<form action="." method="post">
+	{%csrf_token%}
+	{{form.as_p}}
+
+<center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Crear usuario"></center>
+</form>
+<br>
+<br>
+</body>
+</html>
+
+{%endblock content%}

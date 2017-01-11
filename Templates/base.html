@@ -15,6 +15,7 @@
 	  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
 	  <link rel="icon" href="{%static 'media/logo_mini.ico'%}" type="image/x-icon">
 	  <link rel="stylesheet" href="{%static 'css/datepicker.css'%}">
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
 </head>
 <body>
   <header id="header"><!--header-->
@@ -52,9 +53,14 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Cuenta</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Mi Carrito</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i>Login</a></li>
+								{%if request.user.is_aunthenticated%}
+								<li><a href="{%url 'profile'%}"><i class="fa fa-user"></i> Cuenta</a></li>
+								<li><a href="#"><i class="fa fa-shopping-cart"></i>Mi Carrito</a></li>
+								<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
+								{%else%}
+								<li><a href="{%url 'login'%}"><i class="fa fa-login"></i>Login</a></li>
+								<li><a href="#"></a>Home</li>
+								{%endif%}
 							</ul>
 						</div>
 					</div>
@@ -80,10 +86,6 @@
 								<li class="dropdown"><a href="#">Tienda<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Productos</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
                                     </ul>
                                 </li> 
 							</ul>
@@ -190,5 +192,7 @@
 	    <script src="{%static 'js/jquery.scrollUp.min.js'%}"></script>
 	    <script src="{%static 'js/main.js'%}"></script>
 	    <script src="{%static 'js/price-range.js'%}"></script>
+	    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<script src="{%static 'js/materialize.min.js'%}"></script>
     {%endblock scripts%}
 </body>
