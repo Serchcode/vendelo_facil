@@ -53,7 +53,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								{%if request.user.is_aunthenticated%}
+								{%if request.user.is_authenticated%}
 								<li><a href="{%url 'profile'%}"><i class="fa fa-user"></i> Cuenta</a></li>
 								<li><a href="#"><i class="fa fa-shopping-cart"></i>Mi Carrito</a></li>
 								<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
