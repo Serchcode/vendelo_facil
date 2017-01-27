@@ -14,12 +14,14 @@
 </head>
 <body>
 <center><h4>Usuario nuevo</h4></center>
+<div class="container">
 <form action="." method="post">
 	{%csrf_token%}
 	{{form.as_p}}
 
 <center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Crear usuario"></center>
 </form>
+</div>
 <br>
 <br>
 </body>
