@@ -6,21 +6,21 @@
 <div class="slider">
     <ul class="slides">
       <li>
-        <img src="{%static 'media/vendelo.jpg'%}"> <!-- random image -->
+        <img src="{%static 'media/s1.jpg'%}"> <!-- random image -->
         <div class="caption center-align">
           <h3>Vendelo facil</h3>
           <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
         </div>
       </li>
       <li>
-        <img src="{%static 'media/slid3.png'%}"> <!-- random image -->
+        <img class="responsive-img" src="{%static 'media/s2.jpg'%}"> <!-- random image -->
         <div class="caption left-align">
           <h3>vendelo facil</h3>
           <h5 class="light grey-text text-lighten-3">Vendelo facil</h5>
         </div>
       </li>
       <li>
-        <img src="{%static 'media/slide2.png'%}"> <!-- random image -->
+        <img class="responsive-img" src="{%static 'media/slide1.jpg'%}"> <!-- random image -->
         <div class="caption right-align">
           <h3>vendelo facil</h3>
           <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
@@ -31,16 +31,23 @@
       
        
 	<div class="container"> 
-  		<div class="row ">
-	    	<div class="col-sm-12">
-	        	<div class="jumbotron">
-	            	<center><h2>¿Que estas buscando?</h2>
-	            	<input class="form-control input-lg" id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
-	            	</center>
-	        	</div>
-	    	</div>
-	  	</div>
-	</div>
+  	<div class="row ">
+	    <div class="col-sm-12">
+        <div class="card #9ccc65 light-green lighten-1">
+          <div class="card-content">
+            <center><h2 class="white-text">¿Que estas buscando?</h2>
+            <div class="input-field white-text">
+              <i class="material-icons prefix">search</i>
+              <input class="form-control input-lg " id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
+              <i class="material-icons">file_upload</i>
+              <h5><strong>Encuentralo aqui</strong></h5>
+            </div>
+            </center>
+          </div>
+        </div>
+	   </div>
+    </div>
+  </div>
   <br>
   <br>
 <div class="container">
@@ -55,7 +62,7 @@
           <p class="center">Crear una cuenta en vendelo facil te toma menos de 3 minutos</p>
         </div>
         <div class="card-action center white">
-          <a href="#">Registrate Aqui</a>
+          <a href="{%url 'registro'%}">Registrate Aqui</a>
         </div>
       </div>
     </div>
