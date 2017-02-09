@@ -25,7 +25,7 @@
 <body>
 	<nav>
     	<div class="nav-wrapper #9ccc65 light-green lighten-1">
-      		<img src="{%static 'media/log_50.png'%}" class="brand-logo"></img>
+      		<a href="{%url 'main:home'%}"><img src="{%static 'media/log_50.png'%}" class="brand-logo"></img></a>
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			{%if request.user.is_authenticated%}
 					<ul class="right hide-on-med-and-down">
