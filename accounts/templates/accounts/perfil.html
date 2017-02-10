@@ -1,14 +1,35 @@
 {%extends 'base.html'%}
+{%load static%}
 
 {%block content%}
-	<img class="fotito" src="{%if request.user.profile.photo %}{{request.user.profile.photo.url}}{%endif%}">
-	<center><h5>Bienvenido a tu perfil {{request.user.username}}</h5></center>
-<form action="." method="post" enctype='multipart/form-data'>
-	{%csrf_token%}
-	{{userform.as_p}}
-	{{profileform.as_p}}
-	<center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Guardar"></center>
-</form>
+<div class="container">
+	<div class="row">
+	        <div class="col s12 m4 l5">
+	        <br>
+	        <br>
+	          <div class="card">
+	            <div class="card-image">
+	              <img src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
+	              <span class="card-title">{{request.user.first_name}} {{request.user.last_name}}</span>
+	            </div>
+	            <div class="card-content">
+	            </div>
+	            <div class="card-action center">
+	              <a href="#">Quiero vender algo</a>
+	            </div>
+	          </div>
+	        </div>
+		<div class="col s12 m8 l7">
+			<center><h5>Bienvenido a tu perfil {{request.user.username}}</h5></center>
+				<form action="." method="post" enctype='multipart/form-data'>
+					{%csrf_token%}
+					{{userform.as_p}}
+					{{profileform.as_p}}
+					<center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Guardar"></center>
+				</form>
+		</div>
+	</div>
+</div>
 <br>
 <br>
 

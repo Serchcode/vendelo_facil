@@ -1,68 +1,37 @@
 {% extends "base.html" %}
 {%load static%}
 
-
 {%block content%}
-<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>Vendelo</span>Fácil</h1>
-									<h2>Rapido y sencillo</h2>
-								
-								</div>
-								<div class="col-sm-6">
-									<img src="{% static 'media/slid1.png' %}" class="girl img-responsive" alt="" /> 	
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>Vendelo</span>Fácil</h1>
-									<h2>Aqui lo encuentras todo</h2>
-									
-								</div>
-								<div class="col-sm-6">
-									<img src="{% static 'media/slide2.png' %}" class="girl img-responsive" alt="" />
-								</div>
-							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>Vendelo</span>Fácil</h1>
-									<h2>Es tu mejor opción</h2>
-							</div>
-								<div class="col-sm-6">
-									<img src="{% static 'media/slid3.png' %}" class="girl img-responsive" alt="" />
-								</div>
-							</div>
-							
-						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</section><!--/slider-->
-
+	
+<div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="{%static 'media/vendelo.jpg'%}"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>Vendelo facil</h3>
+          <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{%static 'media/slid3.png'%}"> <!-- random image -->
+        <div class="caption left-align">
+          <h3>vendelo facil</h3>
+          <h5 class="light grey-text text-lighten-3">Vendelo facil</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{%static 'media/slide2.png'%}"> <!-- random image -->
+        <div class="caption right-align">
+          <h3>vendelo facil</h3>
+          <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
+        </div>
+      </li>
+    </ul>
+</div>
+      
+       
 	<div class="container"> 
-  		<div class="row">
+  		<div class="row ">
 	    	<div class="col-sm-12">
 	        	<div class="jumbotron">
 	            	<center><h2>¿Que estas buscando?</h2>
@@ -72,17 +41,96 @@
 	    	</div>
 	  	</div>
 	</div>
+  <br>
+  <br>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m4 ">
+      <div class="card #9ccc65 light-green lighten-1">
+        <div class="card-content white-text">
+        <div class="center">
+          <i class="large material-icons">person_pin</i>
+        </div>
+          <h5 class="card-title center">Crea una cuenta</h5>
+          <p class="center">Crear una cuenta en vendelo facil te toma menos de 3 minutos</p>
+        </div>
+        <div class="card-action center white">
+          <a href="#">Registrate Aqui</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m4">
+      <div class="card #9ccc65 light-green lighten-1">
+        <div class="card-content white-text">
+        <div class="center">
+          <i class="large material-icons">attach_money</i>
+        </div>
+          <h5 class="card-title center">Vendelo Facil</h5>
+          <p class="center">Sube una foto de tu producto y una descripcion de tu producto ponle precio y listo! comienza a vender</p>
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+
+    <div class="col s12 m4">
+      <div class="card #9ccc65 light-green lighten-1">
+        <div class="card-content white-text">
+        <div class="center">
+          <i class="large material-icons">shopping_cart</i>
+        </div>
+          <h5 class="card-title center">Compra</h5>
+          <p class="center">En vendelo facil encuentras todo ¡Tecnologia,Hogar,Ropa,etc.!</p>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+</div>
+</div>
+            
+<!--<div class="container">
+  <div class="row">
+
+      <div class="col s4">
+      <center>
+      <i class="large material-icons #ffff00 yellow accent-2 circle">perm_identity</i>
+      <h4>Crea tu cuenta</h4>
+      <h5>Crear una cuenta en vendelo facil te toma menos de 3 minutos</h5>
+      </center>
+      </div>
+      <div class="col s4">
+      <center>
+      <i class="large material-icons #ffff00 yellow accent-2 circle">assignment_ind</i>
+      <h4>Anuncia tu venta facilmente</h4>
+      <h5>Sube una foto de tu porducto precio y descripcion del mismo</h5>
+      </center>
+      </div>
+      <div class="col s4">
+      <center>
+      <i class="large material-icons #ffff00 yellow accent-2 circle">shopping_cart</i>
+      <h4>Compra</h4>
+      <h5>Contacta con el vendedor o realiza una compra directa desde nuestra pagina</h5>
+      </center>
+      </div>
+
+    </div>
+</div> -->
+<br>
+<br>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{%static 'js/materialize.min.js'%}"></script>
+<script>
+	 $(document).ready(function(){
+      $('.slider').slider();
+    });
+</script>
 
 {%endblock content%}
 
- {%block scripts%}
- 		<script src="{%static 'js/jquery.js'%}"></script>
-	    <script src="{%static 'js/contact.js'%}"></script>
-	    <script src="{%static 'js/bootstrap.min.js'%}"></script>
-	    <script src="{%static 'js/gmaps.js'%}"></script>
-	    <script src="{%static 'js/html5shiv.js'%}"></script>
-	    <script src="{%static 'js/jquery.prettyPhoto.js'%}"></script>
-	    <script src="{%static 'js/jquery.scrollUp.min.js'%}"></script>
-	    <script src="{%static 'js/main.js'%}"></script>
-	    <script src="{%static 'js/price-range.js'%}"></script>
+{%block scripts%}
+
 {%endblock scripts%}

@@ -5,8 +5,8 @@
   {% if tag %}
       <h4>Recomendaciones para :{{tag}}</h4>
   {% endif %}
-{% for producto in products %}
-  <h2>{{producto.nombre_producto}}</h2>
+{% for anuncio in anuncios %}
+  <h2>{{anuncio.titulo_anuncio}}</h2>
   {% empty %}
     <h2>No hay productos, se el primero en vender</h2>
 {% endfor %}
