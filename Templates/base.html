@@ -31,10 +31,10 @@
 			{%if request.user.is_authenticated%}
 					<ul class="right hide-on-med-and-down">
             <li><a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
-            <li><a href="{%url 'main:home'%}">Home</a></li>
-						<li><a href="{%url 'profile'%}"> Cuenta</a></li>
-						<li><a href="#">Mi Carrito</a></li>
-						<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
+            <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'profile'%}">Mi Cuenta</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="#">Mi Carrito</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
 						</li>
 					</ul>
 					<ul class="side-nav" id="mobile-demo">
@@ -42,19 +42,23 @@
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
             <li><a href="{%url 'main:home'%}">Home</a></li>
-						<li><a href="{%url 'profile'%}">Cuenta</a></li>
+						<li><a href="{%url 'profile'%}">Mi Cuenta</a></li>
 						<li><a href="#">Mi Carrito</a></li>
 						<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
 						</li>
 					</ul>
 					{%else%}
 					<ul class="right hide-on-med-and-down">
-						<li><a href="{%url 'login'%}">Login</a></li>
-						<li><a href="{%url 'main:home'%}">Home</a></li>
+            <li><a  href="#buscador"><i class="material-icons">search</i></a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Mi Cuenta</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
+            <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
 					</ul>
-					<ul class="side-nav" id="mobile-demo">
-						<li><a href="{%url 'login'%}">Login</a></li>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="#buscador"><i class="material-icons">search</i></a></li>
+						<li><a href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a href="{%url 'main:home'%}">Home</a></li>
+            <li><a href="{%url 'login'%}">Carrito</a></li>
 					</ul>
 		{%endif%}
     	</div>
@@ -98,10 +102,15 @@
     {%block scripts%}
     {%endblock scripts%}
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      	<script src="{%static 'js/materialize.min.js'%}"></script>
-      	<script>
+    <script src="{%static 'js/materialize.min.js'%}"></script>
+    <script>
     	$( document ).ready(function(){
     	  $(".button-collapse").sideNav();
     	});
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('.scrollspy').scrollSpy();
+      });
     </script>
 </body>
