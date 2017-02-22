@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include(mainUrls,namespace="main")),
     url(r'^accounts/', include(accUrls)),
-    url(r'^product/', include(productsUrls)),
+    url(r'^product/', include(productsUrls, namespace="product")),
     url(
         regex=r'^media/(?P<path>.*)$',
         view=serve,

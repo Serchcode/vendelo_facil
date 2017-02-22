@@ -1,14 +1,79 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<form class="" action="index.html" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-</form>
-<form class="" action="index.html" method="post">
-  {% csrf_token %}
-  <div class="input-field col-lg-2 col-md-2 col-sm-2 col-xs-4">
-    {{form.Moneda}}
-  </div>
-</form>
+<div class="">
+  <form class="" method="post">
+    {% csrf_token %}
+    <div class="">
+      {{form.titulo_anuncio}}
+    </div>
+    <div class="">
+      {{form.descripcion_anuncio}}
+    </div>
+    <div class="">
+      {{form.precio}}
+      {{form.Moneda}}
+    </div>
+    <div class="">
+      {{form.imagen_principal}}
+      {{form.imagen_secundaria}}
+      {{form.imagen_terciaria}}
+    </div>
+    <div class="">
+      {{form.imagen_opcional_uno}}
+      {{form.imagen_opcional_dos}}
+      {{form.imagen_opcional_tres}}
+    </div>
+      <div class="">
+        {{form.categoria.label_tag}}
+        {{form.categoria}}
+      </div>
+      <div class="">
+        {{form.subcategoria_relacion.label_tag}}
+        {{form.subcategoria_relacion}}
+      </div>
+    <input type="submit" class="btn-default form-control" value="Enviar"></input>
+  </form>
+  {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#id_categoria").on("change", getSubcategoria);
+  });
+
+  function getSubcategoria() {
+    var categoriaId = $("#id_categoria").val();
+    if (categoriaId) {
+      $("#id_subcategoria_relacion").html("");
+      var request = $.ajax({
+        type: "GET",
+        url: "{%url 'product:get_subcategoria' %}",
+        data: {
+          "categoria_id":categoriaId,
+        },
+      });
+      request.done(function (response) {
+        //opciones
+        $("#id_subcategoria_relacion").html(response.subcategorias);
+        $("id_subcategoria_relacion").trigger("change");
+      });
+    } else {
+      $("#id_subcategoria_relacion").html("<option value='' selected='selected'>---------</option>");
+      $("#id_subcategoria_relacion").trigger("change")
+    }
+  }
+</script>
 {%endblock content%}

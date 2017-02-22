@@ -6,24 +6,24 @@
 <div class="slider">
     <ul class="slides">
       <li>
-        <img src="{%static 'media/vendelo.jpg'%}"> <!-- random image -->
+        <img src="{%static 'media/slider1.jpg'%}"> <!-- random image -->
         <div class="caption center-align">
-          <h3>Vendelo facil</h3>
-          <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
+          <h2>Regístrate</h2>
+          <h3 class="light grey-text text-lighten-3">fácil</h3>
         </div>
       </li>
       <li>
-        <img src="{%static 'media/slid3.png'%}"> <!-- random image -->
+        <img class="responsive-img" src="{%static 'media/slide2.jpg'%}"> <!-- random image -->
         <div class="caption left-align">
-          <h3>vendelo facil</h3>
-          <h5 class="light grey-text text-lighten-3">Vendelo facil</h5>
+          <h2>Compralo</h2>
+          <h3 class="light grey-text text-lighten-3">fácil</h3>
         </div>
       </li>
       <li>
-        <img src="{%static 'media/slide2.png'%}"> <!-- random image -->
+        <img class="responsive-img" src="{%static 'media/slide1.jpg'%}"> <!-- random image -->
         <div class="caption right-align">
-          <h3>vendelo facil</h3>
-          <h5 class="light grey-text text-lighten-3">vendelo facil</h5>
+          <h2>Vendelo</h2>
+          <h3 class="light grey-text text-lighten-3">fácil</h3>
         </div>
       </li>
     </ul>
@@ -31,16 +31,23 @@
       
        
 	<div class="container"> 
-  		<div class="row ">
-	    	<div class="col-sm-12">
-	        	<div class="jumbotron">
-	            	<center><h2>¿Que estas buscando?</h2>
-	            	<input class="form-control input-lg" id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
-	            	</center>
-	        	</div>
-	    	</div>
-	  	</div>
-	</div>
+  	<div class="row ">
+	    <div class="col-sm-12">
+        <div class="card #9ccc65 light-green lighten-1">
+          <div class="card-content">
+            <center><h2 class="white-text">¿Que estas buscando?</h2>
+            <div class="input-field white-text">
+              <i class="material-icons prefix">search</i>
+              <input class="form-control input-lg " id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
+              <i class="material-icons">file_upload</i>
+              <h5><strong>Encuentralo aqui</strong></h5>
+            </div>
+            </center>
+          </div>
+        </div>
+	   </div>
+    </div>
+  </div>
   <br>
   <br>
 <div class="container">
@@ -52,10 +59,10 @@
           <i class="large material-icons">person_pin</i>
         </div>
           <h5 class="card-title center">Crea una cuenta</h5>
-          <p class="center">Crear una cuenta en vendelo facil te toma menos de 3 minutos</p>
+          <p class="center">Crear una cuenta en Vendelo fácil te toma menos de 3 minutos</p>
         </div>
         <div class="card-action center white">
-          <a href="#">Registrate Aqui</a>
+          <a href="{%url 'registro'%}">Regístrate Aqui</a>
         </div>
       </div>
     </div>
@@ -67,7 +74,7 @@
           <i class="large material-icons">attach_money</i>
         </div>
           <h5 class="card-title center">Vendelo Facil</h5>
-          <p class="center">Sube una foto de tu producto y una descripcion de tu producto ponle precio y listo! comienza a vender</p>
+          <p class="center">Sube una foto de tu producto y una descripción de tu producto ponle precio y listo! comienza a vender</p>
         </div>
         <br>
         <br>
