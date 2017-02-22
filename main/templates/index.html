@@ -2,6 +2,13 @@
 {%load static%}
 
 {%block content%}
+
+<style>
+  /* label color */
+   .input-field label {
+     color: #fff;
+   }
+</style>
 	
 <div class="slider">
     <ul class="slides">
@@ -15,14 +22,14 @@
       <li>
         <img class="responsive-img" src="{%static 'media/slide2.jpg'%}"> <!-- random image -->
         <div class="caption left-align">
-          <h2>Compralo</h2>
+          <h2>Cómpralo</h2>
           <h3 class="light grey-text text-lighten-3">fácil</h3>
         </div>
       </li>
       <li>
         <img class="responsive-img" src="{%static 'media/slide1.jpg'%}"> <!-- random image -->
         <div class="caption right-align">
-          <h2>Vendelo</h2>
+          <h2>Véndelo</h2>
           <h3 class="light grey-text text-lighten-3">fácil</h3>
         </div>
       </li>
@@ -30,19 +37,20 @@
 </div>
       
        
-	<div class="container"> 
+	<div id="buscador" class="container section scrollspy"> 
   	<div class="row ">
 	    <div class="col-sm-12">
         <div class="card #9ccc65 light-green lighten-1">
           <div class="card-content">
-            <center><h2 class="white-text">¿Que estas buscando?</h2>
+            <center><h2 class="white-text">¿Qué estas buscando?</h2>
             <div class="input-field white-text">
               <i class="material-icons prefix">search</i>
-              <input class="form-control input-lg " id="myInput" placeholder="Electronica,Computo,Ropa" type="text">
+              <input class="validate" id="myInput" type="text">
+              <label for="myInput" style="text-align:justify;">Electrónica, Cómputo, Ropa</label>
               <i class="material-icons">file_upload</i>
-              <h5><strong>Encuentralo aqui</strong></h5>
-            </div>
+              <h5><strong>Encuéntralo aqui</strong></h5>
             </center>
+            </div>
           </div>
         </div>
 	   </div>
@@ -59,7 +67,7 @@
           <i class="large material-icons">person_pin</i>
         </div>
           <h5 class="card-title center">Crea una cuenta</h5>
-          <p class="center">Crear una cuenta en Vendelo fácil te toma menos de 3 minutos</p>
+          <p class="center">Crear una cuenta en Véndelo fácil te toma menos de 3 minutos</p>
         </div>
         <div class="card-action center white">
           <a href="{%url 'registro'%}">Regístrate Aqui</a>
@@ -73,8 +81,8 @@
         <div class="center">
           <i class="large material-icons">attach_money</i>
         </div>
-          <h5 class="card-title center">Vendelo Facil</h5>
-          <p class="center">Sube una foto de tu producto y una descripción de tu producto ponle precio y listo! comienza a vender</p>
+          <h5 class="card-title center">Véndelo Facil</h5>
+          <p class="center">Sube una foto de tu producto y una descripción de tu producto, ponle precio y listo! comienza a vender</p>
         </div>
         <br>
         <br>
@@ -88,7 +96,7 @@
           <i class="large material-icons">shopping_cart</i>
         </div>
           <h5 class="card-title center">Compra</h5>
-          <p class="center">En vendelo facil encuentras todo ¡Tecnologia,Hogar,Ropa,etc.!</p>
+          <p class="center">En véndelo facil encuentras todo ¡Tecnologia, Hogar, Ropa, etc.!</p>
         </div>
         <br>
         <br>

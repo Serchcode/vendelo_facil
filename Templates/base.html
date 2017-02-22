@@ -5,7 +5,7 @@
 
 	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-	  <title>{%block titulo%}Vendelo-facil{%endblock titulo%}</title>
+	  <title>{%block titulo%}Véndelo-facil{%endblock titulo%}</title>
 	  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<!--
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
@@ -17,27 +17,28 @@
 	-->
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
     <style type="text/css">
-      .fotito{
-          border:2px solid white;
-          border-radius:50%;
-          width:100px;
-          height:100px;
-        }
+        .logo-custom {
+      margin-top: 7px;
+      margin-left: 10px;
+       }
+      @media only screen and (max-width: 600px) {
+        #logo{margin-top: 4px; margin-left: -1px;}
+      }
     </style>
 
 </head>
 <body>
 	<nav>
     	<div class="nav-wrapper #9ccc65 light-green lighten-1">
-      		<a href="{%url 'main:home'%}"><img src="{%static 'media/log_50.png'%}" class="brand-logo"></img></a>
+      		<a href="{%url 'main:home'%}"><img id="logo" src="{%static 'media/log_50.png'%}" class="brand-logo logo-custom"></img></a>
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			{%if request.user.is_authenticated%}
 					<ul class="right hide-on-med-and-down">
             <li><a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
-            <li><a href="{%url 'main:home'%}">Home</a></li>
-						<li><a href="{%url 'profile'%}"> Cuenta</a></li>
-						<li><a href="#">Mi Carrito</a></li>
-						<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
+            <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'profile'%}">Mi Cuenta</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="#">Mi Carrito</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
 						</li>
 					</ul>
 					<ul class="side-nav" id="mobile-demo">
@@ -45,19 +46,23 @@
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
             <li><a href="{%url 'main:home'%}">Home</a></li>
-						<li><a href="{%url 'profile'%}">Cuenta</a></li>
+						<li><a href="{%url 'profile'%}">Mi Cuenta</a></li>
 						<li><a href="#">Mi Carrito</a></li>
 						<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
 						</li>
 					</ul>
 					{%else%}
 					<ul class="right hide-on-med-and-down">
-						<li><a href="{%url 'login'%}">Login</a></li>
-						<li><a href="{%url 'main:home'%}">Home</a></li>
+            <li><a  href="#buscador"><i class="material-icons">search</i></a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Mi Cuenta</a></li>
+						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
+            <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
 					</ul>
-					<ul class="side-nav" id="mobile-demo">
-						<li><a href="{%url 'login'%}">Login</a></li>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="#buscador"><i class="material-icons">search</i></a></li>
+						<li><a href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a href="{%url 'main:home'%}">Home</a></li>
+            <li><a href="{%url 'login'%}">Carrito</a></li>
 					</ul>
 		{%endif%}
     	</div>
@@ -74,16 +79,16 @@
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
-                <h5 class="white-text">Vendelo Facil</h5>
+                <h5 class="white-text">Véndelo Facil</h5>
                 <p class="grey-text text-lighten-4">Compra y vende todo lo que quieras</p>
               </div>
               <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Categorias</h5>
+                <h5 class="white-text">Categorías</h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Tecnologia</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Tecnología</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Hogar</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Ropa</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Automoviles</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Automóviles</a></li>
                 </ul>
               </div>
             </div>
@@ -101,10 +106,15 @@
     {%block scripts%}
     {%endblock scripts%}
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      	<script src="{%static 'js/materialize.min.js'%}"></script>
-      	<script>
+    <script src="{%static 'js/materialize.min.js'%}"></script>
+    <script>
     	$( document ).ready(function(){
     	  $(".button-collapse").sideNav();
     	});
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('.scrollspy').scrollSpy();
+      });
     </script>
 </body>
