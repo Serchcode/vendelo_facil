@@ -2,6 +2,7 @@
 {%load static%}
 <html lang="en">
 <head>
+
 	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 	  <title>{%block titulo%}Véndelo-facil{%endblock titulo%}</title>
@@ -12,15 +13,17 @@
 	  <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
     <style type="text/css">
         .logo-custom {
       margin-top: 7px;
       margin-left: 10px;
        }
-      @media only screen and (max-width: 600px) {   
-        #logo{margin-top: 4px; margin-left: -1px;}      
-      }   
+      @media only screen and (max-width: 600px) {
+        #logo{margin-top: 4px; margin-left: -1px;}
+      }
     </style>
+
 </head>
 <body>
 	<nav>
@@ -90,12 +93,12 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2017 Copyright 
+            © 2017 Copyright
             <a class="grey-text text-lighten-4 right" href="#!">Made by Fixter</a>
             </div>
           </div>
         </footer>
-            
+
     {%endblock footer%}
 
     {%block scripts%}
