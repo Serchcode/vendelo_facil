@@ -1,39 +1,30 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<div class="">
-  <form class="" method="post">
-    {% csrf_token %}
-    <div class="">
-      {{form.titulo_anuncio}}
+<form>
+<div>
+      <div class="row">
+       <div class="input-field col s6">
+          {{form.titulo_anuncio}}
+        </div>
+        <div class="input-field col s6">
+          {{form.descripcion_anuncio}}
+        </div>
+        <div class="input-field col s6">
+          {{form.precio}}
+        </div>
+        <div class="input-field col s6">
+          {{form.Moneda}}
+        </div>
+        <div>
+          {{form.categoria.label_tag}}
+          {{form.categoria}}
+        </div>
+       <div>
+          {{form.subcategoria_relacion.label_tag}}
+          {{form.subcategoria_relacion}}
+       </div>
     </div>
-    <div class="">
-      {{form.descripcion_anuncio}}
-    </div>
-    <div class="">
-      {{form.precio}}
-      {{form.Moneda}}
-    </div>
-    <div class="">
-      {{form.imagen_principal}}
-      {{form.imagen_secundaria}}
-      {{form.imagen_terciaria}}
-    </div>
-    <div class="">
-      {{form.imagen_opcional_uno}}
-      {{form.imagen_opcional_dos}}
-      {{form.imagen_opcional_tres}}
-    </div>
-      <div class="">
-        {{form.categoria.label_tag}}
-        {{form.categoria}}
-      </div>
-      <div class="">
-        {{form.subcategoria_relacion.label_tag}}
-        {{form.subcategoria_relacion}}
-      </div>
-    <input type="submit" class="btn-default form-control" value="Enviar"></input>
-  </form>
   {% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -49,7 +40,17 @@
     {% endfor %}
 {% endif %}
 </div>
+</form>
+<!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
+  {{form.as_p}}
+  <p><input type="submit" value="Guardar"></p>
+</form>-->
+
 <script type="text/javascript">
+ $(document).ready(function() {
+    $('select').material_select();
+  });
+
   $(document).ready(function(){
     $("#id_categoria").on("change", getSubcategoria);
   });
@@ -71,9 +72,10 @@
         $("id_subcategoria_relacion").trigger("change");
       });
     } else {
-      $("#id_subcategoria_relacion").html("<option value='' selected='selected'>---------</option>");
+      $("#id_subcategoria_relacion").html("<option value='' selected='selected'></option>");
       $("#id_subcategoria_relacion").trigger("change")
     }
   }
 </script>
+
 {%endblock content%}

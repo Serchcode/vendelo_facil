@@ -15,7 +15,6 @@ class AnuncioForm(forms.ModelForm):
                 'class':'validate form-control formclass',
                 'label':'Titulo del Anuncio',
                 'requiered':'true',
-                'class':'validate form-control formclass'
             }
         )
     )
@@ -23,9 +22,8 @@ class AnuncioForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
                 'placeholder':'Describe tu anuncio aqui',
-                'class':'validate form-control formclass',
+                'class':'validate form-control formclass materialize-textarea',
                 'requiered':'true',
-                'class':'validate form-control formclass',
             }
         )
     )
@@ -33,9 +31,8 @@ class AnuncioForm(forms.ModelForm):
         widget=forms.NumberInput(
             attrs={
                 'placeholder':'Valor monetario de tu articulo',
-                'class':'validate form-control formclass',
+                'class':'validate form-control',
                 'requiered':'true',
-                'class':'validate form-control formclass',
             }
         )
     )
@@ -63,11 +60,22 @@ class AnuncioForm(forms.ModelForm):
     )
     categoria = forms.ModelChoiceField(
         label =u'Categoria',
-        queryset = Categoria_Anuncio.objects.all()
+        queryset = Categoria_Anuncio.objects.all(),
+        widget = forms.Select(
+        attrs={
+            'class':'validate form-control select input-field col s12 m6',
+            'id':'id_categoria',
+        })
     )
     subcategoria_relacion = forms.ModelChoiceField(
         label =u'Especifica',
-        queryset = SubCategoria_Anuncio.objects.all()
+        queryset = SubCategoria_Anuncio.objects.all(),
+        widget = forms.Select(
+        attrs={
+            'class':'validate form-control select input-field col s12 m6',
+            'id':'id_subcategoria_relacion',
+        })
+            
     )
 
     class Meta:

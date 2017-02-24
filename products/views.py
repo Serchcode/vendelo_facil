@@ -38,7 +38,7 @@ class AnuncioNuevo(View):
         form = AnuncioForm(data=request.POST)
         if form.is_valid():
             anuncio_nuevo = form.save(commit=False)
-            print('hoal')
+            print('hola')
             anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
             anuncio_nuevo.vendedor = request.user
             anuncio_nuevo.save()
