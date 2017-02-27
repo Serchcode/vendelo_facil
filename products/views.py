@@ -35,7 +35,7 @@ class AnuncioNuevo(View):
 
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
-        form = AnuncioForm(data=request.POST)
+        form = AnuncioForm(request.POST)
         if form.is_valid():
             anuncio_nuevo = form.save(commit=False)
             print('hola')
@@ -45,6 +45,7 @@ class AnuncioNuevo(View):
             messages.success(request,'Anuncio Publicado')
             return redirect('product:lista')
         else:
+            print("khe")
             messages.error(request,'No se guardo')
             context ={
                 'form':form

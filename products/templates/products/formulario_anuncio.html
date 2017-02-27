@@ -1,8 +1,9 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<form>
+<form method="POST" action=".">
 <div>
+    {%csrf_token%} 
       <div class="row">
        <div class="input-field col s6">
           {{form.titulo_anuncio}}
@@ -40,6 +41,7 @@
     {% endfor %}
 {% endif %}
 </div>
+<input type="submit" value="Enviar">
 </form>
 <!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
   {{form.as_p}}
@@ -79,9 +81,6 @@ $.ajaxSetup({
 <script type="text/javascript">
  $(document).ready(function() {
     $('select').material_select();
-  });
-
-  $(document).ready(function(){
     $("#id_categoria").on("change", getSubcategoria);
   });
 
@@ -104,6 +103,7 @@ $.ajaxSetup({
         $("#div_subcategoria ul").html(response.lista);
         $("#id_subcategoria_relacion").html(response.subcategorias);
         $("#id_subcategoria_relacion").trigger("change");
+        $("#id_subcategoria_relacion").material_select();
 
       });
     } else {

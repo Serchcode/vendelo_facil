@@ -7,11 +7,11 @@ def get_subcategoria_anuncio(request):
     print("qye"+categoria_id)
     subcategorias = SubCategoria_Anuncio.objects.none()
     options = ''
-    li = '<li></li>'
+    li = ''
     if categoria_id:
         subcategorias = SubCategoria_Anuncio.objects.filter(categoria_id=categoria_id)
     for subcategoria in subcategorias:
-        li += '<li><span>%s</span></li>' % (subcategoria.nombre_subcategoria)
+        li += '<li class><span>%s</span></li>' % (subcategoria.nombre_subcategoria)
         options += '<option value="%s">%s</option>' % (
             subcategoria.pk,
             subcategoria.nombre_subcategoria
