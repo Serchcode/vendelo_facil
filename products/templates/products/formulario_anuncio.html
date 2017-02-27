@@ -4,16 +4,16 @@
 <form>
 <div>
       <div class="row">
-       <div class="input-field col s6">
+       <div class="">
           {{form.titulo_anuncio}}
         </div>
-        <div class="input-field col s6">
+        <div class="">
           {{form.descripcion_anuncio}}
         </div>
-        <div class="input-field col s6">
+        <div class="">
           {{form.precio}}
         </div>
-        <div class="input-field col s6">
+        <div class="">
           {{form.Moneda}}
         </div>
         <div>
@@ -41,13 +41,15 @@
 {% endif %}
 </div>
 </form>
+
 <!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
   {{form.as_p}}
   <p><input type="submit" value="Guardar"></p>
-</form>-->
+</form>
 
+este es el script del chelis-->
 <script type="text/javascript">
- $(document).ready(function() {
+$(document).ready(function() {
     $('select').material_select();
   });
 
@@ -61,7 +63,7 @@
       $("#id_subcategoria_relacion").html("");
       var request = $.ajax({
         type: "GET",
-        url: "{%url 'product:get_subcategoria' %}",
+        url: "{%url 'product:get_subcategoria'%}",
         data: {
           "categoria_id":categoriaId,
         },

@@ -6,6 +6,9 @@ from django.db.models import Q
 # Create your models here.
 
 class Categoria_Anuncio(models.Model):
+    CLAS =(
+    ('Tecnologia','Ropa')
+    )
     nombre_categoria = models.CharField(max_length=30)
     descripcion_categoria = models.CharField(max_length=30)
     slug = models.SlugField()
@@ -14,6 +17,9 @@ class Categoria_Anuncio(models.Model):
         return self.nombre_categoria
 
 class SubCategoria_Anuncio(models.Model):
+    SUB_CLAS=(
+    ('Laptop','Cel')
+    )
     nombre_subcategoria = models.CharField(max_length=30)
     categoria = models.ForeignKey(Categoria_Anuncio, on_delete=models.CASCADE)
     descripcion_subcategoria = models.CharField(max_length=30)

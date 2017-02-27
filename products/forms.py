@@ -61,21 +61,14 @@ class AnuncioForm(forms.ModelForm):
     categoria = forms.ModelChoiceField(
         label =u'Categoria',
         queryset = Categoria_Anuncio.objects.all(),
-        widget = forms.Select(
-        attrs={
-            'class':'validate form-control select input-field col s12 m6',
-            'id':'id_categoria',
-        })
+        widget = forms.Select,
+        required =True,
     )
     subcategoria_relacion = forms.ModelChoiceField(
-        label =u'Especifica',
+        label =u'Subcategoria',
         queryset = SubCategoria_Anuncio.objects.all(),
-        widget = forms.Select(
-        attrs={
-            'class':'validate form-control select input-field col s12 m6',
-            'id':'id_subcategoria_relacion',
-        })
-            
+        widget = forms.Select,
+        required=True,         
     )
 
     class Meta:
