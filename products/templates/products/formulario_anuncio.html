@@ -20,7 +20,7 @@
           {{form.categoria.label_tag}}
           {{form.categoria}}
         </div>
-       <div>
+       <div id="div_subcategoria">
           {{form.subcategoria_relacion.label_tag}}
           {{form.subcategoria_relacion}}
        </div>
@@ -45,6 +45,36 @@
   {{form.as_p}}
   <p><input type="submit" value="Guardar"></p>
 </form>-->
+<script>
+  // using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+</script>
 
 <script type="text/javascript">
  $(document).ready(function() {
@@ -58,6 +88,7 @@
   function getSubcategoria() {
     var categoriaId = $("#id_categoria").val();
     if (categoriaId) {
+      console.log("Entro"+categoriaId);
       $("#id_subcategoria_relacion").html("");
       var request = $.ajax({
         type: "GET",
@@ -67,9 +98,13 @@
         },
       });
       request.done(function (response) {
+        console.log("trae algo",response.subcategorias);
+        console.log("trae algo",response.lista);
         //opciones
+        $("#div_subcategoria ul").html(response.lista);
         $("#id_subcategoria_relacion").html(response.subcategorias);
-        $("id_subcategoria_relacion").trigger("change");
+        $("#id_subcategoria_relacion").trigger("change");
+
       });
     } else {
       $("#id_subcategoria_relacion").html("<option value='' selected='selected'></option>");
