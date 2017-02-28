@@ -25,7 +25,7 @@ class AnuncioForm(forms.ModelForm):
                 'placeholder':'Describe tu anuncio aqui',
                 'class':'validate form-control formclass',
                 'requiered':'true',
-                'class':'validate form-control formclass',
+                'class':'validate form-control formclass materialize-textarea',
             }
         )
     )
@@ -35,16 +35,24 @@ class AnuncioForm(forms.ModelForm):
                 'placeholder':'Valor monetario de tu articulo',
                 'class':'validate form-control formclass',
                 'requiered':'true',
-                'class':'validate form-control formclass',
             }
         )
     )
     Moneda = forms.MultipleChoiceField(
         choices = TIPO_MONEDA,
-        widget = forms.Select,
+        widget = forms.Select(
+            attrs = {
+                'requiered':'true',
+                'class':'validate form-control formclass',
+            }
+        )
     )
     imagen_principal = forms.FileField(
-        widget = forms.ClearableFileInput
+        widget = forms.ClearableFileInput(
+            attrs = {
+                'class':'file-field input-field'
+            }
+        )
     )
     imagen_secundaria = forms.FileField(
         widget = forms.ClearableFileInput
@@ -63,13 +71,23 @@ class AnuncioForm(forms.ModelForm):
     )
     categoria = forms.ModelChoiceField(
         label =u'Categoria',
-        queryset = Categoria_Anuncio.objects.all()
+        queryset = Categoria_Anuncio.objects.all(),
+        widget = forms.Select(
+            attrs = {
+                'class':'browser-default validate form-control select input-field',
+            }
+        )
     )
     subcategoria_relacion = forms.ModelChoiceField(
         label =u'Especifica',
-        queryset = SubCategoria_Anuncio.objects.all()
+        queryset = SubCategoria_Anuncio.objects.all(),
+        widget = forms.Select(
+            attrs = {
+                'id':'id_subcategoria_relacion',
+                'class':'browser-default validate form-control select input-field',
+            }
+        )
     )
-
     class Meta:
         model = Anuncio
         fields = [

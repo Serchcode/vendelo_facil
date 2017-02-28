@@ -1,5 +1,4 @@
 from django.views.generic import View
-from django.shortcuts import render
 from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
 from .forms import AnuncioForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
@@ -35,10 +34,11 @@ class AnuncioNuevo(View):
 
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
-        form = AnuncioForm(data=request.POST)
+        form = AnuncioForm(data=request.POST, files=request.FILES)
+        print(form)
         if form.is_valid():
+            print('hi')
             anuncio_nuevo = form.save(commit=False)
-            print('hoal')
             anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
             anuncio_nuevo.vendedor = request.user
             anuncio_nuevo.save()
