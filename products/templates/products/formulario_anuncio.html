@@ -1,80 +1,139 @@
 {%extends 'base.html'%}
-{% block titulo %}Anuncio{% endblock titulo %}
+
 {%block content%}
-
-<div class="row">
-    <form class="col s12" method="POST">
-      {% csrf_token %}
-      <div class="row">
-        <div class="input-field col s12">
-          {{form.titulo_anuncio}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          {{form.descripcion_anuncio}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          {{form.precio}}
-        </div>
-        <div class="col s6">
-          {{form.Moneda}}
-        </div>
-      </div>
-      <div class="row">
-        <div class=" col s6">
-          {{form.categoria.label_tag}}
-          {{form.categoria}}
-        </div>
-        <div class="col s6">
-          {{form.subcategoria_relacion.label_tag}}
-          {{form.subcategoria_relacion}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s4">
-          {{form.imagen_principal}}
-        </div>
-        <div class="col s4">
-          {{form.imagen_secundaria}}
-        </div>
-        <div class="col s4">
-          {{form.imagen_terciaria}}
-        </div>
-      </div>
-      <input type="submit" value="Guardar">
-  </form>
+<div class="container">
+  <div class="row">
+      <form class="col s12 " method="POST" action=".">
+        <div class="row">
+            {%csrf_token%}
+              <div class="col s12">
+              <h6><strong>Escribe el titulo de tu publicacion:</strong></h6>
+                {{form.titulo_anuncio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Describe tu articulo brevemente:</strong></h6>
+                {{form.descripcion_anuncio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Precio del articulo:</strong></h6>
+                {{form.precio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Tipo de Moneda:</strong></h6>
+                {{form.Moneda}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Elige la categoria a la que pertenece tu articulo:</strong></h6>
+                <!--{{form.categoria.label_tag}}-->
+                {{form.categoria}}
+              </div>
+              <div class="col s12" id="div_subcategoria">
+              <h6><strong>Elije a que subcategoria pertenece tu articulo:</strong></h6>
+                <!--{{form.subcategoria_relacion.label_tag}}-->
+                {{form.subcategoria_relacion}}
+              </div>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Subir imagenes</span>
+                    <input type="file" multiple>
+                    {{form.imagen_principal}}
+                    {{form.imagen_secundaria}}
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                </div>
+              </div>
+              <center>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Publicar
+                  <i class="material-icons right">send</i>
+                </button>
+              </center>
+                {% if form.errors %}
+                  {% for field in form %}
+                      {% for error in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ error|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                      <div class="alert alert-danger">
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endif %}
+            </div>
+      </form>
+  </div>
 </div>
+<!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
+  {{form.as_p}}
+  <p><input type="submit" value="Guardar"></p>
+<<<<<<< HEAD
+</form>
+=======
+</form>-->
+<script>
+  // using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+</script>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("#id_categoria").on("change", getSubcategoria);
+$(document).ready(function() {
     $('select').material_select();
+    $("#id_categoria").on("change", getSubcategoria);
   });
-
   function getSubcategoria() {
     var categoriaId = $("#id_categoria").val();
     if (categoriaId) {
+      console.log("Entro"+categoriaId);
       $("#id_subcategoria_relacion").html("");
       var request = $.ajax({
         type: "GET",
-        url: "{%url 'product:get_subcategoria' %}",
+        url: "{%url 'product:get_subcategoria'%}",
         data: {
           "categoria_id":categoriaId,
         },
       });
       request.done(function (response) {
-        //Rsultados del select
+        console.log("trae algo",response.subcategorias);
+        console.log("trae algo",response.lista);
+        //opciones
+        $("#div_subcategoria ul").html(response.lista);
         $("#id_subcategoria_relacion").html(response.subcategorias);
         $("#id_subcategoria_relacion").trigger("change");
-        $(".input.select-dropdown").html(response.subcategorias);
-        $(".input.select-dropdown").trigger("change");
+        $("#id_subcategoria_relacion").material_select();
       });
     } else {
-      $("#id_subcategoria_relacion").html("");
+      $("#id_subcategoria_relacion").html("<option value='' selected='selected'></option>");
       $("#id_subcategoria_relacion").trigger("change")
     }
   }
 </script>
+
 {%endblock content%}

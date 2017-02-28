@@ -11,48 +11,37 @@ class AnuncioForm(forms.ModelForm):
     titulo_anuncio = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder':'Escribe le titulo de tu anuncio aqui',
+                'placeholder':'',
                 'class':'validate form-control formclass',
                 'label':'Titulo del Anuncio',
                 'requiered':'true',
-                'class':'validate form-control formclass'
             }
         )
     )
     descripcion_anuncio = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                'placeholder':'Describe tu anuncio aqui',
-                'class':'validate form-control formclass',
-                'requiered':'true',
+                'placeholder':'',
                 'class':'validate form-control formclass materialize-textarea',
+                'requiered':'true',
             }
         )
     )
     precio = forms.CharField(
         widget=forms.NumberInput(
             attrs={
-                'placeholder':'Valor monetario de tu articulo',
-                'class':'validate form-control formclass',
+                'placeholder':'',
+                'class':'validate form-control',
                 'requiered':'true',
             }
         )
     )
     Moneda = forms.MultipleChoiceField(
         choices = TIPO_MONEDA,
-        widget = forms.Select(
-            attrs = {
-                'requiered':'true',
-                'class':'validate form-control formclass',
-            }
-        )
+        widget = forms.Select,
     )
     imagen_principal = forms.FileField(
-        widget = forms.ClearableFileInput(
-            attrs = {
-                'class':'file-field input-field'
-            }
-        )
+        widget = forms.ClearableFileInput
     )
     imagen_secundaria = forms.FileField(
         widget = forms.ClearableFileInput
@@ -70,24 +59,18 @@ class AnuncioForm(forms.ModelForm):
         widget = forms.ClearableFileInput
     )
     categoria = forms.ModelChoiceField(
-        label =u'Categoria',
+        #label =u'Categoria',
         queryset = Categoria_Anuncio.objects.all(),
-        widget = forms.Select(
-            attrs = {
-                'class':'browser-default validate form-control select input-field',
-            }
-        )
+        widget = forms.Select,
+        required =True,
     )
     subcategoria_relacion = forms.ModelChoiceField(
-        label =u'Especifica',
+        #label =u'Subcategoria',
         queryset = SubCategoria_Anuncio.objects.all(),
-        widget = forms.Select(
-            attrs = {
-                'id':'id_subcategoria_relacion',
-                'class':'browser-default validate form-control select input-field',
-            }
-        )
+        widget = forms.Select,
+        required=True,
     )
+
     class Meta:
         model = Anuncio
         fields = [

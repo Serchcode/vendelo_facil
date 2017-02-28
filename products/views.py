@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
-# Create your views here.
+import json
 
 
 class ListViewAnuncio(View):
@@ -45,6 +45,7 @@ class AnuncioNuevo(View):
             messages.success(request,'Anuncio Publicado')
             return redirect('product:lista')
         else:
+            print("khe")
             messages.error(request,'No se guardo')
             context ={
                 'form':form
