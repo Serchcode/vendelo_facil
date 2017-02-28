@@ -11,7 +11,7 @@ class AnuncioForm(forms.ModelForm):
     titulo_anuncio = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder':'Escribe le titulo de tu anuncio aqui',
+                'placeholder':'',
                 'class':'validate form-control formclass',
                 'label':'Titulo del Anuncio',
                 'requiered':'true',
@@ -21,7 +21,7 @@ class AnuncioForm(forms.ModelForm):
     descripcion_anuncio = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                'placeholder':'Describe tu anuncio aqui',
+                'placeholder':'',
                 'class':'validate form-control formclass materialize-textarea',
                 'requiered':'true',
             }
@@ -30,7 +30,7 @@ class AnuncioForm(forms.ModelForm):
     precio = forms.CharField(
         widget=forms.NumberInput(
             attrs={
-                'placeholder':'Valor monetario de tu articulo',
+                'placeholder':'',
                 'class':'validate form-control',
                 'requiered':'true',
             }
@@ -59,13 +59,13 @@ class AnuncioForm(forms.ModelForm):
         widget = forms.ClearableFileInput
     )
     categoria = forms.ModelChoiceField(
-        label =u'Categoria',
+        #label =u'Categoria',       
         queryset = Categoria_Anuncio.objects.all(),
         widget = forms.Select,
         required =True,
     )
     subcategoria_relacion = forms.ModelChoiceField(
-        label =u'Subcategoria',
+        #label =u'Subcategoria',
         queryset = SubCategoria_Anuncio.objects.all(),
         widget = forms.Select,
         required=True,         

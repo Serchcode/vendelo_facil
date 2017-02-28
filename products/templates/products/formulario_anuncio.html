@@ -1,49 +1,71 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<form method="POST" action=".">
-<div>
-    {%csrf_token%} 
-      <div class="row">
-       <div class="">
-          {{form.titulo_anuncio}}
-        </div>
-        <div class="">
-          {{form.descripcion_anuncio}}
-        </div>
-        <div class="">
-          {{form.precio}}
-        </div>
-        <div class="">
-          {{form.Moneda}}
-        </div>
-        <div>
-          {{form.categoria.label_tag}}
-          {{form.categoria}}
-        </div>
-       <div id="div_subcategoria">
-          {{form.subcategoria_relacion.label_tag}}
-          {{form.subcategoria_relacion}}
-       </div>
-    </div>
-  {% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
+<div class="container">
+  <div class="row">
+      <form class="col s12 " method="POST" action=".">
+        <div class="row">
+            {%csrf_token%} 
+              <div class="col s12">
+              <h6><strong>Escribe el titulo de tu publicacion:</strong></h6>
+                {{form.titulo_anuncio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Describe tu articulo brevemente:</strong></h6>
+                {{form.descripcion_anuncio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Precio del articulo:</strong></h6>
+                {{form.precio}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Tipo de Moneda:</strong></h6>
+                {{form.Moneda}}
+              </div>
+              <div class="col s12">
+              <h6><strong>Elige la categoria a la que pertenece tu articulo:</strong></h6>
+                <!--{{form.categoria.label_tag}}-->
+                {{form.categoria}}
+              </div>
+              <div class="col s12" id="div_subcategoria">
+              <h6><strong>Elije a que subcategoria pertenece tu articulo:</strong></h6>
+                <!--{{form.subcategoria_relacion.label_tag}}-->
+                {{form.subcategoria_relacion}}
+              </div>
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Subir imagenes</span>
+                    <input type="file" multiple>
+                    {{form.imagen_principal}}
+                    {{form.imagen_secundaria}}
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                </div>
+              </div>
+              <center>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Publicar
+                  <i class="material-icons right">send</i>
+                </button>
+              </center>
+                {% if form.errors %}
+                  {% for field in form %}
+                      {% for error in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ error|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                      <div class="alert alert-danger">
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endif %}
             </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
-{% endif %}
+      </form>
+  </div> 
 </div>
-<input type="submit" value="Enviar">
-</form>
-
 <!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
   {{form.as_p}}
   <p><input type="submit" value="Guardar"></p>
@@ -81,9 +103,6 @@ $.ajaxSetup({
     }
 });
 </script>
->>>>>>> 1de7792f7298cce6155ced7dd6a9a979d44bb47b
-
-este es el script del chelis-->
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
