@@ -32,11 +32,30 @@ class Anuncio(models.Model):
     titulo_anuncio = models.CharField(max_length=200)
     descripcion_anuncio = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    Moneda = models.CharField(max_length=5, choices=TIPO_MONEDA)
-    fecha_anuncio = models.DateField(auto_now=True)
-    imagen_principal = models.ImageField(upload_to="productos")
-    imagen_secundaria = models.ImageField(upload_to="productos")
-    imagen_terciaria = models.ImageField(upload_to="productos")
+    Moneda = models.CharField(
+        max_length=5,
+        choices=TIPO_MONEDA,
+    )
+    categoria = models.ForeignKey(
+        Categoria_Anuncio,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+    subcategoria_relacion = models.ForeignKey(
+        SubCategoria_Anuncio,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+    fecha_anuncio = models.DateField(auto_now=True, blank=True,
+    null=True)
+    imagen_principal = models.ImageField(upload_to="productos", blank=True,
+    null=True)
+    imagen_secundaria = models.ImageField(upload_to="productos", blank=True,
+    null=True)
+    imagen_terciaria = models.ImageField(upload_to="productos", blank=True,
+    null=True)
     imagen_opcional_uno = models.ImageField(
         upload_to="productos",
         blank=True,
@@ -52,15 +71,8 @@ class Anuncio(models.Model):
         blank=True,
         null=True
     )
-    slug = models.SlugField(max_length=200)
-    categoria = models.ForeignKey(
-        Categoria_Anuncio,
-        on_delete=models.CASCADE
-    )
-    subcategoria_relacion = models.ForeignKey(
-        SubCategoria_Anuncio,
-        on_delete=models.CASCADE
-    )
+    slug = models.SlugField(max_length=200, blank=True,
+    null=True)
 
     def __str__(self):
         return self.titulo_anuncio

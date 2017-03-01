@@ -32,15 +32,20 @@ class AnuncioNuevo(View):
         }
         return render(request, template_name, context)
 
+    @method_decorator(login_required)
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
         form = AnuncioForm(data=request.POST, files=request.FILES)
+        categoria=request.POST.get('Categoria_Anuncio')
+        subcategoria=request.POST.get('subcategoria_relacion')
+        print(categoria,':',subcategoria)
         print(form)
         if form.is_valid():
             print('hi')
             anuncio_nuevo = form.save(commit=False)
             anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
             anuncio_nuevo.vendedor = request.user
+            anuncio_nuevo.Moneda = request.POST.get('Moneda')
             anuncio_nuevo.save()
             messages.success(request,'Anuncio Publicado')
             return redirect('product:lista')
