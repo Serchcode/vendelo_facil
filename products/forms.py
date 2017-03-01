@@ -41,16 +41,40 @@ class AnuncioForm(forms.ModelForm):
         widget = forms.Select,
     )
     imagen_principal = forms.FileField(
-        widget = forms.ClearableFileInput
+        widget = forms.ClearableFileInput(
+        attrs={
+                'class': 'waves-effect waves-light btn #43a047 green darken-1',
+                'type': 'file',
+
+        }
+    )
     )
     imagen_secundaria = forms.FileField(
-        widget = forms.ClearableFileInput
+        widget = forms.ClearableFileInput(
+         attrs={
+                'class': 'waves-effect waves-light btn #43a047 green darken-1',
+                'type': 'file',
+
+        }    
+            )
     )
     imagen_terciaria = forms.FileField(
-        widget = forms.ClearableFileInput
+        widget = forms.ClearableFileInput(
+         attrs={
+                'class': 'waves-effect waves-light btn #43a047 green darken-1',
+                'type': 'file',
+
+        }    
+            )
     )
     imagen_opcional_uno = forms.FileField(
-        widget = forms.ClearableFileInput
+        widget = forms.ClearableFileInput(
+         attrs={
+                'class': 'waves-effect waves-light btn #43a047 green darken-1',
+                'type': 'file',
+
+        }        
+            )
     )
     imagen_opcional_dos = forms.FileField(
         widget = forms.ClearableFileInput

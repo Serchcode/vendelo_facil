@@ -1,6 +1,12 @@
 {%extends 'base.html'%}
-
 {%block content%}
+<style type="text/css">
+  div>img{
+    border:2px solid white;
+      width:200px;
+      height:150px;
+  }
+</style>
 <div class="container">
   <div class="row">
       <form class="col s12 " method="POST" action="." id="uploadform">
@@ -31,17 +37,41 @@
               <h6><strong>Elije a que subcategoria pertenece tu articulo:</strong></h6>
                 <!--{{form.subcategoria_relacion.label_tag}}-->
                 {{form.subcategoria_relacion}}
-              </div>          
-              <h6><strong>Subir imagenes:</strong></h6>
-                <div class="row">
-                  <div class="col s12 m2">
-                  {{form.imagen_principal}}
-                  </div>        
-                </div>
-
               </div>
+
+              <h6><strong>Subir imagenes:</strong></h6>         
+              <div class="row">
+                <div class="col s12 m8">
+                  {{form.imagen_principal}}
+                </div>  
+                <div class="col s12 m4" id="imgpreview"></div>
+              </div>
+             
+             
+                <div class="row">
+                  <div class="col s12 m8">
+                    {{form.imagen_secundaria}}
+                   </div>
+                   <div class="col s12 m4" id="imgpreview2"></div>
+           
+              </div>
+             
+                <div class="row">
+                  <div class="col s12 m8">
+                    {{form.imagen_terciaria}}
+                  </div>
+                  <div class="col s12 m4" id="imgpreview3"></div>
+                </div>
+            
+             
+                <div class="row">
+                  <div class="col s12 m8">
+                    {{form.imagen_opcional_uno}}
+                  </div>
+                  <div class="col s12 m4" id="imgpreview4"></div>
+                </div>      
               <center>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Publicar
+                <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
                   <i class="material-icons right">send</i>
                 </button>
               </center>
@@ -63,13 +93,7 @@
       </form>
   </div> 
 </div>
-<!--<form  id="formulario" method="POST" class="post-form">{% csrf_token %}
-  {{form.as_p}}
-  <p><input type="submit" value="Guardar"></p>
-<<<<<<< HEAD
-</form>
-=======
-</form>-->
+<!--script para csrftoken-->
 <script>
   // using jQuery
 function getCookie(name) {
@@ -99,7 +123,15 @@ $.ajaxSetup({
         }
     }
 });
+
 </script>
+<!--script para el logo-->
+<script >
+ $(document).ready(function() {
+    $('#logo').css({ 'width':'50px', 'height':'50px' });
+});
+</script>
+<!--script para lo de las categorias y subcategorias junto con ajax-->
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
@@ -134,21 +166,138 @@ $(document).ready(function() {
     }
   }
 </script>
+<!--comienzan los scripts para la subida de imagenes-->
+<!--para imagen uno-->
+<script type="">
+  $(document).ready(function(){
+    $("#id_imagen_principal").on('change',function(){
+    var imgiItem = $(this)[0].files;
+    var imgCount = $(this)[0].files.length;
+    var imgPath = $(this)[0].value;
+    var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
+    var imgPreview = $('#imgpreview');  
+    imgPreview.empty();
+    if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
+      if(typeof(FileReader) != "undefined"){
+        for (var i=0; i<imgCount; i++){
+          var reader = new FileReader();
+          reader.onload = function(e){
+            $("<img />",{
+              "src":e.target.result,
+              "widht": "150",
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-  function filepreview(input){
-    if(input.files && input.files[0]){
-      var reader = new FileReader();
-      reader.onload = function(e){
-        $('#uploadform + img').remove();
-        $('#uploadform').after('<img src"'+e.target.result+'" widht="450" height="300" />');
+            }).appendTo(imgPreview);
+          }
+          imgPreview.show();
+          reader.readAsDataURL($(this)[0].files[i])
+        }
+      }else{
+        imgPreview.html("browser");
       }
-      reader.readAsDataURL(input.files[0]);
-      }
+    }else{
+      imgPreview.html("file");
     }
-    $('#id_imagen_principal').change(function(){
-      filepreview(this);
-    });
+});
+});
+</script>
+
+<!--para imagen 2-->
+<script type="">
+  $(document).ready(function(){
+    $("#id_imagen_secundaria").on('change',function(){
+    var imgiItem = $(this)[0].files;
+    var imgCount = $(this)[0].files.length;
+    var imgPath = $(this)[0].value;
+    var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
+    var imgPreview = $('#imgpreview2');  
+    imgPreview.empty();
+    if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
+      if(typeof(FileReader) != "undefined"){
+        for (var i=0; i<imgCount; i++){
+          var reader = new FileReader();
+          reader.onload = function(e){
+            $("<img />",{
+              "src":e.target.result,
+              "widht": "150",
+
+            }).appendTo(imgPreview);
+          }
+          imgPreview.show();
+          reader.readAsDataURL($(this)[0].files[i])
+        }
+      }else{
+        imgPreview.html("browser");
+      }
+    }else{
+      imgPreview.html("file");
+    }
+});
+});
+</script>
+<!--script para imagen 3 -->
+<script type="">
+  $(document).ready(function(){
+    $("#id_imagen_terciaria").on('change',function(){
+    var imgiItem = $(this)[0].files;
+    var imgCount = $(this)[0].files.length;
+    var imgPath = $(this)[0].value;
+    var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
+    var imgPreview = $('#imgpreview3');  
+    imgPreview.empty();
+    if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
+      if(typeof(FileReader) != "undefined"){
+        for (var i=0; i<imgCount; i++){
+          var reader = new FileReader();
+          reader.onload = function(e){
+            $("<img />",{
+              "src":e.target.result,
+              "widht": "150",
+
+            }).appendTo(imgPreview);
+          }
+          imgPreview.show();
+          reader.readAsDataURL($(this)[0].files[i])
+        }
+      }else{
+        imgPreview.html("browser");
+      }
+    }else{
+      imgPreview.html("file");
+    }
+});
+});
+</script>
+<!--script para imagen 4-->
+<script type="">
+  $(document).ready(function(){
+    $("#id_imagen_opcional_uno").on('change',function(){
+    var imgiItem = $(this)[0].files;
+    var imgCount = $(this)[0].files.length;
+    var imgPath = $(this)[0].value;
+    var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
+    var imgPreview = $('#imgpreview4');  
+    imgPreview.empty();
+    if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
+      if(typeof(FileReader) != "undefined"){
+        for (var i=0; i<imgCount; i++){
+          var reader = new FileReader();
+          reader.onload = function(e){
+            $("<img />",{
+              "src":e.target.result,
+              "widht": "150",
+
+            }).appendTo(imgPreview);
+          }
+          imgPreview.show();
+          reader.readAsDataURL($(this)[0].files[i])
+        }
+      }else{
+        imgPreview.html("browser");
+      }
+    }else{
+      imgPreview.html("file");
+    }
+});
+});
 </script>
 {%endblock content%}
