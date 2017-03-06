@@ -19,6 +19,7 @@ def get_subcategoria_anuncio(request):
     response = {}
     response['subcategorias'] = options
     response['lista'] = li
+    print(subcategorias)
     return JsonResponse(response)
 
 """este es el script del chelis

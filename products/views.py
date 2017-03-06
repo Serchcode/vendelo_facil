@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 import json
+from django.http import HttpResponseRedirect
 
 
 class ListViewAnuncio(View):
@@ -35,24 +36,27 @@ class AnuncioNuevo(View):
     @method_decorator(login_required)
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
-        form = AnuncioForm(data=request.POST, files=request.FILES)
-        categoria=request.POST.get('Categoria_Anuncio')
-        subcategoria=request.POST.get('subcategoria_relacion')
-        print(categoria,':',subcategoria)
-        print(form)
-        if form.is_valid():
-            print('hi')
-            anuncio_nuevo = form.save(commit=False)
-            anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
-            anuncio_nuevo.vendedor = request.user
-            anuncio_nuevo.Moneda = request.POST.get('Moneda')
-            anuncio_nuevo.save()
-            messages.success(request,'Anuncio Publicado')
-            return redirect('product:lista')
-        else:
-            print("khe")
-            messages.error(request,'No se guardo')
-            context ={
-                'form':form
-            }
-            return render(request, template_name, context)
+        if request.method == 'POST':
+            data = request.POST
+            files = request.FILES
+            print(files)
+            print(data)
+            form = AnuncioForm(data, files)
+            print(form)
+            if form.is_valid():
+                anuncio_nuevo = form.save(commit=False)
+                print('hola')
+                anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
+                anuncio_nuevo.Moneda = request.POST.get('Moneda')
+                anuncio_nuevo.vendedor = request.user
+                anuncio_nuevo.save()
+                messages.success(request,'Anuncio Publicado')
+                return redirect('product:lista')
+            else:
+                print("khe")
+                print (form.errors)
+                messages.error(request,'No se guardo')
+                context ={
+                    'form':form
+                }
+                return render(request, template_name, context)

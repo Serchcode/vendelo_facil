@@ -9,7 +9,7 @@
 </style>
 <div class="container">
   <div class="row">
-      <form class="col s12 " method="POST" action="." id="uploadform">
+      <form class="col s12 " method="POST" action="." id="uploadform anuncio_form" enctype="multipart/form-data">
         <div class="row">
             {%csrf_token%}
               <div class="col s12">
@@ -38,50 +38,35 @@
                 <!--{{form.subcategoria_relacion.label_tag}}-->
                 {{form.subcategoria_relacion}}
               </div>
-<<<<<<< HEAD
               <h6><strong>Subir imagenes:</strong></h6>
-                <div class="row">
-                  <div class="col s12 m2">
-                  {{form.imagen_principal}}
-                  {{form.imagen_secundaria}}
-                  {{form.imagen_terciaria}}
-                  {{form.imagen_opcional_uno}}
-                  </div>
-                </div>
-=======
->>>>>>> 85a4e8c3d0e9c3782877683fc9dc984829c04c97
-
-              <h6><strong>Subir imagenes:</strong></h6>         
               <div class="row">
                 <div class="col s12 m8">
                   {{form.imagen_principal}}
-                </div>  
+                </div>
                 <div class="col s12 m4" id="imgpreview"></div>
               </div>
-             
-             
                 <div class="row">
                   <div class="col s12 m8">
                     {{form.imagen_secundaria}}
                    </div>
                    <div class="col s12 m4" id="imgpreview2"></div>
-           
+
               </div>
-             
+
                 <div class="row">
                   <div class="col s12 m8">
                     {{form.imagen_terciaria}}
                   </div>
                   <div class="col s12 m4" id="imgpreview3"></div>
                 </div>
-            
-             
+
+
                 <div class="row">
                   <div class="col s12 m8">
                     {{form.imagen_opcional_uno}}
                   </div>
                   <div class="col s12 m4" id="imgpreview4"></div>
-                </div>      
+                </div>
               <center>
                 <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
                   <i class="material-icons right">send</i>
@@ -185,7 +170,7 @@ $(document).ready(function() {
     var imgCount = $(this)[0].files.length;
     var imgPath = $(this)[0].value;
     var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
-    var imgPreview = $('#imgpreview');  
+    var imgPreview = $('#imgpreview');
     imgPreview.empty();
     if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
       if(typeof(FileReader) != "undefined"){
@@ -219,7 +204,7 @@ $(document).ready(function() {
     var imgCount = $(this)[0].files.length;
     var imgPath = $(this)[0].value;
     var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
-    var imgPreview = $('#imgpreview2');  
+    var imgPreview = $('#imgpreview2');
     imgPreview.empty();
     if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
       if(typeof(FileReader) != "undefined"){
@@ -252,7 +237,7 @@ $(document).ready(function() {
     var imgCount = $(this)[0].files.length;
     var imgPath = $(this)[0].value;
     var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
-    var imgPreview = $('#imgpreview3');  
+    var imgPreview = $('#imgpreview3');
     imgPreview.empty();
     if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
       if(typeof(FileReader) != "undefined"){
@@ -285,7 +270,7 @@ $(document).ready(function() {
     var imgCount = $(this)[0].files.length;
     var imgPath = $(this)[0].value;
     var imgExt = imgPath.substring(imgPath.lastIndexOf('.')+1).toLowerCase();
-    var imgPreview = $('#imgpreview4');  
+    var imgPreview = $('#imgpreview4');
     imgPreview.empty();
     if(imgExt == "gif" || imgExt == "png" || imgExt == "jpg" || imgExt == "jpeg" || imgExt == "bmp"){
       if(typeof(FileReader) != "undefined"){
@@ -309,5 +294,40 @@ $(document).ready(function() {
     }
 });
 });
+</script>
+<!-- Scipt para recuperar todos los datos y mandarlos a la vista en un json y
+validarlos manualmente-->
+<script type="text/javascript">
+  //manda los datos en un json
+  //var formData = new FormData(document.getElementById("#anuncio_form"));
+  var parametros=new FormData($(this)[0])
+  $(document).on("submit","#anuncio_form",function(e) {
+    e.preventDefault();
+    $.ajax({
+      type:"POST",
+      url:"{%url 'product:publicar'%}",
+      contentType: false,
+      data:parametros,
+      //dataType: "json",
+      /*data: JSON.stringify({
+        id_titulo_anuncio:$("#id_titulo_anuncio").val(),
+        id_descripcion_anuncio:$("#id_descripcion_anuncio").val(),
+        id_precio:$("#id_precio").val(),
+        id_Moneda:$("#id_Moneda").val(),
+        id_categoria:$("#id_categoria").val(),
+        id_subcategoria_relacion:$("#id_subcategoria_relacion").val(),
+        id_imagen_principal:$("#id_imagen_principal").val(),
+        id_imagen_secundaria:$("#id_imagen_secundaria").val(),
+        id_imagen_terciaria:$("#id_imagen_terciaria").val(),
+        csrfmiddlewaretoken:$("input[name=csrfmiddlewaretoken]").val(),
+      }),*/
+      cache: false,
+      processData: false,
+      contentType: false,
+      /*success:function () {
+        alert("Publicado Papud");
+      }*/
+    });
+  });
 </script>
 {%endblock content%}
