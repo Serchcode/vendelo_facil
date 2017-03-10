@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from accounts.models import Profile
 from taggit.managers import TaggableManager
 from django.db.models import Q
+from django.core.urlresolvers import reverse
 # Create your models here.
 
 class Categoria_Anuncio(models.Model):
@@ -65,8 +66,12 @@ class Anuncio(models.Model):
     )
     slug = models.SlugField(max_length=200)
 
+    def get_absolute_url(self):
+        return reverse('product:detalle',args=[self.id,self.slug])
+
     def __str__(self):
         return self.titulo_anuncio
+
 
 class Comment(models.Model):
     autor = models.ForeignKey(User, related_name="comentarios")

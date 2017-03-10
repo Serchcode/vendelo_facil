@@ -8,16 +8,26 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 import json
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class ListViewAnuncio(View):
     def get(self, request, categoria=None):
         template_name = "products/list_products.html"
-        anuncios = Anuncio.objects.all()
+        anuncio = Anuncio.objects.all()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(anuncio, 9)
+        try:
+            anuncios = paginator.page(page)
+        except PageNotAnInteger:
+            anuncios = paginator.page(1)
+        except EmptyPage:
+            anuncios = paginator.page(paginator.num_pages)
         tag = None
         if categoria:
             anuncios = Anuncio.objects.filter(categoria = categoria)
         context = {
+            'anuncio':anuncio,
             'anuncios':anuncios,
         }
         return render(request,template_name,context)
@@ -60,3 +70,13 @@ class AnuncioNuevo(View):
                     'form':form
                 }
                 return render(request, template_name, context)
+
+class DetailView(View):
+    def get(self,request,id,slug):
+        product=get_object_or_404(Anuncio,id=id, slug=slug)
+        template='products/detail.html'
+        context={
+        'product':product,
+        }
+        print(id)
+        return render(request,template,context)
