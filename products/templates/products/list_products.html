@@ -24,16 +24,16 @@
 <div class="row">
 {%for anuncio in anuncios%}
         <div class="col s12 m4">
-          <div class="card medium">
+          <div class="card medium hoverable">
             <div class="card-image">
               <img src="/media/{{anuncio.imagen_principal}}">
             </div>
             <div class="card-content">
-            <strong><h5>{{anuncio.titulo_anuncio}}</h5></strong>
+            <strong><center><h5>{{anuncio.titulo_anuncio}}</h5></center></strong>
             </div>
             <div class="card-action">
             <center>
-              <a class="" href="{{anuncio.get_absolute_url}}">ver publicacion</a>
+              <a class="" href="{{anuncio.get_absolute_url}}">ver detalle</a>
             <strong><p>Precio: ${{anuncio.precio}} {{anuncio.Moneda}}</p></strong>
             </center>
             </div>

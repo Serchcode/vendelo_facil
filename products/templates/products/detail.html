@@ -1,22 +1,119 @@
 {%extends 'base.html'%}
-
+{%load static%}
 {%block content%}
-<div class="container">
+<style type="text/css">
+  div>img{
+    border:2px solid white;
+      width: 400px;
+      height:400px;
+  }
+
+  @media only screen and (max-width: 900px) {
+        div>img{width: 200px; height: 200px;}
+      }
+  label{color:black;font-weight: 500; font-size: medium;}
+
+.rojo{color:red;}
+</style>
+
 <div class="row">
-        <div class="col s12 m4">
-          <div class="card medium">
-            <div class="card-image">
-              <img src="/media/{{anuncio.imagen_principal}}">
-            </div>
-            <div class="card-content">
-            <strong><h5>{{anuncio.titulo_anuncio}}</h5></strong>
-              <p>{{anuncio.descripcion_anuncio}}</p>
-            </div>
-            <div class="card-action">
-            </div>
-          </div>
-        </div>
+{%if anuncio.imagen_opcional_uno%}
+<div class="col s12 m6">
+    <div class="card">
+    <div class="card-content light-green lighten-1">
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width light-green lighten-1">
+        <li class="tab"><a class="white-text" href="#test4">Ver imagen 1</a></li>
+        <li class="tab"><a class="white-text" href="#test5">Ver imagen 2</a></li>
+        <li class="tab"><a class="white-text" href="#test6">Ver imagen 3</a></li>
+        <li class="tab"><a class="white-text" href="#test7">Ver imagen 4</a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="test4"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_principal}}"></center></div>
+      <div id="test5"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_secundaria}}"></center></div>
+      <div id="test6"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_terciaria}}"></center></div>
+      <div id="test7"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_opcional_uno}}"></center></div>
+    </div>
   </div>
 </div>
+{%else%}
+<div class="col s12 m6">
+    <div class="card">
+    <div class="card-content light-green lighten-1">
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width card-tabs light-green lighten-1">
+        <li class="tab"><a class="white-text" href="#test4">Ver imagen 1</a></li>
+        <li class="tab"><a class="white-text" href="#test5">Ver imagen 2</a></li>
+        <li class="tab"><a class="white-text" href="#test6">Ver imagen 3</a></li>
+      </ul>
+    </div>
+    <div class="card-content">
+      <div id="test4"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_principal}}"></center></div>
+      <div id="test5"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_secundaria}}"></center></div>
+      <div id="test6"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_terciaria}}"></center></div>
+    </div>
+  </div>
+</div>
+{%endif%}
+<div class="col s12 m4">
+  <table class="table highlight">
+        <thead>
+          <tr>
+              <th data-field="id"><h4>{{anuncio.titulo_anuncio}}</h4></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><i class="material-icons">person_pin</i><strong>Vendedor:</strong></td>
+            <td>{{anuncio.vendedor}}</td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">monetization_on</i><strong>Precio:</strong></td>
+            <td>${{anuncio.precio}}{{anuncio.Moneda}}</td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">date_range</i><strong>Fecha de publicacion:</strong></td>
+            <td>{{anuncio.fecha_anuncio}}</td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">description</i><strong>Descripcion:</strong></td>
+            <td>{{anuncio.descripcion_anuncio}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<div class="container">
+  <form action="." method="post">
+    {%csrf_token%}
+      {{comentario_form.as_p}}
+    <center>
+      <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Comentar">
+    </center>
+  </form>
+  <ul class="collection">
+    {%for comentario in comentarios%}
+      <li class="collection-item avatar">
+        <i class="material-icons circle green">question_answer</i>
+        <strong><span class="title">{{comentario.autor}}</span></strong>
+        <p>{{comentario.cuerpo}}</p>
+      </li>
+  {%endfor%}
+  </ul>
+</div>
+<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#id_cuerpo').addClass('materialize-textarea');
+  });
+</script>
 
 {%endblock content%}

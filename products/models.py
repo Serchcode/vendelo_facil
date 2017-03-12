@@ -29,7 +29,7 @@ class Anuncio(models.Model):
         ('usd','USD')
     )
     #tags = TaggableManager(blank = True , null=True)
-    vendedor = models.ForeignKey(User, related_name="producto")
+    vendedor = models.ForeignKey(User, related_name="productos")
     titulo_anuncio = models.CharField(max_length=200)
     descripcion_anuncio = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -67,7 +67,7 @@ class Anuncio(models.Model):
     slug = models.SlugField(max_length=200)
 
     def get_absolute_url(self):
-        return reverse('product:detalle',args=[self.id,self.slug])
+        return reverse('product:detalle',args=[self.slug])
 
     def __str__(self):
         return self.titulo_anuncio
@@ -75,7 +75,7 @@ class Anuncio(models.Model):
 
 class Comment(models.Model):
     autor = models.ForeignKey(User, related_name="comentarios")
-    producto = models.ForeignKey(Anuncio, related_name="producto")
+    producto = models.ForeignKey(Anuncio, related_name="procoment")
     fecha_comentario = models.DateTimeField(auto_now=True)
     cuerpo = models.TextField()
 
