@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+<div class="container">
+<div class="row">
+{%for anuncio in items%}
+        <div class="col s12 m4">
+          <div class="card medium hoverable">
+            <div class="card-image">
+              <img src="/media/{{anuncio.imagen_principal}}">
+            </div>
+            <div class="card-content">
+            <strong><center><h5>{{anuncio.titulo_anuncio}}</h5></center></strong>
+            </div>
+            <div class="card-action">
+            <center>
+              <a class="" href="{{anuncio.get_absolute_url}}">ver detalle</a>
+            <strong><p>Precio: ${{anuncio.precio}} {{anuncio.Moneda}}</p></strong>
+            </center>
+            </div>
+          </div>
+        </div>
+{%empty%}
+<h2>no hay anuncios</h2>
+{% endfor %}
+  </div>
+</div>
+{%endblock content%}

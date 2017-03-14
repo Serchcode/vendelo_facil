@@ -93,3 +93,12 @@ class DetailView(View):
         com.producto = anuncios
         com.save()
         return redirect('product:detalle',slug=slug)
+
+class Items(View):
+    def get(self,request):
+        template_name='products/item.html'
+        items = Anuncio.objects.filter(vendedor= request.user)
+        context = {
+        'items':items,
+        }
+        return render(request,template_name,context)
