@@ -72,22 +72,13 @@ class AnuncioNuevo(View):
                 return render(request, template_name, context)
 
 class DetailView(View):
-<<<<<<< HEAD
-    def get(self,request,id,slug):
-        anuncio=get_object_or_404(Anuncio,id=id, slug=slug)
-=======
     def get(self,request,slug):
->>>>>>> 9233ad73ac600f69c54287a707596f848e486d4e
         template='products/detail.html'
         anuncio=get_object_or_404(Anuncio,slug=slug)
         comentario_form=CommentForm()
         comentarios=anuncio.procoment.all()
         context={
         'anuncio':anuncio,
-<<<<<<< HEAD
-        }
-        return render(request,template,context)
-=======
         'comentario_form':comentario_form,
         'comentarios':comentarios,
         }
@@ -111,4 +102,3 @@ class Items(View):
         'items':items,
         }
         return render(request,template_name,context)
->>>>>>> 9233ad73ac600f69c54287a707596f848e486d4e
