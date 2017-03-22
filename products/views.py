@@ -1,6 +1,6 @@
 from django.views.generic import View
 from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
-from .forms import AnuncioForm
+from .forms import AnuncioForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
@@ -72,10 +72,43 @@ class AnuncioNuevo(View):
                 return render(request, template_name, context)
 
 class DetailView(View):
+<<<<<<< HEAD
     def get(self,request,id,slug):
         anuncio=get_object_or_404(Anuncio,id=id, slug=slug)
+=======
+    def get(self,request,slug):
+>>>>>>> 9233ad73ac600f69c54287a707596f848e486d4e
         template='products/detail.html'
+        anuncio=get_object_or_404(Anuncio,slug=slug)
+        comentario_form=CommentForm()
+        comentarios=anuncio.procoment.all()
         context={
         'anuncio':anuncio,
+<<<<<<< HEAD
         }
         return render(request,template,context)
+=======
+        'comentario_form':comentario_form,
+        'comentarios':comentarios,
+        }
+        print(id)
+        return render(request,template,context)
+
+    def post(self,request,slug):
+        form = CommentForm(request.POST)
+        anuncios = Anuncio.objects.get(slug=slug)
+        com = form.save(commit=False)
+        com.autor = request.user
+        com.producto = anuncios
+        com.save()
+        return redirect('product:detalle',slug=slug)
+
+class Items(View):
+    def get(self,request):
+        template_name='products/item.html'
+        items = Anuncio.objects.filter(vendedor= request.user)
+        context = {
+        'items':items,
+        }
+        return render(request,template_name,context)
+>>>>>>> 9233ad73ac600f69c54287a707596f848e486d4e

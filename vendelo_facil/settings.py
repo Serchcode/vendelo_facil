@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'main',
     'products',
     'taggit',
+    'responsive',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,6 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'responsive.middleware.ResponsiveMiddleware',
 ]
 
 ROOT_URLCONF = 'vendelo_facil.urls'
@@ -67,10 +69,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
+                'responsive.context_processors.device',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'vendelo_facil.wsgi.application'
 
@@ -126,5 +131,5 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
 #STATIC_ROOT = os.path.join(BASE_DIR,"static/")
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\', '/')
 MEDIA_URL = '/media/'
