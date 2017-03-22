@@ -73,10 +73,9 @@ class AnuncioNuevo(View):
 
 class DetailView(View):
     def get(self,request,id,slug):
-        product=get_object_or_404(Anuncio,id=id, slug=slug)
+        anuncio=get_object_or_404(Anuncio,id=id, slug=slug)
         template='products/detail.html'
         context={
-        'product':product,
+        'anuncio':anuncio,
         }
-        print(id)
         return render(request,template,context)
