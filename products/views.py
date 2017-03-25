@@ -1,6 +1,6 @@
 from django.views.generic import View
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
-from .forms import AnuncioForm, CommentForm
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio,Answer
+from .forms import AnuncioForm, CommentForm, AnswerForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
@@ -82,7 +82,6 @@ class DetailView(View):
         'comentario_form':comentario_form,
         'comentarios':comentarios,
         }
-        print(id)
         return render(request,template,context)
 
     def post(self,request,slug):
@@ -94,6 +93,21 @@ class DetailView(View):
         com.save()
         return redirect('product:detalle',slug=slug)
 
+
+class Respuestas(View):
+    def get(self,request,id):
+        template = 'productos/detail.html'
+        comentario = get_object_or_404(Comment,id=id)
+        answer_form = AnswerForm()
+        respuestas = comentario.respuestas_comentario.all()
+        context = {
+        'comentario':comentario,
+        'answer_form':answer_form,
+        'respuestas':respuestas,
+        }
+        return render(request,template,context)
+ 
+    
 class Items(View):
     def get(self,request):
         template_name='products/item.html'

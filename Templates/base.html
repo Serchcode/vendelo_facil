@@ -40,7 +40,6 @@
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			{%if request.user.is_authenticated%}
 					<ul class="right hide-on-med-and-down">
-            <li><a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'profile'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="#">Mi Carrito</a></li>
@@ -49,6 +48,7 @@
 					</ul>
 					<ul class="side-nav" id="mobile-demo">
             <li><img class="fotito center" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
+            <li><a href="">sass <span class="new badge">4</span></a></li>
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
             <li><a href="{%url 'main:home'%}">Home</a></li>
