@@ -3,6 +3,7 @@ from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio,An
 from .forms import AnuncioForm, CommentForm, AnswerForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
@@ -15,6 +16,12 @@ class ListViewAnuncio(View):
     def get(self, request, categoria=None):
         template_name = "products/list_products.html"
         anuncio = Anuncio.objects.all()
+        query =  request.GET.get("q")
+        if query:
+            anuncio = anuncio.filter(Q(titulo_anuncio__icontains=query)|
+                                     Q(descripcion_anuncio__icontains=query)
+
+                ).distinct()
         page = request.GET.get('page', 1)
         paginator = Paginator(anuncio, 9)
         try:

@@ -156,13 +156,6 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
         <p>{{comentario.cuerpo}}</p>        
       </li>
   {%endfor%}
-  <form action="." method="post">
-  {%csrf_token%}
-    {{answer_form.as_p}}
-  <center>
-      <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Comentar">
-    </center>
-  </form>
   </ul>
 </div>
 

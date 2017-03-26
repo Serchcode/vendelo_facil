@@ -47,10 +47,14 @@
           <div class="card-content">
             <center><h2 class="white-text">¿Qué estas buscando?</h2>
             <div class="input-field white-text">
+              <form method="GET" action="{%url 'product:lista'%}">
               <i class="material-icons prefix">search</i>
-              <input class="validate" id="myInput" type="text">
+              <input class="validate" name="q" value="{{request.GET.q}}" id="myInput" type="text">
+              <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Buscar
+              <i class="material-icons right">send</i>
+                </button>
               <label for="myInput" style="text-align:justify;">Electrónica, Cómputo, Ropa</label>
-              <i class="material-icons">file_upload</i>
+              </form>
               <h5><strong>Encuéntralo aqui</strong></h5>
             </center>
             </div>
