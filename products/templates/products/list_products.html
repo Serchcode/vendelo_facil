@@ -20,6 +20,17 @@
   {% empty %}
     <h2>No hay productos, se el primero en vender</h2>
 {% endfor %}-->
+<br>
+<br>
+<div class="container input-field">
+<form method="GET" action=".">
+  <i class="material-icons prefix">search</i>
+  <input type="text" name="q" placeholder="Buscar" value="{{request.GET.q}}">
+  <center>
+  <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" value="Buscar"> Buscar </button>
+  </center>
+</form>
+</div>
 <div class="container">
 <div class="row">
 {%for anuncio in anuncios%}

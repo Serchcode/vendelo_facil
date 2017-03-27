@@ -134,3 +134,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'comento en {}.format(self.autor,self.producto)'
+
+class Answer(models.Model):
+    replied = models.ForeignKey(User, related_name="respuesta")
+    respuesta = models.ForeignKey(Comment, related_name="respuesta_comentario")
+    fecha = models.DateTimeField(auto_now=True)
+    pregunta = models.TextField()
+
+    def __str__(self):
+        return 'respuestua en {}.format(self.replied,self.respuesta)'
