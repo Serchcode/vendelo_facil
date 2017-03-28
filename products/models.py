@@ -80,7 +80,7 @@ class Comment(models.Model):
     cuerpo = models.TextField()
 
     def __str__(self):
-        return 'comento en {}.format(self.autor,self.producto)'
+        return '{} comento en {}'.format(self.autor,self.producto)
 
 class Answer(models.Model):
     replied = models.ForeignKey(User, related_name="respuesta")
@@ -89,4 +89,4 @@ class Answer(models.Model):
     pregunta = models.TextField()
 
     def __str__(self):
-        return 'respuestua en {}.format(self.replied,self.respuesta)'
+        return 'respuesta en {}'.format(self.replied,self.respuesta)

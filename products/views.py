@@ -1,6 +1,6 @@
 from django.views.generic import View
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio,Answer
-from .forms import AnuncioForm, CommentForm, AnswerForm
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
+from .forms import AnuncioForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
 from django.db.models import Q
@@ -91,6 +91,7 @@ class DetailView(View):
         }
         return render(request,template,context)
 
+    @method_decorator(login_required)    
     def post(self,request,slug):
         form = CommentForm(request.POST)
         anuncios = Anuncio.objects.get(slug=slug)
@@ -101,18 +102,6 @@ class DetailView(View):
         return redirect('product:detalle',slug=slug)
 
 
-class Respuestas(View):
-    def get(self,request,id):
-        template = 'productos/detail.html'
-        comentario = get_object_or_404(Comment,id=id)
-        answer_form = AnswerForm()
-        respuestas = comentario.respuestas_comentario.all()
-        context = {
-        'comentario':comentario,
-        'answer_form':answer_form,
-        'respuestas':respuestas,
-        }
-        return render(request,template,context)
  
     
 class Items(View):

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment,Answer
+from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment
 
 
 TIPO_MONEDA =(
@@ -100,10 +100,3 @@ class CommentForm(forms.ModelForm):
             'cuerpo':'Preguntas al vendedor:'
         }
 
-class AnswerForm(forms.ModelForm):
-    class Meta:
-        model = Answer
-        fields = ['pregunta']
-        labels = {
-            'pregunta':'hollllaaaa'
-        }
