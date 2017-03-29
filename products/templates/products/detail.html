@@ -103,11 +103,6 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
         <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_terciaria}}"></a></li>
       </ul>
     </div>
-   <!--<div class="card-content">
-      <div id="test4"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_principal}}"></center></div>
-      <div id="test5"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_secundaria}}"></center></div>
-      <div id="test6"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_terciaria}}"></center></div>
-    </div>-->
   </div>
 </div>
 {%endif%}
@@ -141,22 +136,51 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
   </div>
 </div>
 <div class="container">
-  <form action="." method="post">
+<form method="POST" action=".">
+{%csrf_token%}
+  {{comment_form}}
+<center>
+  <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Comentar">
+</center> 
+</form>
+{%for comment in comments%}
+ <ul class="collection">
+  <li class="collection-item avatar">
+    <i class="material-icons circle green">question_answer</i>
+    <strong><span class="title">{{comment.autor}}</span></strong>
+    <p>{{comment.cuerpo}}</p>
+    <p>{{comment.fecha_comentario}}</p>
+
+    {%if comment.children.count > 0%}
+    <strong><p>Respuestas: {{comment.children.count}}</p></strong>
+    <a class='comment' href="">Ver respuestas</a>
+    {%else%}
+    <strong><p>No hay respuestas</p></strong>
+    {%endif%}
+    <div class='respuestas' style="display:none">
+    {%for child_comment in comment.children%}
+    <ul class="collection">
+        <li class="collection-item avatar">
+            <i class="material-icons circle red">question_answer</i>
+            <strong><span class="title">{{child_comment.autor}}</span></strong>
+            <p>{{child_comment.cuerpo}}</p>
+            <p>{{child_comment.fecha_comentario}}</p>
+
+        </li>
+    </ul>
+    {%endfor%}
+    <form method="POST" action=".">
     {%csrf_token%}
-      {{comentario_form.as_p}}
-    <center>
-      <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Comentar">
-    </center>
-  </form>
-  <ul class="collection">
-    {%for comentario in comentarios%}
-      <li class="collection-item avatar">
-        <i class="material-icons circle green">question_answer</i>
-        <strong><span class="title">{{comentario.autor}}</span></strong>
-        <p>{{comentario.cuerpo}}</p>        
-      </li>
-  {%endfor%}
-  </ul>
+      {{comment_form}}
+      <center>
+        <input type="hidden" name="parent_id" value="{{comment.id}}">
+        <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Responder">
+      </center> 
+    </form>
+    </div>
+  </li>
+</ul>
+{%endfor%}
 </div>
 
 <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -188,4 +212,12 @@ $(id + " li:first-child img").addClass('materialboxed');
 });
 });
 //]]></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$(".comment").click(function(event){
+    event.preventDefault();
+    $(this).next(".respuestas").fadeToggle("slow");
+  })
+})
+</script>
 {%endblock content%}

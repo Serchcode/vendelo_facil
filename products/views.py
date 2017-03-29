@@ -1,4 +1,5 @@
 from django.views.generic import View
+from django.contrib.contenttypes.models import ContentType
 from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
 from .forms import AnuncioForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
@@ -79,30 +80,49 @@ class AnuncioNuevo(View):
                 return render(request, template_name, context)
 
 class DetailView(View):
+
     def get(self,request,slug):
         template='products/detail.html'
         anuncio=get_object_or_404(Anuncio,slug=slug)
-        comentario_form=CommentForm()
-        comentarios=anuncio.procoment.all()
+        initial_data = {
+            "content_type": anuncio.get_content_type,
+            "object_id": anuncio.id
+        }
+        comment_form= CommentForm(request.POST or None, initial=initial_data)
+        comments=anuncio.comments
         context={
         'anuncio':anuncio,
-        'comentario_form':comentario_form,
-        'comentarios':comentarios,
+        'comments':comments,
+        'comment_form':comment_form,
         }
         return render(request,template,context)
 
-    @method_decorator(login_required)    
+    @method_decorator(login_required)
     def post(self,request,slug):
-        form = CommentForm(request.POST)
-        anuncios = Anuncio.objects.get(slug=slug)
-        com = form.save(commit=False)
-        com.autor = request.user
-        com.producto = anuncios
-        com.save()
+        comment_form= CommentForm(request.POST or None)
+        if comment_form. is_valid():
+            c_type = comment_form.cleaned_data.get("content_type")
+            content_type = ContentType.objects.get(model=c_type)
+            obj_id = comment_form.cleaned_data.get("object_id")
+            cuerpo_data = comment_form.cleaned_data.get("cuerpo")
+            parent_obj = None
+            try:
+                parent_id = int(request.POST.get("parent_id"))
+            except:
+                parent_id = None
+            if parent_id:
+                parent_qs = Comment.objects.filter(id = parent_id)
+                if parent_qs.exists() and parent_qs.count() == 1:
+                    parent_obj = parent_qs.first()
+
+            new_comment, created = Comment.objects.get_or_create(
+                                    autor = request.user,
+                                    content_type= content_type,
+                                    object_id= obj_id,
+                                    cuerpo= cuerpo_data,
+                                    parent = parent_obj, 
+                ) 
         return redirect('product:detalle',slug=slug)
-
-
- 
     
 class Items(View):
     def get(self,request):

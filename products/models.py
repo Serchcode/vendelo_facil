@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from accounts.models import Profile
 from taggit.managers import TaggableManager
 from django.db.models import Q
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 # Create your models here.
 
@@ -66,27 +68,57 @@ class Anuncio(models.Model):
     )
     slug = models.SlugField(max_length=200)
 
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
+
+    @property
+    def get_content_type(self):
+        instance = self
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        return content_type
+
     def get_absolute_url(self):
         return reverse('product:detalle',args=[self.slug])
 
     def __str__(self):
         return self.titulo_anuncio
 
+class CommentManager(models.Manager):
+    def all(self):
+        qs = super(CommentManager, self).filter(parent=None)
+        return qs
+
+    def filter_by_instance(self,anuncio):
+        content_type=   ContentType.objects.get_for_model(anuncio.__class__)
+        obj_id =  anuncio.id
+        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None) 
+        return qs
+
 
 class Comment(models.Model):
     autor = models.ForeignKey(User, related_name="comentarios")
-    producto = models.ForeignKey(Anuncio, related_name="procoment")
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    parent = models.ForeignKey("self", blank=True, null=True)
     fecha_comentario = models.DateTimeField(auto_now=True)
     cuerpo = models.TextField()
+    objects = CommentManager()
+
+    class meta:
+        orden = ['-fecha_comentario']
 
     def __str__(self):
         return '{} comento en {}'.format(self.autor,self.producto)
 
-class Answer(models.Model):
-    replied = models.ForeignKey(User, related_name="respuesta")
-    respuesta = models.ForeignKey(Comment, related_name="respuesta_comentario")
-    fecha = models.DateTimeField(auto_now=True)
-    pregunta = models.TextField()
+    def children(self):
+        return Comment.objects.filter(parent=self)
 
-    def __str__(self):
-        return 'respuesta en {}'.format(self.replied,self.respuesta)
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True
