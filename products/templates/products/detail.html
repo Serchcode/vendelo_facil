@@ -61,13 +61,6 @@ ul.obgaleria li:first-child img {
 -ms-transition:-ms-transform 1s ease-out;
 transition:transform 1s ease-out;
 } 
-ul.obgaleria li:first-child img:hover{
-  -moz-transform: scale(1.1);
--webkit-transform: scale(1.1);
--o-transform: scale(1.1);
--ms-transform: scale(1.1);
-transform: scale(1.1)
-}
 
 ul.obgaleria li {border-left: 3px solid transparent;border-top: 3px solid transparent;box-sizing: border-box;} 
 ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
@@ -187,6 +180,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $(id + " li:first-child img").addClass('materialboxed');
     $('.materialboxed').materialbox();
   });
 </script>
@@ -209,6 +203,7 @@ $(id + " li").click(function() {
 $(id + " li:first-child").remove()
 $(this).clone().prependTo(id);
 $(id + " li:first-child img").addClass('materialboxed');
+$(id + " li:first-child img").materialbox();
 });
 });
 //]]></script>
@@ -216,7 +211,7 @@ $(id + " li:first-child img").addClass('materialboxed');
 $(document).ready(function(){
 $(".comment").click(function(event){
     event.preventDefault();
-    $(this).next(".respuestas").fadeToggle("slow");
+    $(this).next(".respuestas").fadeToggle("slow");       
   })
 })
 </script>
