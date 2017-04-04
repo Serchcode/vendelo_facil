@@ -1,5 +1,5 @@
 from django import forms
-from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment,Answer
+from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment
 
 
 TIPO_MONEDA =(
@@ -92,18 +92,11 @@ class AnuncioForm(forms.ModelForm):
         super(AnuncioForm, self).__init__(*args, **kwargs)
         self.fields['subcategoria_relacion'].queryset = SubCategoria_Anuncio.objects.all()
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['cuerpo']
-        labels  = {
-            'cuerpo':'Preguntas al vendedor:'
-        }
+class CommentForm(forms.Form):
+    content_type = forms.CharField(widget=forms.HiddenInput)
+    object_id = forms.CharField(widget=forms.HiddenInput)
+    #parent_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    cuerpo = forms.CharField(label= 'Comentar', widget=forms.Textarea)
 
-class AnswerForm(forms.ModelForm):
-    class Meta:
-        model = Answer
-        fields = ['pregunta']
-        labels = {
-            'pregunta':'hollllaaaa'
-        }
+
+

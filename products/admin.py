@@ -19,3 +19,4 @@ class SubcategoriaAnuncioAdmin(admin.ModelAdmin):
 admin.site.register(Anuncio, AnuncioAdmin)
 admin.site.register(Categoria_Anuncio, CategoriaAnuncioAdmin)
 admin.site.register(SubCategoria_Anuncio, SubcategoriaAnuncioAdmin)
+admin.site.register(Comment)
