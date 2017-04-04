@@ -71,7 +71,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 {%if anuncio.imagen_opcional_uno%}
 <div class="col s12 m6">
     <div>
-    <div class="modal">
+    <div>
       <ul class="obgaleria" id="galeria1">
         <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
         <li class="tab"><a class="white-text" ><img width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
@@ -140,9 +140,10 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
     {%if comment.children.count > 0%}
     <strong><p>Respuestas: {{comment.children.count}}</p></strong>
-    <a class='comment' href="#">Ver respuestas</a>
+    <a class="comment" href="#">Responder</a>
     {%else%}
     <strong><p>No hay respuestas</p></strong>
+    <a class="comment" href="#">Responder</a>
     {%endif%}
     <div class='respuestas' style="display:none">
     {%for child_comment in comment.children%}

@@ -82,6 +82,7 @@ class Anuncio(models.Model):
 
     def get_absolute_url(self):
         return reverse('product:detalle',args=[self.slug])
+    
 
     def __str__(self):
         return self.titulo_anuncio

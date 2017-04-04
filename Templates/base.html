@@ -48,7 +48,6 @@
 					</ul>
 					<ul class="side-nav" id="mobile-demo">
             <li><img class="fotito center" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
-            <li><a href="">sass <span class="new badge">4</span></a></li>
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
             <li><a href="{%url 'main:home'%}">Home</a></li>
