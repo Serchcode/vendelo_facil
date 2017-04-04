@@ -10,8 +10,3 @@ urlpatterns = [
     url(r'^(?P<slug>[-\w]+)/$',views.DetailView.as_view(), name="detalle"),
     url(r'^ajax/get_subcategoria/$', get_subcategoria_anuncio, name="get_subcategoria"),
 ]
-
-
-"""(?P<slug>[-\w]+)"""
-
-"""(?P<id>\d+)/$"""
