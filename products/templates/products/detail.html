@@ -54,7 +54,8 @@ ul.obgaleria li:first-child img {
   right: 0;
   margin: auto;
   width: 100%;
-  height:auto;
+  height:auto; 
+  position: relative;
   -webkit-transition:-webkit-transform 1s ease-out;
 -moz-transition:-moz-transform 1s ease-out;
 -o-transition:-o-transform 1s ease-out;
@@ -70,7 +71,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 {%if anuncio.imagen_opcional_uno%}
 <div class="col s12 m6">
     <div>
-    <div>
+    <div class="modal">
       <ul class="obgaleria" id="galeria1">
         <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
         <li class="tab"><a class="white-text" ><img width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
@@ -78,12 +79,6 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
         <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_opcional_uno}}"></a></li>
       </ul>
     </div>
-   <!-- <div class="card-content grey lighten-4">
-      <div id="test4"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_principal}}"></center></div>
-      <div id="test5"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_secundaria}}"></center></div>
-      <div id="test6"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_terciaria}}"></center></div>
-      <div id="test7"><center><img class="materialboxed" width="650" src="/media/{{anuncio.imagen_opcional_uno}}"></center></div>
-    </div>-->
   </div>
 </div>
 {%else%}
@@ -99,7 +94,6 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
   </div>
 </div>
 {%endif%}
-
 <div class="col s12 m4">
   <table class="table highlight">
         <thead>
@@ -178,6 +172,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
 <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
+<!--este script es para que se muestren y oculten las respuestas a algun comentario--> 
 <script type="text/javascript">
 $(document).ready(function(){
 $(".comment").click(function(event){
@@ -187,21 +182,16 @@ $(".comment").click(function(event){
 })
 </script>
 
+<!--script para agregar la clase textarea de materialize-->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#id_cuerpo').addClass('materialize-textarea');
   });
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    //$('.materialboxed').materialbox();
-    $(id + " li:first-child img").addClass('materialboxed');
-  });
-</script>
-
-<script type='text/javascript'>//<![CDATA[
-var prop = 60.00; // proporción alto/ancho*100 imagen principal
+<!--script para la galeria de imagenes-->
+<script type='text/javascript'>
+var prop = 60.00; 
 $("ul.obgaleria").each(function() {
 var id = "#" + $(this).attr("id");
 var ancho = 100 / $(id + " li").length;
@@ -215,8 +205,9 @@ $(id + " li:first-child").remove()
 $(this).clone().prependTo(id);
 $(id + " li:first-child img").addClass('materialboxed');
 $(id + " li:first-child img").materialbox();
+$(id + " li:first-child img");
 });
 });
-//]]></script>
+</script>
 
 {%endblock content%}
