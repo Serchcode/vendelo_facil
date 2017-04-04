@@ -146,7 +146,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
     {%if comment.children.count > 0%}
     <strong><p>Respuestas: {{comment.children.count}}</p></strong>
-    <a class='comment' href="">Ver respuestas</a>
+    <a class='comment' href="#">Ver respuestas</a>
     {%else%}
     <strong><p>No hay respuestas</p></strong>
     {%endif%}
@@ -179,16 +179,27 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $(id + " li:first-child img").addClass('materialboxed');
-    $('.materialboxed').materialbox();
-  });
+$(document).ready(function(){
+$(".comment").click(function(event){
+    event.preventDefault();
+    $(this).next(".respuestas").fadeToggle();       
+  })
+})
 </script>
+
 <script type="text/javascript">
   $(document).ready(function(){
     $('#id_cuerpo').addClass('materialize-textarea');
   });
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    //$('.materialboxed').materialbox();
+    $(id + " li:first-child img").addClass('materialboxed');
+  });
+</script>
+
 <script type='text/javascript'>//<![CDATA[
 var prop = 60.00; // proporción alto/ancho*100 imagen principal
 $("ul.obgaleria").each(function() {
@@ -207,12 +218,5 @@ $(id + " li:first-child img").materialbox();
 });
 });
 //]]></script>
-<script type="text/javascript">
-$(document).ready(function(){
-$(".comment").click(function(event){
-    event.preventDefault();
-    $(this).next(".respuestas").fadeToggle("slow");       
-  })
-})
-</script>
+
 {%endblock content%}
