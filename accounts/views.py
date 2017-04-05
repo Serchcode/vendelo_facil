@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import Profile
+from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
@@ -23,6 +24,7 @@ class Dashboard(View):
 		if userform.is_valid() and profileform.is_valid():
 			userform.save()
 			profileform.save()
+			messages.success(request,"Los cambios se realizaron exitosamente.")
 			return redirect('profile')
 		else:
 			context={
@@ -47,12 +49,11 @@ class Registration(View):
 		if new_user_form.is_valid():
 			new_user = new_user_form.save(commit=False)
 			new_user.set_password(new_user_form.cleaned_data['password'])
-			# perfil = Profile(instance=new_user)
 			new_user.save()
 			perfil = Profile()
 			perfil.user = new_user
 			perfil.save()
-			# perfil = Profile.objects.create(user=new_user)
+			messages.success(request,"Su registro fue exitoso.")
 			return redirect('profile')
 		else:
 			context = {

@@ -69,7 +69,7 @@ class AnuncioNuevo(View):
                 anuncio_nuevo.vendedor = request.user
                 anuncio_nuevo.save()
                 messages.success(request,'Anuncio Publicado')
-                return redirect('product:lista')
+                return redirect('product:dash')
             else:
                 print("khe")
                 print (form.errors)
@@ -81,9 +81,9 @@ class AnuncioNuevo(View):
 
 class DetailView(View):
 
-    def get(self,request,slug):
+    def get(self,request,id,slug):
         template='products/detail.html'
-        anuncio=get_object_or_404(Anuncio,slug=slug)
+        anuncio=get_object_or_404(Anuncio,id=id,slug=slug)
         initial_data = {
             "content_type": anuncio.get_content_type,
             "object_id": anuncio.id
@@ -98,7 +98,7 @@ class DetailView(View):
         return render(request,template,context)
 
     @method_decorator(login_required)
-    def post(self,request,slug):
+    def post(self,request,id,slug):
         comment_form= CommentForm(request.POST or None)
         if comment_form. is_valid():
             c_type = comment_form.cleaned_data.get("content_type")
@@ -122,7 +122,10 @@ class DetailView(View):
                                     cuerpo= cuerpo_data,
                                     parent = parent_obj, 
                 ) 
-        return redirect('product:detalle',slug=slug)
+            messages.success(request,'Comentario exitoso')
+        else:
+            messages.error(request,'Comentario vacio')
+        return redirect('product:detalle',id =id,slug=slug)
     
 class Items(View):
     def get(self,request):

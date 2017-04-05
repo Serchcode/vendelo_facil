@@ -2,6 +2,16 @@
 
 {%block content%}
 
+{%if messages%}
+<center>
+<div class="container">
+  {% for message in messages %}
+      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  {% endfor %}
+</div>
+</center>
+{%endif%}
+
 {%if form.errors%}
 <center><h5>Tu usuario y contraseña no concuerdan, porfavor intenta nuevamente</h5></center>
 {%else%}

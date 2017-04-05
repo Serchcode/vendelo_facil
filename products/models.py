@@ -134,8 +134,13 @@ class Anuncio(models.Model):
         return content_type
 
     def get_absolute_url(self):
+<<<<<<< HEAD
         return reverse('product:detalle',args=[self.slug])
 
+=======
+        return reverse('product:detalle',args=[self.id,self.slug])
+    
+>>>>>>> 22ee55446fbb0e28e4b1068217ca65dbc14e09a0
 
     def __str__(self):
         return self.titulo_anuncio
@@ -165,8 +170,8 @@ class Comment(models.Model):
     class meta:
         orden = ['-fecha_comentario']
 
-    def __str__(self):
-        return '{} comento en {}'.format(self.autor,self.producto)
+    #def __str__(self):
+    #    return '{} comento en {}'.format(self.autor,self.producto)
 
     def children(self):
         return Comment.objects.filter(parent=self)
