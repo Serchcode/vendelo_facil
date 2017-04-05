@@ -112,8 +112,8 @@ class Comment(models.Model):
     class meta:
         orden = ['-fecha_comentario']
 
-    def __str__(self):
-        return '{} comento en {}'.format(self.autor,self.producto)
+    #def __str__(self):
+    #    return '{} comento en {}'.format(self.autor,self.producto)
 
     def children(self):
         return Comment.objects.filter(parent=self)
