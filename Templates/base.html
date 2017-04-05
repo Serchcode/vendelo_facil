@@ -13,7 +13,6 @@
 	  <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-		<!--<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <style type="text/css">
         .logo-custom {
@@ -30,34 +29,39 @@
       height:100px;
 }
 
-@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
- 
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
 padding:12px;
- 
+border-radius: 20px; 
 }
 .isa_info {
     color: #00529B;
     background-color: #BDE5F8;
 }
 .isa_success {
-    color: #4F8A10;
-    background-color: #DFF2BF;
+
+    color: #FFF;
+    background-color: #9ccc65;
+
 }
+.isa_success:before {
+  content: url({% static "media/yes.png" %}); 
+}
+
 .isa_warning {
     color: #9F6000;
     background-color: #FEEFB3;
 }
+
+.isa_error:before {
+  content: url({% static "media/error.png" %}); 
+}
+
 .isa_error {
-    color: #D8000C;
-    background-color: #FFBABA;
+    color: #FFF;
+    background-color: #e53935;
 }
-.isa_info i, .isa_success i, .isa_warning i, .isa_error i {
-    margin:10px 22px;
-    font-size:2em;
-    vertical-align:middle;
-}
+
     </style>
 
 
@@ -139,16 +143,59 @@ padding:12px;
 
     {%block scripts%}
     {%endblock scripts%}
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="{%static 'js/materialize.min.js'%}"></script>
-    <script>
-    	$( document ).ready(function(){
-    	  $(".button-collapse").sideNav();
-    	});
-    </script>
-    <script>
-      $(document).ready(function(){
-        $('.scrollspy').scrollSpy();
-      });
-    </script>
+<!--scripts necesarios de materialize-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{%static 'js/materialize.min.js'%}"></script>
+  <script>
+    $( document ).ready(function(){
+    $(".button-collapse").sideNav();
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+      $('.scrollspy').scrollSpy();
+    });
+  </script>
+
+<!--este script es para que se muestren y oculten las respuestas a algun comentario
+y aplicar clases a alertas-->
+
+<script type="text/javascript">
+$(document).ready(function(){
+$(".comment").click(function(event){
+    event.preventDefault();
+    $(this).next(".respuestas").fadeToggle();
+  });
+ $('.success').addClass("isa_success");
+ $('.error').addClass("isa_error");
+});
+</script>
+
+<!--script para agregar la clase textarea de materialize-->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#id_cuerpo').addClass('materialize-textarea');
+  });
+</script>
+
+<!--script para la galeria de imagenes-->
+<script type='text/javascript'>
+var prop = 60.00;
+$("ul.obgaleria").each(function() {
+var id = "#" + $(this).attr("id");
+var ancho = 100 / $(id + " li").length;
+$("head").append("<style>" + id + "{padding: 0 0 " + (prop + ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;} " + id + " li:first-child {width: 100%;padding-bottom: " + prop + "%;}</style>");
+$(id + " li:first-child").clone().prependTo(id);
+$(id + " li:first-child img").css({
+"width": "100%"
+});
+$(id + " li").click(function() {
+$(id + " li:first-child").remove()
+$(this).clone().prependTo(id);
+$(id + " li:first-child img").addClass('materialboxed');
+$(id + " li:first-child img").materialbox();
+$(id + " li:first-child img");
+});
+});
+</script>
 </body>

@@ -1,6 +1,17 @@
 {%extends 'base.html'%}
 {%load static%}
 {%block content%}
+{%if messages%}
+
+<center>
+<div class="container">
+  {% for message in messages %}
+      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  {% endfor %}
+</div>
+</center>
+{%endif%}
+
 <div class="container">
 <div class="row">
 {%for anuncio in items%}

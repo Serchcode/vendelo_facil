@@ -59,18 +59,27 @@ ul.obgaleria li {border-left: 3px solid transparent;border-top: 3px solid transp
 ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 </style>
 
+{%if messages%}
+<center>
+<div class="container">
+  {% for message in messages %}
+      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  {% endfor %}
+</div>
+</center>
+{%endif%}
+
+
 <div class="row">
 {%if anuncio.imagen_opcional_uno%}
 <div class="col s12 m6">
     <div>
-    <div class="modal">
       <ul class="obgaleria" id="galeria1">
         <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
         <li class="tab"><a class="white-text" ><img width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
         <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_terciaria}}"></a></li>
         <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_opcional_uno}}"></a></li>
       </ul>
-    </div>
   </div>
 </div>
 {%else%}
@@ -162,47 +171,4 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 </ul>
 {%endfor%}
 </div>
-
-<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-
-<!--este script es para que se muestren y oculten las respuestas a algun comentario-->
-
-<script type="text/javascript">
-$(document).ready(function(){
-$(".comment").click(function(event){
-    event.preventDefault();
-    $(this).next(".respuestas").fadeToggle();
-  })
-})
-</script>
-
-<!--script para agregar la clase textarea de materialize-->
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#id_cuerpo').addClass('materialize-textarea');
-  });
-</script>
-
-<!--script para la galeria de imagenes-->
-<script type='text/javascript'>
-var prop = 60.00;
-$("ul.obgaleria").each(function() {
-var id = "#" + $(this).attr("id");
-var ancho = 100 / $(id + " li").length;
-$("head").append("<style>" + id + "{padding: 0 0 " + (prop + ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;} " + id + " li:first-child {width: 100%;padding-bottom: " + prop + "%;}</style>");
-$(id + " li:first-child").clone().prependTo(id);
-$(id + " li:first-child img").css({
-"width": "100%"
-});
-$(id + " li").click(function() {
-$(id + " li:first-child").remove()
-$(this).clone().prependTo(id);
-$(id + " li:first-child img").addClass('materialboxed');
-$(id + " li:first-child img").materialbox();
-$(id + " li:first-child img");
-});
-});
-</script>
-
 {%endblock content%}

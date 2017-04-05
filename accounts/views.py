@@ -24,7 +24,7 @@ class Dashboard(View):
 		if userform.is_valid() and profileform.is_valid():
 			userform.save()
 			profileform.save()
-			messages.succes(request,"Los cambios se realizaron exitosamente.")
+			messages.success(request,"Los cambios se realizaron exitosamente.")
 			return redirect('profile')
 		else:
 			context={

@@ -134,7 +134,7 @@ class Anuncio(models.Model):
         return content_type
 
     def get_absolute_url(self):
-        return reverse('product:detalle',args=[self.slug])
+        return reverse('product:detalle',args=[self.id,self.slug])
     
 
     def __str__(self):
