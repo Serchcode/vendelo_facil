@@ -1,3 +1,4 @@
+
 {%extends 'base.html'%}
 {%load static%}
 {%block content%}
@@ -7,16 +8,13 @@
       width: 400px;
       height:400px;
   }
-
   @media only screen and (max-width: 900px) {
         div>img{width: 200px; height: 200px;}
       }
   label{color:black;font-weight: 500; font-size: medium;}
-
 .lightbox {
   /** Default lightbox to hidden */
   display: none;
-
   /** Position and style */
   position: fixed;
   z-index: 999;
@@ -27,26 +25,21 @@
   left: 0;
   background: rgba(0,0,0,0.8);
 }
-
 .lightbox img {
   /** Pad the lightbox image */
   max-width: 90%;
   max-height: 80%;
   margin-top: 2%;
 }
-
 .lightbox:target {
   /** Remove default browser outline */
   outline: none;
-
   /** Unhide lightbox **/
   display: block;
 }
-
-
-ul.obgaleria{width: 100%;height:0;overflow:hidden;margin: 30px auto;list-style: none;background:transparent;font-size:0;line-height:0;} 
-ul.obgaleria li{position: relative;display:inline-block;width:100%;height:0;margin:0;list-style:none;cursor:pointer;vertical-align:top;overflow:hidden;} 
-ul.obgaleria li img {position: absolute;top: -150%;bottom: -150%;left: -150%;right: -150%;width:100px;height:100px; max-width: none;margin: auto;padding: 0;border:0;} 
+ul.obgaleria{width: 100%;height:0;overflow:hidden;margin: 30px auto;list-style: none;background:transparent;font-size:0;line-height:0;}
+ul.obgaleria li{position: relative;display:inline-block;width:100%;height:0;margin:0;list-style:none;cursor:pointer;vertical-align:top;overflow:hidden;}
+ul.obgaleria li img {position: absolute;top: -150%;bottom: -150%;left: -150%;right: -150%;width:100px;height:100px; max-width: none;margin: auto;padding: 0;border:0;}
 ul.obgaleria li:first-child img {
   top: 0;
   bottom: 0;
@@ -54,24 +47,23 @@ ul.obgaleria li:first-child img {
   right: 0;
   margin: auto;
   width: 100%;
-  height:auto; 
+  height:auto;
   position: relative;
   -webkit-transition:-webkit-transform 1s ease-out;
 -moz-transition:-moz-transform 1s ease-out;
 -o-transition:-o-transform 1s ease-out;
 -ms-transition:-ms-transform 1s ease-out;
 transition:transform 1s ease-out;
-} 
-
-ul.obgaleria li {border-left: 3px solid transparent;border-top: 3px solid transparent;box-sizing: border-box;} 
+}
+ul.obgaleria li {border-left: 3px solid transparent;border-top: 3px solid transparent;box-sizing: border-box;}
 ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 </style>
-     
+
 <div class="row">
 {%if anuncio.imagen_opcional_uno%}
 <div class="col s12 m6">
     <div>
-    <div>
+    <div class="modal">
       <ul class="obgaleria" id="galeria1">
         <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
         <li class="tab"><a class="white-text" ><img width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
@@ -128,7 +120,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
   {{comment_form}}
 <center>
   <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Comentar">
-</center> 
+</center>
 </form>
 {%for comment in comments%}
  <ul class="collection">
@@ -163,7 +155,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
       <center>
         <input type="hidden" name="parent_id" value="{{comment.id}}">
         <input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Responder">
-      </center> 
+      </center>
     </form>
     </div>
   </li>
@@ -173,12 +165,14 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
 <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<!--este script es para que se muestren y oculten las respuestas a algun comentario--> 
+
+<!--este script es para que se muestren y oculten las respuestas a algun comentario-->
+
 <script type="text/javascript">
 $(document).ready(function(){
 $(".comment").click(function(event){
     event.preventDefault();
-    $(this).next(".respuestas").fadeToggle();       
+    $(this).next(".respuestas").fadeToggle();
   })
 })
 </script>
@@ -192,7 +186,7 @@ $(".comment").click(function(event){
 
 <!--script para la galeria de imagenes-->
 <script type='text/javascript'>
-var prop = 60.00; 
+var prop = 60.00;
 $("ul.obgaleria").each(function() {
 var id = "#" + $(this).attr("id");
 var ancho = 100 / $(id + " li").length;

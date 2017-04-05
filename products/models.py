@@ -49,8 +49,16 @@ class Anuncio(models.Model):
     )
     fecha_anuncio = models.DateField(auto_now=True)
     imagen_principal = models.ImageField(upload_to="productos/%Y/%m/%d")
-    imagen_secundaria = models.ImageField(upload_to="productos/%Y/%m/%d")
-    imagen_terciaria = models.ImageField(upload_to="productos/%Y/%m/%d")
+    imagen_secundaria = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_terciaria = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
     imagen_opcional_uno = models.ImageField(
         upload_to="productos/%Y/%m/%d",
         blank=True,
@@ -62,6 +70,51 @@ class Anuncio(models.Model):
         null=True
     )
     imagen_opcional_tres = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_cuatro = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_cinco = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_seis = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_siete = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_ocho = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_nueve = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_diez = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_once = models.ImageField(
+        upload_to="productos/%Y/%m/%d",
+        blank=True,
+        null=True
+    )
+    imagen_opcional_doce = models.ImageField(
         upload_to="productos/%Y/%m/%d",
         blank=True,
         null=True
