@@ -135,7 +135,7 @@ class Anuncio(models.Model):
 
     def get_absolute_url(self):
         return reverse('product:detalle',args=[self.slug])
-    
+
 
     def __str__(self):
         return self.titulo_anuncio
@@ -148,7 +148,7 @@ class CommentManager(models.Manager):
     def filter_by_instance(self,anuncio):
         content_type=   ContentType.objects.get_for_model(anuncio.__class__)
         obj_id =  anuncio.id
-        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None) 
+        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
         return qs
 
 
