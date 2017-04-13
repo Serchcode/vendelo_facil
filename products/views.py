@@ -1,7 +1,7 @@
 from django.views.generic import View
 from django.contrib.contenttypes.models import ContentType
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
-from .forms import AnuncioForm, CommentForm
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio, Imagen_Anuncio
+from .forms import AnuncioForm, CommentForm, ImagenAnuncioForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
 from django.db.models import Q
@@ -11,6 +11,8 @@ from django.contrib import messages
 import json
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.forms import modelformset_factory, BaseFormSet, formset_factory
+from django.forms.models import BaseInlineFormSet
 
 
 class ListViewAnuncio(View):
@@ -46,29 +48,58 @@ class AnuncioNuevo(View):
     def get(self, request):
         template_name = "products/formulario_anuncio.html"
         form = AnuncioForm()
+        ImagenAnuncioFormSet = formset_factory(
+            ImagenAnuncioForm,
+            extra=10,
+            min_num=1,
+            max_num=1,
+            validate_min=True
+
+        )
+        formset = ImagenAnuncioFormSet()
         context ={
             'form':form,
+            'formset':formset
         }
         return render(request, template_name, context)
 
     @method_decorator(login_required)
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
+        ImagenAnuncioFormSet = modelformset_factory(
+            Imagen_Anuncio,
+            form=ImagenAnuncioForm,
+            fields=('imagen_anuncio',)
+        )
         if request.method == 'POST':
             data = request.POST
             files = request.FILES
             print(files)
             print(data)
-            form = AnuncioForm(data, files)
-            print(form)
-            if form.is_valid():
+            form = AnuncioForm(data)
+            formset = ImagenAnuncioFormSet(data)
+            #print(form)
+            print('B===========D')
+            #print(formset)
+            if form.is_valid() and formset.is_valid():
                 anuncio_nuevo = form.save(commit=False)
+                #formset_nuevo = formset.save(commit=False)
                 print('hola')
                 anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
                 anuncio_nuevo.Moneda = request.POST.get('Moneda')
                 anuncio_nuevo.vendedor = request.user
+                formset_nuevo.save()
                 anuncio_nuevo.save()
                 messages.success(request,'Anuncio Publicado')
+
+                for formImagen in formset.cleaned_data():
+                    imagen_anuncio = formImagen['imagen']
+                    photo = Imagen_Anuncio(
+                        Anuncio=form,
+                        imagen_anuncio=imagen_anuncio
+                    )
+                    photo.save()
+
                 return redirect('product:dash')
             else:
                 print("khe")
@@ -120,13 +151,13 @@ class DetailView(View):
                                     content_type= content_type,
                                     object_id= obj_id,
                                     cuerpo= cuerpo_data,
-                                    parent = parent_obj, 
-                ) 
+                                    parent = parent_obj,
+                )
             messages.success(request,'Comentario exitoso')
         else:
             messages.error(request,'Comentario vacio')
         return redirect('product:detalle',id =id,slug=slug)
-    
+
 class Items(View):
     def get(self,request):
         template_name='products/item.html'

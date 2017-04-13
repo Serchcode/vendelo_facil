@@ -48,77 +48,6 @@ class Anuncio(models.Model):
         on_delete=models.CASCADE,
     )
     fecha_anuncio = models.DateField(auto_now=True)
-    imagen_principal = models.ImageField(upload_to="productos/%Y/%m/%d")
-    imagen_secundaria = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_terciaria = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_uno = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_dos = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_tres = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_cuatro = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_cinco = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_seis = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_siete = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_ocho = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_nueve = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_diez = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_once = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_doce = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
     slug = models.SlugField(max_length=200)
 
     @property
@@ -134,16 +63,22 @@ class Anuncio(models.Model):
         return content_type
 
     def get_absolute_url(self):
-<<<<<<< HEAD
-        return reverse('product:detalle',args=[self.slug])
-
-=======
         return reverse('product:detalle',args=[self.id,self.slug])
-    
->>>>>>> 22ee55446fbb0e28e4b1068217ca65dbc14e09a0
 
     def __str__(self):
         return self.titulo_anuncio
+
+class Imagen_Anuncio(models.Model):
+    Anuncio = models.ForeignKey(
+        Anuncio,
+        on_delete=models.CASCADE
+    )
+    imagen_anuncio = models.ImageField(
+        upload_to="productos/%Y/%m/%d"
+    )
+
+    def __str__(self):
+        return self.Anuncio
 
 class CommentManager(models.Manager):
     def all(self):
