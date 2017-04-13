@@ -5,7 +5,7 @@ from products.models import Anuncio
 class HomeView(View):
 	def get(self, request):
 		template_name="index.html"
-		return render (request,template_name)
+		return render(request,template_name)
 
 class ListViewAnuncio(View):
     def get(self, request, categoria=None):
