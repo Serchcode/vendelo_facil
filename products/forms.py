@@ -1,5 +1,5 @@
 from django import forms
-from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment
+from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment, Imagen_Anuncio
 
 
 TIPO_MONEDA =(
@@ -13,54 +13,6 @@ class AnuncioForm(forms.ModelForm):
         choices=TIPO_MONEDA,
         required=True,
         widget = forms.Select,
-    )
-    imagen_principal = forms.FileField(
-        required=True,
-        widget = forms.ClearableFileInput(
-        attrs={
-                'class': 'waves-effect waves-light btn #43a047 green darken-1',
-                'type': 'file',
-
-        }
-    )
-    )
-    imagen_secundaria = forms.FileField(
-        required=True,
-        widget = forms.ClearableFileInput(
-         attrs={
-                'class': 'waves-effect waves-light btn #43a047 green darken-1',
-                'type': 'file',
-
-        }
-            )
-    )
-    imagen_terciaria = forms.FileField(
-        required=True,
-        widget = forms.ClearableFileInput(
-         attrs={
-                'class': 'waves-effect waves-light btn #43a047 green darken-1',
-                'type': 'file',
-
-        }
-            )
-    )
-    imagen_opcional_uno = forms.FileField(
-        required=False,
-        widget = forms.ClearableFileInput(
-         attrs={
-                'class': 'waves-effect waves-light btn #43a047 green darken-1',
-                'type': 'file',
-
-        }
-            )
-    )
-    imagen_opcional_dos = forms.FileField(
-        required=False,
-        widget = forms.ClearableFileInput
-    )
-    imagen_opcional_tres = forms.FileField(
-        required=False,
-        widget = forms.ClearableFileInput
     )
     categoria = forms.ModelChoiceField(
         #label =u'Categoria',
@@ -82,10 +34,6 @@ class AnuncioForm(forms.ModelForm):
             'precio',
             'categoria',
             'subcategoria_relacion',
-            'imagen_principal',
-            'imagen_secundaria',
-            'imagen_terciaria',
-            'imagen_opcional_uno'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -98,5 +46,18 @@ class CommentForm(forms.Form):
     #parent_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
     cuerpo = forms.CharField(label= 'Comentar', widget=forms.Textarea)
 
+class ImagenAnuncioForm(forms.Form):
+    imagen_anuncio = forms.FileField(
+        required=True,
+        widget = forms.ClearableFileInput(
+        attrs={
+                'class': 'waves-effect waves-light btn #43a047 green darken-1',
+                'type': 'file',
+                'multiple':'',
 
-
+        }
+    )
+    )
+    class Meta:
+        model = Imagen_Anuncio
+        field = ['imagen_anuncio',]
