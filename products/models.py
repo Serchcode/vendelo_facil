@@ -73,7 +73,7 @@ class Imagen_Anuncio(models.Model):
         Anuncio,
         on_delete=models.CASCADE
     )
-    imagen_anuncio = models.ImageField(
+    imagen_anuncio = models.FileField(
         upload_to="productos/%Y/%m/%d"
     )
 
