@@ -64,7 +64,7 @@ class Anuncio(models.Model):
         blank=True,
         null=True
     )
-    imagen_opcional_doss = models.ImageField(
+    imagen_opcional_dos = models.ImageField(
         upload_to="productos/%Y/%m/%d",
         blank=True,
         null=True
