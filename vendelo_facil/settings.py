@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'vendelo_facil.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 if DEBUG:
-    
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -92,9 +92,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'vendelo',
-            'USER': 'checo',
-            'PASSWORD': 'savelotodo',
+            'NAME': 'vendelo_2',
+            'USER': 'melo',
+            'PASSWORD': 'cbtis2014$',
             'HOST': 'localhost',
             'PORT': '',
         }
