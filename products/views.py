@@ -48,65 +48,58 @@ class AnuncioNuevo(View):
     def get(self, request):
         template_name = "products/formulario_anuncio.html"
         form = AnuncioForm()
-        ImagenAnuncioFormSet = formset_factory(
-            ImagenAnuncioForm,
-            extra=10,
-            min_num=1,
-            max_num=1,
-            validate_min=True
-
-        )
-        formset = ImagenAnuncioFormSet()
+        ImagenAnuncioFormSet = formset_factory(ImagenAnuncioForm)
+        formset = ImagenAnuncioFormSet(prefix='imagenes')
+        #formset = ImagenAnuncioForm()
         context ={
             'form':form,
-            'formset':formset
+            'formset':formset,
         }
         return render(request, template_name, context)
 
     @method_decorator(login_required)
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
-        ImagenAnuncioFormSet = modelformset_factory(
-            Imagen_Anuncio,
-            form=ImagenAnuncioForm,
-            fields=('imagen_anuncio',)
-        )
+        ImagenAnuncioFormSet = formset_factory(Imagen_Anuncio, extra=16)
         if request.method == 'POST':
             data = request.POST
             files = request.FILES
             print(files)
             print(data)
-            form = AnuncioForm(data)
-            formset = ImagenAnuncioFormSet(data)
-            #print(form)
-            print('B===========D')
+            form=AnuncioForm(data)
+            formset = ImagenAnuncioFormSet(data, files)
             #print(formset)
             if form.is_valid() and formset.is_valid():
                 anuncio_nuevo = form.save(commit=False)
                 #formset_nuevo = formset.save(commit=False)
-                print('hola')
+                #print(formset)
                 anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
+                slug = anuncio_nuevo.slug
                 anuncio_nuevo.Moneda = request.POST.get('Moneda')
                 anuncio_nuevo.vendedor = request.user
-                formset_nuevo.save()
+                vendedor = anuncio_nuevo.vendedor
                 anuncio_nuevo.save()
-                messages.success(request,'Anuncio Publicado')
-
-                for formImagen in formset.cleaned_data():
-                    imagen_anuncio = formImagen['imagen']
+                formsetClean = formset.cleaned_data
+                print(formsetClean)
+                for formImagen in formsetClean:
+                    imagen_anuncio = formImagen['imagen_anuncio']
                     photo = Imagen_Anuncio(
                         Anuncio=form,
                         imagen_anuncio=imagen_anuncio
                     )
                     photo.save()
-
+#                print(query)
+#                for each in data
+#                    Imagen_Anuncio.objects.create(imagen_anuncio=each, Anuncio=query)
+                messages.success(request,'Anuncio Publicado')
                 return redirect('product:dash')
             else:
                 print("khe")
                 print (form.errors)
                 messages.error(request,'No se guardo')
                 context ={
-                    'form':form
+                    'form':form,
+                    'formset':formset
                 }
                 return render(request, template_name, context)
 

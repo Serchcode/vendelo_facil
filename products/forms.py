@@ -1,6 +1,6 @@
 from django import forms
 from .models import Anuncio, Categoria_Anuncio, SubCategoria_Anuncio,Comment, Imagen_Anuncio
-
+from multiupload.fields import MultiFileField
 
 TIPO_MONEDA =(
     ('selec','Selecciona una Moneda'),
@@ -46,17 +46,13 @@ class CommentForm(forms.Form):
     #parent_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
     cuerpo = forms.CharField(label= 'Comentar', widget=forms.Textarea)
 
-class ImagenAnuncioForm(forms.Form):
-    imagen_anuncio = forms.FileField(
-        required=True,
-        widget = forms.ClearableFileInput(
-        attrs={
-                'class': 'waves-effect waves-light btn #43a047 green darken-1',
-                'type': 'file',
-                'multiple':'',
 
-        }
-    )
+class ImagenAnuncioForm(forms.Form):
+    imagen_anuncio = MultiFileField(
+        required=True,
+        min_num=1,
+        max_num=15,
+        #media_type = 'image',
     )
     class Meta:
         model = Imagen_Anuncio
