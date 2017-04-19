@@ -60,14 +60,14 @@ class AnuncioNuevo(View):
     @method_decorator(login_required)
     def post(self, request):
         template_name = "products/formulario_anuncio.html"
-        ImagenAnuncioFormSet = formset_factory(Imagen_Anuncio, extra=16)
+        ImagenAnuncioFormSet = formset_factory(Imagen_Anuncio, extra=3)
         if request.method == 'POST':
             data = request.POST
             files = request.FILES
             print(files)
             print(data)
             form=AnuncioForm(data)
-            formset = ImagenAnuncioFormSet(data, files)
+            formset = ImagenAnuncioFormSet(files, prefix='imagenes')
             #print(formset)
             if form.is_valid() and formset.is_valid():
                 anuncio_nuevo = form.save(commit=False)
