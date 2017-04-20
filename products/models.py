@@ -69,7 +69,7 @@ class Anuncio(models.Model):
         return self.titulo_anuncio
 
 class Imagen_Anuncio(models.Model):
-    Anuncio = models.ForeignKey(
+    anuncio_imagen_fk = models.ForeignKey(
         Anuncio,
         on_delete=models.CASCADE
     )
