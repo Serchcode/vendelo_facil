@@ -80,9 +80,18 @@ class Anuncio(models.Model):
     def __str__(self):
         return self.titulo_anuncio
 
+<<<<<<< HEAD
+=======
+class Imagen_Anuncio(models.Model):
+    anuncio_imagen_fk = models.ForeignKey(
+        Anuncio,
+        on_delete=models.CASCADE
+    )
+    imagen_anuncio = models.FileField(
+        upload_to="productos/%Y/%m/%d"
+    )
+>>>>>>> 6b3637750d8b7860053d3a462175a9a03e6e3844
 
-    def __str__(self):
-        return self.Anuncio
 
 class CommentManager(models.Manager):
     def all(self):
