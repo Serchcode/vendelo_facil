@@ -1,6 +1,6 @@
 from django.views.generic import View
 from django.contrib.contenttypes.models import ContentType
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio, Imagen_Anuncio
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio,Imagen_Anuncio
 from .forms import AnuncioForm, CommentForm, ImagenAnuncioForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify

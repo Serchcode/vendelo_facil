@@ -25,6 +25,12 @@ class SubCategoria_Anuncio(models.Model):
     def __str__(self):
         return self.nombre_subcategoria
 
+class Imagen_Anuncio(models.Model):
+    imagen_anuncio = models.FileField(
+        upload_to="productos/%Y/%m/%d"
+    )
+
+
 class Anuncio(models.Model):
     TIPO_MONEDA = (
         ('mxn','MXN'),
@@ -47,6 +53,12 @@ class Anuncio(models.Model):
         SubCategoria_Anuncio,
         on_delete=models.CASCADE,
     )
+
+    imagen_relacion = models.ForeignKey(
+        Imagen_Anuncio,
+        on_delete = models.CASCADE
+        )
+
     fecha_anuncio = models.DateField(auto_now=True)
     slug = models.SlugField(max_length=200)
 
@@ -68,14 +80,6 @@ class Anuncio(models.Model):
     def __str__(self):
         return self.titulo_anuncio
 
-class Imagen_Anuncio(models.Model):
-    Anuncio = models.ForeignKey(
-        Anuncio,
-        on_delete=models.CASCADE
-    )
-    imagen_anuncio = models.FileField(
-        upload_to="productos/%Y/%m/%d"
-    )
 
     def __str__(self):
         return self.Anuncio
