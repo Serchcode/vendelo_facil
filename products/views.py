@@ -104,6 +104,7 @@ class DetailView(View):
     def get(self,request,id,slug):
         template='products/detail.html'
         anuncio=get_object_or_404(Anuncio,id=id,slug=slug)
+        imagenes= anuncio.imagen.all()
         initial_data = {
             "content_type": anuncio.get_content_type,
             "object_id": anuncio.id
@@ -112,6 +113,7 @@ class DetailView(View):
         comments=anuncio.comments
         context={
         'anuncio':anuncio,
+        'imagenes':imagenes,
         'comments':comments,
         'comment_form':comment_form,
         }
@@ -153,5 +155,6 @@ class Items(View):
         items = Anuncio.objects.filter(vendedor= request.user)
         context = {
         'items':items,
+
         }
         return render(request,template_name,context)

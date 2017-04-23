@@ -34,7 +34,6 @@ class AnuncioForm(forms.ModelForm):
             'precio',
             'categoria',
             'subcategoria_relacion',
-            'imagen_relacion'
         ]
 
     def __init__(self, *args, **kwargs):

@@ -25,10 +25,6 @@ class SubCategoria_Anuncio(models.Model):
     def __str__(self):
         return self.nombre_subcategoria
 
-class Imagen_Anuncio(models.Model):
-    imagen_anuncio = models.FileField(
-        upload_to="productos/%Y/%m/%d"
-    )
 
 
 class Anuncio(models.Model):
@@ -53,11 +49,6 @@ class Anuncio(models.Model):
         SubCategoria_Anuncio,
         on_delete=models.CASCADE,
     )
-
-    imagen_relacion = models.ForeignKey(
-        Imagen_Anuncio,
-        on_delete = models.CASCADE
-        )
 
     fecha_anuncio = models.DateField(auto_now=True)
     slug = models.SlugField(max_length=200)
@@ -84,7 +75,7 @@ class Anuncio(models.Model):
 class Imagen_Anuncio(models.Model):
     anuncio_imagen_fk = models.ForeignKey(
         Anuncio,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE, related_name='imagen'
     )
     imagen_anuncio = models.FileField(
         upload_to="productos/%Y/%m/%d"
@@ -127,3 +118,4 @@ class Comment(models.Model):
         if self.parent is not None:
             return False
         return True
+        
