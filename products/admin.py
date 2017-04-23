@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio, Imagen_Anuncio
 # Register your models here.
 def make_published(modeladmin, request, queryset):
     queryset.update(categoria='productos')
@@ -19,4 +19,5 @@ class SubcategoriaAnuncioAdmin(admin.ModelAdmin):
 admin.site.register(Anuncio, AnuncioAdmin)
 admin.site.register(Categoria_Anuncio, CategoriaAnuncioAdmin)
 admin.site.register(SubCategoria_Anuncio, SubcategoriaAnuncioAdmin)
+admin.site.register(Imagen_Anuncio)
 admin.site.register(Comment)

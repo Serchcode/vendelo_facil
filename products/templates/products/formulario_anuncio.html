@@ -41,6 +41,23 @@
               <h6><strong>Subir imagenes:</strong></h6>
               <div class="row">
                 <div class="col s12 m8">
+                  <!--{{ formset.management_form }}-->
+                  {{formset}}
+                </div>
+                <div class="col s12 m4" id="imgpreview"></div>
+                </div>
+<!-- Imagenes con el otro modelo
+<div class="file-field input-field">
+  <div class="btn waves-effect waves-light btn #43a047 green darken-1 js-upload-photos">
+    <span>File</span>
+    <input id="fileupload" type="file" name="file" multiple data-form-data='{"csrfmiddlewaretoken":{{csrf_token}}"}'>
+  </div>
+  <div class="file-path-wrapper">
+    <input class="file-path validate" type="text" placeholder="Upload one or more files">
+  </div>
+</div>
+              <div class="row">
+                <div class="col s12 m8">
                   {{form.imagen_principal}}
                 </div>
                 <div class="col s12 m4" id="imgpreview"></div>
@@ -67,6 +84,7 @@
                   </div>
                   <div class="col s12 m4" id="imgpreview4"></div>
                 </div>
+              -->
               <center>
                 <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
                   <i class="material-icons right">send</i>
@@ -126,7 +144,7 @@ $.ajaxSetup({
 <script>
  $(document).ready(function(){
   $('#id_descripcion_anuncio').addClass('materialize-textarea');
- }); 
+ });
 </script>
 <!--script para el logo-->
 <script >
@@ -337,3 +355,4 @@ validarlos manualmente-->
   });
 </script>
 {%endblock content%}
+<!-- Archivos de JQuery para File Upload -->
