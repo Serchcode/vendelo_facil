@@ -152,9 +152,8 @@ class DetailView(View):
 class Items(View):
     def get(self,request):
         template_name='products/item.html'
-        items = Anuncio.objects.filter(vendedor= request.user)
+        items = Anuncio.objects.filter(vendedor= request.user).all()
         context = {
         'items':items,
-
         }
         return render(request,template_name,context)
