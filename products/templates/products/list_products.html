@@ -37,7 +37,9 @@
         <div class="col s12 m4">
           <div class="card medium hoverable">
             <div class="card-image">
-              <img src="/media/{{anuncio.imagen_principal}}">
+              {% for im in anuncio.imagen.all|slice:"0:1" %}
+                <img src="{{im.imagen_anuncio.url}}">      
+              {% endfor %}
             </div>
             <div class="card-content">
             <strong><center><h5>{{anuncio.titulo_anuncio}}</h5></center></strong>
