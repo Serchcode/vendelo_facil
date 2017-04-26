@@ -25,7 +25,7 @@ SECRET_KEY = 'h#(v$2u(u@1%v^e9u(y3xkp$d2!bx&be7f9t_g_)$&&()3cmoi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'main',
     'products',
     'taggit',
-    'responsive',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -53,7 +52,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'responsive.middleware.ResponsiveMiddleware',
 ]
 
 ROOT_URLCONF = 'vendelo_facil.urls'
@@ -70,7 +68,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.request',
-                'responsive.context_processors.device',
             ],
         },
     },
@@ -83,12 +80,26 @@ WSGI_APPLICATION = 'vendelo_facil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'vendelo_2',
+            'USER': 'melo',
+            'PASSWORD': 'poweroso77',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+
 
 
 # Password validation
