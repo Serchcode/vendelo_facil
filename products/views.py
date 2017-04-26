@@ -1,7 +1,8 @@
 from django.views.generic import View
+from django.views.generic.edit import FormView
 from django.contrib.contenttypes.models import ContentType
-from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio
-from .forms import AnuncioForm, CommentForm
+from .models import Anuncio, Comment, Categoria_Anuncio, SubCategoria_Anuncio,Imagen_Anuncio
+from .forms import AnuncioForm, CommentForm, ImagenAnuncioForm
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils.text import slugify
 from django.db.models import Q
@@ -11,6 +12,9 @@ from django.contrib import messages
 import json
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.forms import modelformset_factory, BaseFormSet, formset_factory
+from django.forms.models import BaseInlineFormSet
+from django.core.files.base import ContentFile
 
 
 class ListViewAnuncio(View):
@@ -46,8 +50,10 @@ class AnuncioNuevo(View):
     def get(self, request):
         template_name = "products/formulario_anuncio.html"
         form = AnuncioForm()
+        formset = ImagenAnuncioForm()
         context ={
             'form':form,
+            'formset':formset,
         }
         return render(request, template_name, context)
 
@@ -59,15 +65,28 @@ class AnuncioNuevo(View):
             files = request.FILES
             print(files)
             print(data)
-            form = AnuncioForm(data, files)
-            print(form)
-            if form.is_valid():
+            form=AnuncioForm(data)
+            formset = ImagenAnuncioForm(data, files)
+            files = request.FILES.getlist('imagen_anuncio')
+            print(formset)
+            if form.is_valid() and formset.is_valid():
                 anuncio_nuevo = form.save(commit=False)
-                print('hola')
+                imagen_nueva = formset.save(commit=False)
                 anuncio_nuevo.slug = slugify(anuncio_nuevo.titulo_anuncio)
+                slug = anuncio_nuevo.slug
                 anuncio_nuevo.Moneda = request.POST.get('Moneda')
                 anuncio_nuevo.vendedor = request.user
+                vendedor = request.user
+                vendedor = anuncio_nuevo.vendedor
                 anuncio_nuevo.save()
+                id_anuncio = int(anuncio_nuevo.id)
+                fk_anuncio = Anuncio.objects.get(id=id_anuncio, slug=slug)
+                for imagen in files:
+                    print(imagen)
+                    Imagen_Anuncio.objects.create(
+                        anuncio_imagen_fk = fk_anuncio,
+                        imagen_anuncio = imagen
+                    )
                 messages.success(request,'Anuncio Publicado')
                 return redirect('product:dash')
             else:
@@ -75,7 +94,8 @@ class AnuncioNuevo(View):
                 print (form.errors)
                 messages.error(request,'No se guardo')
                 context ={
-                    'form':form
+                    'form':form,
+                    'formset':formset
                 }
                 return render(request, template_name, context)
 
@@ -84,6 +104,7 @@ class DetailView(View):
     def get(self,request,id,slug):
         template='products/detail.html'
         anuncio=get_object_or_404(Anuncio,id=id,slug=slug)
+        imagenes= anuncio.imagen.all()
         initial_data = {
             "content_type": anuncio.get_content_type,
             "object_id": anuncio.id
@@ -92,6 +113,7 @@ class DetailView(View):
         comments=anuncio.comments
         context={
         'anuncio':anuncio,
+        'imagenes':imagenes,
         'comments':comments,
         'comment_form':comment_form,
         }
@@ -120,18 +142,19 @@ class DetailView(View):
                                     content_type= content_type,
                                     object_id= obj_id,
                                     cuerpo= cuerpo_data,
-                                    parent = parent_obj, 
-                ) 
+                                    parent = parent_obj,
+                )
             messages.success(request,'Comentario exitoso')
         else:
             messages.error(request,'Comentario vacio')
         return redirect('product:detalle',id =id,slug=slug)
-    
+
 class Items(View):
     def get(self,request):
         template_name='products/item.html'
         items = Anuncio.objects.filter(vendedor= request.user)
         context = {
         'items':items,
+
         }
         return render(request,template_name,context)

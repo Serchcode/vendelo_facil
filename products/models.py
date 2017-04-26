@@ -25,6 +25,8 @@ class SubCategoria_Anuncio(models.Model):
     def __str__(self):
         return self.nombre_subcategoria
 
+
+
 class Anuncio(models.Model):
     TIPO_MONEDA = (
         ('mxn','MXN'),
@@ -47,78 +49,8 @@ class Anuncio(models.Model):
         SubCategoria_Anuncio,
         on_delete=models.CASCADE,
     )
+
     fecha_anuncio = models.DateField(auto_now=True)
-    imagen_principal = models.ImageField(upload_to="productos/%Y/%m/%d")
-    imagen_secundaria = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_terciaria = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_uno = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_dos = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_tres = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_cuatro = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_cinco = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_seis = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_siete = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_ocho = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_nueve = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_diez = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_once = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
-    imagen_opcional_doce = models.ImageField(
-        upload_to="productos/%Y/%m/%d",
-        blank=True,
-        null=True
-    )
     slug = models.SlugField(max_length=200)
 
     @property
@@ -135,10 +67,20 @@ class Anuncio(models.Model):
 
     def get_absolute_url(self):
         return reverse('product:detalle',args=[self.id,self.slug])
-    
 
     def __str__(self):
         return self.titulo_anuncio
+
+
+class Imagen_Anuncio(models.Model):
+    anuncio_imagen_fk = models.ForeignKey(
+        Anuncio,
+        on_delete=models.CASCADE, related_name='imagen'
+    )
+    imagen_anuncio = models.FileField(
+        upload_to="productos/%Y/%m/%d"
+    )
+
 
 class CommentManager(models.Manager):
     def all(self):
@@ -148,7 +90,7 @@ class CommentManager(models.Manager):
     def filter_by_instance(self,anuncio):
         content_type=   ContentType.objects.get_for_model(anuncio.__class__)
         obj_id =  anuncio.id
-        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None) 
+        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
         return qs
 
 
@@ -176,3 +118,4 @@ class Comment(models.Model):
         if self.parent is not None:
             return False
         return True
+        
