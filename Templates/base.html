@@ -184,17 +184,11 @@ var prop = 60.00;
 $("ul.obgaleria").each(function() {
 var id = "#" + $(this).attr("id");
 var ancho = 100 / $(id + " li").length;
-$("head").append("<style>" + id + "{padding: 0 0 " + (prop + ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;} " + id + " li:first-child {width: 100%;padding-bottom: " + prop + "%;}</style>");
-$(id + " li:first-child").clone().prependTo(id);
-$(id + " li:first-child img").css({
-"width": "100%"
-});
-$(id + " li").click(function() {
-$(id + " li:first-child").remove()
-$(this).clone().prependTo(id);
-$(id + " li:first-child img").addClass('materialboxed');
-$(id + " li:first-child img").materialbox();
-$(id + " li:first-child img");
+$("head").append("<style>" + id + "{padding: 0 0 " + (ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;}</style>");
+$(id + " li").click(function(){
+  var url = $(this).find('img').attr('src');
+  $('.mainhref').attr('href',url);
+  $('.img_tag_principal').attr('src',url);
 });
 });
 </script>
