@@ -142,13 +142,10 @@ border-radius: 20px;
 
 <!--scripts necesarios de materialize-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<<<<<<< HEAD
-<script src="{% static 'js/lightbox.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-=======
 <script src="{%static 'js/materialize.min.js'%}"></script>
 <script src="{% static 'js/lightbox.js' %}"></script>
->>>>>>> sergio
+
   <script>
     $( document ).ready(function(){
     $(".button-collapse").sideNav();
@@ -187,10 +184,7 @@ var prop = 60.00;
 $("ul.obgaleria").each(function() {
 var id = "#" + $(this).attr("id");
 var ancho = 100 / $(id + " li").length;
-<<<<<<< HEAD
 
-=======
->>>>>>> sergio
 $("head").append("<style>" + id + "{padding: 0 0 " + (ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;}</style>");
 $(id + " li").click(function(){
   var url = $(this).find('img').attr('src');
