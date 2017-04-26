@@ -56,8 +56,8 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 <div class="row">
 <div class="col s12 m6">
 <div style="position: relative; height: 50vh; top:3vh; bottom:10vh; display: flex; justify-content: center;">
-      <a href="/media/{{anuncio.imagen_principal}}" data-lightbox="gallery" class="mainhref"><img class="img_tag_principal" src="{% for im in anuncio.imagen.all|slice:"0:1" %}{{im.imagen_anuncio.url}}{% endfor %}" alt="Principal"></a>
-</div>
+      <a href="{% for im in anuncio.imagen.all|slice:"0:1" %}{{im.imagen_anuncio.url}}{% endfor %}" data-lightbox="gallery" class="mainhref"><img class="img_tag_principal" src="{% for im in anuncio.imagen.all|slice:"0:1" %}{{im.imagen_anuncio.url}}{% endfor %}" alt="Principal"></a>
+</div>  
 <ul class="obgaleria" id="galeria1">
   {% for img  in imagenes  %}
     <li ><a class="white-text"> <img src="{{img.imagen_anuncio.url}}" alt=""></a></li> 
