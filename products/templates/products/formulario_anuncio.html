@@ -90,7 +90,9 @@
       </form>
   </div>
 </div>
+{%endblock content%}
 <!--script para csrftoken-->
+{% block scripts %}
 <script>
   // using jQuery
 function getCookie(name) {
@@ -336,4 +338,4 @@ validarlos manualmente-->
     });
   });
 </script>
-{%endblock content%}
+{% endblock scripts %}
