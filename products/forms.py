@@ -15,17 +15,7 @@ class AnuncioForm(forms.ModelForm):
         widget = forms.Select,
     )
 
-    categoria = forms.ModelChoiceField(
-        #label =u'Categoria',
-        queryset = Categoria_Anuncio.objects.all(),
-        widget = forms.Select,
-    )
-    subcategoria_relacion = forms.ModelChoiceField(
-        #label =u'Subcategoria',
-        queryset = SubCategoria_Anuncio.objects.all(),
-        widget = forms.Select,
-    )
-
+  
     imagen_principal = forms.FileField(
         required=True,
         widget = forms.ClearableFileInput(
@@ -74,6 +64,19 @@ class AnuncioForm(forms.ModelForm):
         required=False,
         widget = forms.ClearableFileInput
     )
+
+    categoria = forms.ModelChoiceField(
+        #label =u'Categoria',
+        queryset = Categoria_Anuncio.objects.all(),
+        widget = forms.Select,
+    )
+    
+    subcategoria_relacion = forms.ModelChoiceField(
+        #label =u'Subcategoria',
+        queryset = SubCategoria_Anuncio.objects.all(),
+        widget = forms.Select,
+    )
+
   
 
     class Meta:
