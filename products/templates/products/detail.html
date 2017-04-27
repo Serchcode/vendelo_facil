@@ -22,7 +22,7 @@ ul.obgaleria li:first-child img {
   left: 0;
   right: 0;
   margin: auto;
-  width: auto;
+  width: 100%;
   height:auto;
   max-height: 100%;
   max-width: 100%;
@@ -36,8 +36,7 @@ transition:transform 1s ease-out;
 ul.obgaleria li {border-left: 3px solid transparent;border-top: 3px solid transparent;box-sizing: border-box;}
 ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 
-.img_tag_principal {
-  
+.img_tag_principal {  
   width: auto;
   max-height: 50vh;
   max-width: 100%;
@@ -55,36 +54,18 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 </center>
 {%endif%}
 
-
 <div class="row">
-{%if anuncio.imagen_opcional_uno%}
-<div class="col s12 m6">
-    <div style="position: relative; height: 50vh; top:3vh; bottom:10vh; display: flex; justify-content: center;">
-      <a href="/media/{{anuncio.imagen_principal}}" data-lightbox="gallery" class="mainhref"><img class="img_tag_principal" src="/media/{{anuncio.imagen_principal}}" alt="Principal"></a>
-    </div>
-    <div>
-      <ul class="obgaleria" id="galeria1">
-        <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
-        <li class="tab"><a class="white-text" ><img width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
-        <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_terciaria}}"></a></li>
-        <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_opcional_uno}}"></a></li>
-      </ul>
-  </div>
+<div class="col s12 m5">
+<div style="position: relative; height: 50vh; top:3vh; bottom:10vh; display: flex; justify-content: center;">
+      <a href="{% for im in anuncio.imagen.all|slice:"0:1" %}{{im.imagen_anuncio.url}}{% endfor %}" data-lightbox="gallery" class="mainhref"><img class="img_tag_principal" src="{% for im in anuncio.imagen.all|slice:"0:1" %}{{im.imagen_anuncio.url}}{% endfor %}" alt="Principal"></a>
+</div>  
+<ul class="obgaleria" id="galeria1">
+  {% for img  in imagenes  %}
+    <li ><a class="white-text"> <img src="{{img.imagen_anuncio.url}}" alt=""></a></li> 
+  {% endfor %}  
+</ul>
 </div>
-{%else%}
-<div class="col s12 m6">
-    <div>
-    <div>
-      <ul class="obgaleria" id="galeria1">
-        <li ><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_principal}}"></a></li>
-        <li class="tab"><a class="white-text"><img  width="100" src="/media/{{anuncio.imagen_secundaria}}"></a></li>
-        <li class="tab"><a class="white-text"><img width="100" src="/media/{{anuncio.imagen_terciaria}}"></a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-{%endif%}
-<div class="col s12 m4">
+<div class="col s12 m7">
   <table class="table highlight">
         <thead>
           <tr>
@@ -112,6 +93,7 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
       </table>
   </div>
 </div>
+
 <div class="container">
 <form method="POST" action=".">
 {%csrf_token%}
