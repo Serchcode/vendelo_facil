@@ -10,8 +10,7 @@
 	  <link rel="icon" href="{%static 'media/log_50.png'%}" type="image/x-icon">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <style type="text/css">
         .logo-custom {
       margin-top: 7px;
@@ -141,10 +140,11 @@ border-radius: 20px;
 
 <!--scripts necesarios de materialize-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'js/lightbox.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 <script src="{%static 'js/materialize.min.js'%}"></script>
 <script src="{% static 'js/lightbox.js' %}"></script>
-{%block scripts%}
+
   <script>
     $( document ).ready(function(){
     $(".button-collapse").sideNav();
@@ -192,6 +192,7 @@ $(id + " li").click(function(){
 });
 });
 </script>
+{%block scripts%}
 
 {%endblock scripts%}
 </body>
