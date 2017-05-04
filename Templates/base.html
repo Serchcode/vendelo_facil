@@ -140,18 +140,13 @@ border-radius: 20px;
 
 <!--scripts necesarios de materialize-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="{% static 'js/lightbox.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-<script src="{%static 'js/materialize.min.js'%}"></script>
 <script src="{% static 'js/lightbox.js' %}"></script>
 
   <script>
     $( document ).ready(function(){
     $(".button-collapse").sideNav();
-    });
-  </script>
-  <script>
-    $(document).ready(function(){
+    $('.slider').slider();
       $('.scrollspy').scrollSpy();
     });
   </script>
@@ -190,6 +185,37 @@ $(id + " li").click(function(){
   $('.mainhref').attr('href',url);
   $('.img_tag_principal').attr('src',url);
 });
+});
+</script>
+<!--script para mostrar las imagenes-->
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#dvPreview");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "height:100px;width: 100px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
 });
 </script>
 {%block scripts%}

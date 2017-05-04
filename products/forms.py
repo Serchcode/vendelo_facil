@@ -57,7 +57,8 @@ class ImagenAnuncioForm(forms.ModelForm):
         attrs={
                 'class': 'waves-effect waves-light btn #43a047 green darken-1',
                 'type': 'file',
-                'multiple': True
+                'multiple': True,
+                'id': 'fileupload' 
         }
     )
     )
