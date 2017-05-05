@@ -2,6 +2,13 @@
 {%load static%}
 {%block content%}
 {%if messages%}
+<style>
+  #anun{
+
+    width: 150px;
+    height: 150px;
+  }
+</style>
 
 <center>
 <div class="container">
@@ -34,7 +41,11 @@
           </div>
         </div>
 {%empty%}
+<center>
 <h2>no hay anuncios</h2>
+<h4>ve a tu perfil y comienza a vender ahora mismo!</h4>
+<img id="anun" src="{% static "media/logofin.png" %}" alt="">
+</center>
 {% endfor %}
   </div>
 </div>

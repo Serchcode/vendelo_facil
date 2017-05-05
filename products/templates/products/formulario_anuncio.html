@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {%block content%}
+{%load static%}
 <style type="text/css">
   div>img{
     border:2px solid white;
@@ -12,7 +13,18 @@
     padding: 0 0.99rem;
     min-height: 1px;
 }
+
 </style>
+{%if messages%}
+<center>
+<div class="container">
+  {% for message in messages %}
+      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  {% endfor %}
+</div>
+</center>
+{%endif%}
+
 <div class="container">
   <div class="row">
       <form class="col s12 " method="POST" action="." id="uploadform anuncio_form" enctype="multipart/form-data">
@@ -56,31 +68,21 @@
                 </div>
                 </center>
                 </div>
-
+                
               <center>
-                <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
+                <button id="btnSubmit" class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
                   <i class="material-icons right">send</i>
                 </button>
               </center>
-                {% if form.errors %}
-                  {% for field in form %}
-                      {% for error in field.errors %}
-                          <div class="alert alert-danger">
-                              <strong>{{ error|escape }}</strong>
-                          </div>
-                      {% endfor %}
-                  {% endfor %}
-                  {% for error in form.non_field_errors %}
-                      <div class="alert alert-danger">
-                          <strong>{{ error|escape }}</strong>
-                      </div>
-                  {% endfor %}
-              {% endif %}
+              <div id="divMsg" style="display:none;">
+                <center>
+                <img  src="{%static 'media/loading.gif'%}" />
+                </center>
+              </div>
             </div>
       </form>
   </div>
 </div>
-
 <!--script para csrftoken-->
 {% block scripts %}
 <script>
@@ -159,6 +161,15 @@ $(document).ready(function() {
     }
   }
 </script>
+<!--script para loader-->
+<script>
+  $(function() {
+    $("form").submit(function() {
+        $(":submit").replaceWith('<img  src="{%static 'media/lo.gif'%}" />');
+    });
+});
+</script>
+
 
 {% endblock scripts %}
 
