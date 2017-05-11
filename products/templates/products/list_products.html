@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-
+{%load static%}
 {%block content%}
 <style type="text/css">
   div>img{
@@ -44,6 +44,7 @@
 <center>
   <h2>no hay anuncios</h2>
   <h4>Se el primero en publicar</h4>
+  <img src="{% static "media/logofin.png" %}" alt="">
 </center>
 {% endfor %}
   </div>

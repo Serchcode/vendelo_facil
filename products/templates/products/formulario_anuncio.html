@@ -1,12 +1,30 @@
 {%extends 'base.html'%}
 {%block content%}
+{%load static%}
 <style type="text/css">
   div>img{
     border:2px solid white;
       width:200px;
       height:150px;
   }
+  .row .col {
+    float: left;
+    box-sizing: border-box;
+    padding: 0 0.99rem;
+    min-height: 1px;
+}
+
 </style>
+{%if messages%}
+<center>
+<div class="container">
+  {% for message in messages %}
+      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  {% endfor %}
+</div>
+</center>
+{%endif%}
+
 <div class="container">
   <div class="row">
       <form class="col s12 " method="POST" action="." id="uploadform anuncio_form" enctype="multipart/form-data">
@@ -43,34 +61,28 @@
                 <div class="col s12 m8">
                   <!--{{ formset.management_form }}-->
                   {{formset}}
+                </div> 
+                <center>    
+                <div style="padding-top:10px" class="col s12 m12" id="dvPreview">
+                
                 </div>
-                <div class="col s12 m4" id="imgpreview"></div>
+                </center>
                 </div>
-
+                
               <center>
-                <button class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
+                <button id="btnSubmit" class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Publicar
                   <i class="material-icons right">send</i>
                 </button>
               </center>
-                {% if form.errors %}
-                  {% for field in form %}
-                      {% for error in field.errors %}
-                          <div class="alert alert-danger">
-                              <strong>{{ error|escape }}</strong>
-                          </div>
-                      {% endfor %}
-                  {% endfor %}
-                  {% for error in form.non_field_errors %}
-                      <div class="alert alert-danger">
-                          <strong>{{ error|escape }}</strong>
-                      </div>
-                  {% endfor %}
-              {% endif %}
+              <div id="divMsg" style="display:none;">
+                <center>
+                <img  src="{%static 'media/loading.gif'%}" />
+                </center>
+              </div>
             </div>
       </form>
   </div>
 </div>
-
 <!--script para csrftoken-->
 {% block scripts %}
 <script>
@@ -149,43 +161,15 @@ $(document).ready(function() {
     }
   }
 </script>
-<!--comienzan los scripts para la subida de imagenes-->
-
-<!-- Scipt para recuperar todos los datos y mandarlos a la vista en un json y
-validarlos manualmente-->
-<script type="text/javascript">
-  //manda los datos en un json
-  //var formData = new FormData(document.getElementById("#anuncio_form"));
-  var parametros=new FormData($(this)[0])
-  $(document).on("submit","#anuncio_form",function(e) {
-    e.preventDefault();
-    $.ajax({
-      type:"POST",
-      url:"{%url 'product:publicar'%}",
-      contentType: false,
-      data:parametros,
-      //dataType: "json",
-      /*data: JSON.stringify({
-        id_titulo_anuncio:$("#id_titulo_anuncio").val(),
-        id_descripcion_anuncio:$("#id_descripcion_anuncio").val(),
-        id_precio:$("#id_precio").val(),
-        id_Moneda:$("#id_Moneda").val(),
-        id_categoria:$("#id_categoria").val(),
-        id_subcategoria_relacion:$("#id_subcategoria_relacion").val(),
-        id_imagen_principal:$("#id_imagen_principal").val(),
-        id_imagen_secundaria:$("#id_imagen_secundaria").val(),
-        id_imagen_terciaria:$("#id_imagen_terciaria").val(),
-        csrfmiddlewaretoken:$("input[name=csrfmiddlewaretoken]").val(),
-      }),*/
-      cache: false,
-      processData: false,
-      contentType: false,
-      /*success:function () {
-        alert("Publicado Papud");
-      }*/
+<!--script para loader-->
+<script>
+  $(function() {
+    $("form").submit(function() {
+        $(":submit").replaceWith('<img  src="{%static 'media/lo.gif'%}" />');
     });
-  });
+});
 </script>
+
 
 {% endblock scripts %}
 
