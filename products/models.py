@@ -67,10 +67,6 @@ class Anuncio(models.Model):
 
     def get_absolute_url(self):
         return reverse('product:detalle',args=[self.id,self.slug])
-<<<<<<< HEAD
-    
-=======
->>>>>>> bf2e548bd71658e07ad1f9fb2b0235f504c5982d
 
     def __str__(self):
         return self.titulo_anuncio
@@ -122,4 +118,3 @@ class Comment(models.Model):
         if self.parent is not None:
             return False
         return True
-        
