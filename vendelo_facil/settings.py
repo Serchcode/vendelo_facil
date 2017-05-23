@@ -144,3 +144,11 @@ STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
 #STATIC_ROOT = os.path.join(BASE_DIR,"static/")
 MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\', '/')
 MEDIA_URL = '/media/'
+
+#config or EmailMessage
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'facilvendelo@gmail.com'
+EMAIL_HOST_PASSWORD = 'proterrefacil0694'
+EMAIL_PORT = 587
