@@ -3,6 +3,11 @@
 {%block content%}
 {%if messages%}
 <style>
+  .im{
+    height: 100px;
+    width: 100px;
+  }
+
   #anun{
 
     width: 150px;
@@ -26,7 +31,7 @@
           <div class="card medium hoverable">
             <div class="card-image">
               {% for im in anuncio.imagen.all|slice:"0:1" %}
-                  <img src="{{im.imagen_anuncio.url}}" class="responsive-img">
+                  <img src="{{im.imagen_anuncio.url}}" style="height:200px">
               {% endfor %}
             </div>
             <div class="card-content">
