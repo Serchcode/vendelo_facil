@@ -118,4 +118,3 @@ class Comment(models.Model):
         if self.parent is not None:
             return False
         return True
-        
