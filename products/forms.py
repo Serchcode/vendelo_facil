@@ -20,14 +20,14 @@ class AnuncioForm(forms.ModelForm):
         queryset = Categoria_Anuncio.objects.all(),
         widget = forms.Select,
     )
-    
+
     subcategoria_relacion = forms.ModelChoiceField(
         #label =u'Subcategoria',
         queryset = SubCategoria_Anuncio.objects.all(),
         widget = forms.Select,
     )
 
-  
+
 
     class Meta:
         model = Anuncio
@@ -58,7 +58,7 @@ class ImagenAnuncioForm(forms.ModelForm):
                 'class': 'waves-effect waves-light btn #43a047 green darken-1',
                 'type': 'file',
                 'multiple': True,
-                'id': 'fileupload' 
+                'id': 'fileupload',
         }
     )
     )
