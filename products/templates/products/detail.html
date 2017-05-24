@@ -45,13 +45,17 @@ ul.obgaleria li:nth-child(2), ul.obgaleria li:first-child {border-left:0;}
 </style>
 
 {%if messages%}
-<center>
-<div class="container">
+
   {% for message in messages %}
-      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+    <div class="overlay">
+      <div class="modal-container">
+        <center>
+          <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+        </center>
+      </div>
+    </div>
   {% endfor %}
-</div>
-</center>
+
 {%endif%}
 
 <div class="row">
