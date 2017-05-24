@@ -46,12 +46,12 @@
 }
 
 input#icon_prefix{
-  
+  margin-top: 13px;
   padding-left: 50px;
   background-color: white;
   color: black;
   border-radius: 7px;
-  height: 40px;
+  height: 38px;
   width: 80%;
 }
 
@@ -106,13 +106,16 @@ border-radius: 20px;
 			{%if request.user.is_authenticated%}
 					 <ul class="right hide-on-med-and-down">
             <li id="bus"> 
-              <form class="col s12">
+              <form method="GET" action="{%url 'product:lista'%}">
               <div class="row">
-              <div class="input-field col s12 m11">
+              <div class="input-field col s12 m9">
               <i class="material-icons prefix">search</i>
-              <input id="icon_prefix" type="text" class="validate">
+              <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
              <label for="icon_prefix">Buscar:</label>
-             </div>
+                </div>
+            <div class="col s12 m3">
+             <button class="waves-effect waves-light btn #43a047 green darken-1" type="submit" name="action" style="margin-bottom:3px;">Buscar</button>
+            </div>
             </div>
             </form>
             </li>
@@ -135,16 +138,20 @@ border-radius: 20px;
 					{%else%}
 					<ul class="right hide-on-med-and-down">
             <li id="bus"> 
-              <form class="col s12">
+              <form method="GET" action="{%url 'product:lista'%}">
               <div class="row">
-              <div class="input-field col s12 m11">
+              <div class="input-field col s12 m9">
               <i class="material-icons prefix">search</i>
-              <input id="icon_prefix" type="text" class="validate">
+              <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
              <label for="icon_prefix">Buscar:</label>
-             </div>
+                </div>
+            <div class="col s12 m3">
+             <button class="waves-effect waves-light btn #43a047 green darken-1" type="submit" name="action" style="margin-bottom:3px;">Buscar</button>
+            </div>
             </div>
             </form>
             </li>
+            <li></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
