@@ -25,6 +25,41 @@
       width:100px;
       height:100px;
 }
+.overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  z-index: 9999;
+}
+
+
+.overlay .modal-container{
+  height: 40vh;
+  width:40%;
+  border-radius: 5px;
+  position: relative;
+}
+
+input#icon_prefix{
+  
+  padding-left: 50px;
+  background-color: white;
+  color: black;
+  border-radius: 7px;
+  height: 40px;
+  width: 80%;
+}
+
+li#bus .row{
+  margin: 0;
+}
+
+
 
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
@@ -69,7 +104,18 @@ border-radius: 20px;
       		<a href="{%url 'main:home'%}"><img id="logo" src="{%static 'media/log_50.png'%}" class="brand-logo logo-custom"></img></a>
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			{%if request.user.is_authenticated%}
-					<ul class="right hide-on-med-and-down">
+					 <ul class="right hide-on-med-and-down">
+            <li id="bus"> 
+              <form class="col s12">
+              <div class="row">
+              <div class="input-field col s12 m11">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" type="text" class="validate">
+             <label for="icon_prefix">Buscar:</label>
+             </div>
+            </div>
+            </form>
+            </li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'profile'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="#">Mi Carrito</a></li>
@@ -88,7 +134,17 @@ border-radius: 20px;
 					</ul>
 					{%else%}
 					<ul class="right hide-on-med-and-down">
-            <li><a  href="#buscador"><i class="material-icons">search</i></a></li>
+            <li id="bus"> 
+              <form class="col s12">
+              <div class="row">
+              <div class="input-field col s12 m11">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" type="text" class="validate">
+             <label for="icon_prefix">Buscar:</label>
+             </div>
+            </div>
+            </form>
+            </li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
@@ -143,6 +199,7 @@ border-radius: 20px;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 <script src="{% static 'js/lightbox.js' %}"></script>
 
+
   <script>
     $( document ).ready(function(){
     $(".button-collapse").sideNav();
@@ -150,6 +207,14 @@ border-radius: 20px;
       $('.scrollspy').scrollSpy();
     });
   </script>
+<!--script para desaparecer mensajes-->
+  <script type="text/javascript">
+$(document).ready(function() {
+    setTimeout(function() {
+        $(".overlay").fadeOut(1000);
+    },1000);
+});
+</script>
 
 <!--este script es para que se muestren y oculten las respuestas a algun comentario
 y aplicar clases a alertas-->

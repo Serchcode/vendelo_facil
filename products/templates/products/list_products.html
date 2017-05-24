@@ -7,6 +7,11 @@
       
       height:200px;
   }
+  
+  .imgan{
+    height: 200px;
+    width: 100px;
+  }
 </style>
 <br>
 <br>
@@ -26,7 +31,7 @@
           <div class="card medium hoverable">
             <div class="card-image">
               {% for im in anuncio.imagen.all|slice:"0:1" %}
-                  <img src="{{im.imagen_anuncio.url}}" class="responsive-img">
+                  <img src="{{im.imagen_anuncio.url}}" class="imgan">
               {% endfor %}
             </div>
             <div class="card-content">
