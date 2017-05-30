@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta chartset="utf-8">
+<title>Mi primer chat</title>
+</head>
+<body>
+    <div id="mensaje">
+
+        </div>
+        <input type="text" id="txt_mensaje">
+        <button id="boton">Enviar mensaje</button>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDZmE_sgq0JusMrruiW6kFCnHZECstHHhI",
+    authDomain: "ljjhjhj-8b830.firebaseapp.com",
+    databaseURL: "https://ljjhjhj-8b830.firebaseio.com",
+    projectId: "ljjhjhj-8b830",
+    storageBucket: "ljjhjhj-8b830.appspot.com",
+    messagingSenderId: "694335631355"
+  };
+  firebase.initializeApp(config);
+</script>
+<script>
+    var db = firebase.database();
+    $(document).ready(function(){
+        db.ref("mensaje").on("child_added", function(data){
+            console.log(data.val());
+            $("#mensaje").append("<p>"+data.val().mensaje+"</p><br>");
+        });
+        });
+    $("#boton").click(function(){
+        var mensaje = $("#txt_mensaje").val();
+        db.ref("mensaje").push({
+            mensaje: mensaje
+        });
+    console.log(mensaje);
+    });
+</script>
+</body>
+</html>
