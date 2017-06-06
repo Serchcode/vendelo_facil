@@ -32,7 +32,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
   #bsearch{display: inline-block;
     position: absolute;
     margin-left: 75%;
@@ -116,6 +116,16 @@ li#cre a{
   margin-top: -20%;
 }
 
+.modal div#buscador {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 7%; 
+}
+ .modal div.modal-content input{
+  border-style: solid;
+  border-color: #9ccc65;
+ }
+
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
 padding:12px;
@@ -185,10 +195,10 @@ border-radius: 20px;
             <li id="cre"><img class="fotito" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
-            <li><a href="{%url 'main:home'%}">Home</a></li>
-						<li><a href="{%url 'profile'%}">Mi Cuenta</a></li>
-						<li><a href="#">Mi Carrito</a></li>
-						<li><a href="{%url 'logout'%}" class="fa fa-logout">Salir</a>
+            <li><a href="{%url 'main:home'%}"><i class="material-icons">home</i>Home</a></li>
+						<li><a href="{%url 'profile'%}"><i class="material-icons">person_pin</i>Mi Cuenta</a></li>
+						<li><a href="#"><i class="material-icons">shopping_cart</i>Mi Carrito</a></li>
+						<li><a href="{%url 'logout'%}"><i class="material-icons">subdirectory_arrow_left</i>Salir</a>
 						</li>
 					</ul>
 					{%else%}
@@ -213,33 +223,34 @@ border-radius: 20px;
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
 					</ul>
           <ul class="side-nav" id="mobile-demo">
-						<li><a href="{%url 'login'%}">Mi Cuenta</a></li>
-						<li><a href="{%url 'main:home'%}">Home</a></li>
-            <li><a href="{%url 'login'%}">Carrito</a></li>
+            <li><a href="{%url 'main:home'%}"><i class="material-icons">home</i>Home</a></li>
+						<li><a href="{%url 'login'%}"><i class="material-icons">person_pin</i>Mi Cuenta</a></li>
+            <li><a href="{%url 'login'%}"><i class="material-icons">shopping_cart</i>Carrito</a></li>
 					</ul>
 		{%endif%}
     	</div>
   	</nav>
 
-    <div id="modal1" class="modal">
-    <center> 
+    <div id="modal1" class="modal"> 
     <div class="container"> 
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
-    </div>
-    <p>Busca los mejores productos</p>
-    </center>
     <center>
-    <p><i class="material-icons">computer</i>
-    <i class="material-icons">settings_cell</i>
-    <i class="material-icons">motorcycle</i>
-    <i class="material-icons">directions_car</i></p>
-    </center>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">cancel</i></a></center>
+    </div>
+    <div class="row">
+    <div class="container" id="buscador">
+      <center>
+      <p>Busca los mejores productos</p>
+      <p><i class="material-icons">computer</i>
+      <i class="material-icons">settings_cell</i>
+      <i class="material-icons">motorcycle</i>
+      <i class="material-icons">directions_car</i></p>
+      </center>
+    </div>
       <div class="modal-content">
           <form method="GET" action="{%url 'product:lista'%}">
               <div class="row">
               <div class="input-field">
               <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
-             <label for="icon_prefix">Buscar:</label>
                 </div>
             <div>
             <center>
@@ -248,6 +259,7 @@ border-radius: 20px;
             </div>
             </div>
             </form>
+      </div>
       </div>
     </div>
           
