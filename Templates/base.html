@@ -25,6 +25,17 @@
       width:100px;
       height:100px;
 }
+
+
+
+#bsearch{
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  #bsearch{display: inline-block;}
+    }
+
 .overlay{
   position: fixed;
   width: 100%;
@@ -59,7 +70,48 @@ li#bus .row{
   margin: 0;
 }
 
+li#movil {
+  width: 75%
+}
 
+li#movil i{
+  color: black;
+}
+
+li#movil input{
+  border-style: solid;
+  border-color:  #9ccc65 ;
+}
+
+li#movil button{
+  margin-left: 45%;
+}
+
+li#cre img{
+  margin-left: 30%;
+  margin-top: 10%;
+}
+
+li#cre a{
+  margin-top: -10%;
+  margin-left: 30%;
+}
+
+
+.modal p{
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+
+.modal div.container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal div.modal-content{
+  margin-top: -20%;
+}
 
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
@@ -103,6 +155,7 @@ border-radius: 20px;
     	<div class="nav-wrapper #9ccc65 light-green lighten-1">
       		<a href="{%url 'main:home'%}"><img id="logo" src="{%static 'media/log_50.png'%}" class="brand-logo logo-custom"></img></a>
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <a id="bsearch"  href="#modal1" ><i class="material-icons">search</i></a>         
 			{%if request.user.is_authenticated%}
 					 <ul class="right hide-on-med-and-down">
             <li id="bus"> 
@@ -126,7 +179,7 @@ border-radius: 20px;
 						</li>
 					</ul>
 					<ul class="side-nav" id="mobile-demo">
-            <li><img class="fotito center" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
+            <li id="cre"><img class="fotito" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
             <a text-decoration="none">{{request.user.first_name}} {{request.user.last_name}}</a></li>
             <li><div class="divider"></div></li>
             <li><a href="{%url 'main:home'%}">Home</a></li>
@@ -140,7 +193,7 @@ border-radius: 20px;
             <li id="bus"> 
               <form method="GET" action="{%url 'product:lista'%}">
               <div class="row">
-              <div class="input-field col s12 m9">
+              <div class="input-field col s6 m9">
               <i class="material-icons prefix">search</i>
               <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
              <label for="icon_prefix">Buscar:</label>
@@ -157,7 +210,6 @@ border-radius: 20px;
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
 					</ul>
           <ul class="side-nav" id="mobile-demo">
-            <li><a href="#buscador"><i class="material-icons">search</i></a></li>
 						<li><a href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a href="{%url 'main:home'%}">Home</a></li>
             <li><a href="{%url 'login'%}">Carrito</a></li>
@@ -165,6 +217,37 @@ border-radius: 20px;
 		{%endif%}
     	</div>
   	</nav>
+
+    <div id="modal1" class="modal">
+    <center> 
+    <div class="container"> 
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+    </div>
+    <p>Busca los mejores productos</p>
+    </center>
+    <center>
+    <p><i class="material-icons">computer</i>
+    <i class="material-icons">settings_cell</i>
+    <i class="material-icons">motorcycle</i>
+    <i class="material-icons">directions_car</i></p>
+    </center>
+      <div class="modal-content">
+          <form method="GET" action="{%url 'product:lista'%}">
+              <div class="row">
+              <div class="input-field">
+              <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
+             <label for="icon_prefix">Buscar:</label>
+                </div>
+            <div>
+            <center>
+             <button class="waves-effect waves-light btn #43a047 green darken-1" type="submit" name="action" style="margin-bottom:3px;">Buscar</button>
+            </center>
+            </div>
+            </div>
+            </form>
+      </div>
+    </div>
+          
 
     {%block content%}
 
@@ -290,6 +373,17 @@ $(function () {
     });
 });
 </script>
+<script>
+   $(document).ready(function(){
+    $('.modal').modal();
+  });
+</script>
+<script>
+  $("#change").click(function(){
+     $("#mobile-demo").replaceWith("Hello world!");
+});
+</script>
+
 {%block scripts%}
 
 {%endblock scripts%}
