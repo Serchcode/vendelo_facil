@@ -63,6 +63,8 @@ class AnuncioNuevo(View):
         if request.method == 'POST':
             data = request.POST
             files = request.FILES
+            #img_def = data['imagen_anuncio_def']
+            #print(img_def)
             print(files)
             print(data)
             form=AnuncioForm(data)
@@ -91,7 +93,7 @@ class AnuncioNuevo(View):
                 return redirect('product:dash')
             else:
                 print("khe")
-                
+
                 messages.error(request,'No se guardo tu anuncio revisa si llenaste correctamente todos los campos')
                 return redirect('product:publicar')
                 context ={

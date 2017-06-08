@@ -13,7 +13,31 @@
     padding: 0 0.99rem;
     min-height: 1px;
 }
+input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  padding: 1px;
+  cursor: pointer;
+}
+#preview {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
 
+  display: block;
+  background: rgba(211, 47, 47, 1);
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
 </style>
 {%if messages%}
 
@@ -62,13 +86,13 @@
               </div>
               <h6><strong>Subir imagenes:</strong></h6>
               <div class="row">
-                <div class="col s12 m8">
+                <div class="col s12 m8" id="FilesDiv">
                   <!--{{ formset.management_form }}-->
                   {{formset}}
                 </div>
                 <center>
                 <div style="padding-top:10px" class="col s12 m12" id="dvPreview">
-
+                  <div id="aux"></div>
                 </div>
                 </center>
                 </div>
@@ -173,7 +197,35 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.File && window.FileList && window.FileReader) {
+      $('#fileupload').change(function ReadFiles(e) {
+        var files = e.target.files,
+        filesLength = files.length;
+        console.log(files);
+        for (var i = 0; i < filesLength; i++) {
+          var f = files[i]
+              console.log(f);
+              var fileReader = new FileReader();
+              fileReader.onload = (function(e) {
+                var file = e.target;
+                $("<span id=\"preview\">" +
+                  "<img class=\"imageThumb\" id=\"files\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                  "<br/><span class=\"remove large material-icons\">delete</span>" +
+                  "</span>").insertAfter("#aux");
+                  $(".remove").click(function(){
+                    $(this).parent('#preview').remove();
+                  });
+              });
+              fileReader.readAsDataURL(f);
+            }
+      });
+    } else {
+      alert('tu navegador no soporta esta opcion')
+    }
+  });
+</script>
 {% endblock scripts %}
 
 {%endblock content%}
