@@ -3,6 +3,12 @@
 
 {%block content%}
 
+<style>
+	#perfil{
+		height: 287px;
+	}
+</style>
+
 {%if messages%}
 <center>
 
@@ -26,12 +32,13 @@
 	        <br>
 	          <div class="card">
 	            <div class="card-image">
-	              <img src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
-	              <span class="card-title">{{request.user.first_name}} {{request.user.last_name}}</span>
+	              <img id="perfil" src="{%if request.user.profile.Foto %}{{request.user.profile.Foto.url}}{%endif%}">
 	            </div>
 	            <div class="card-content">
+
 	            </div>
 	            <div class="card-action center">
+	              <span class="card-title">{{request.user.first_name}} {{request.user.last_name}}</span>
 	              <a class="waves-effect waves-light btn #7cb342 light-green darken-1" href="{%url 'product:publicar'%}">Quiero vender algo</a>
 	              <br>
 	              <br>
@@ -58,7 +65,7 @@
 <script>
 $(function() {
     $("form").submit(function() {
-        $(":submit").replaceWith('<img  src="{%static 'media/lo.gif'%}" />');
+        $("#btnSubmit").replaceWith('<img  src="{%static 'media/lo.gif'%}" />');
     });
 });
 </script>
