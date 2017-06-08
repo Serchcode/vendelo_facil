@@ -197,19 +197,24 @@ $(document).ready(function() {
     });
 });
 </script>
+<!-- Actualizar y borrar imagenes antes de subir -->
 <script type="text/javascript">
   $(document).ready(function() {
     if (window.File && window.FileList && window.FileReader) {
       $('#fileupload').change(function ReadFiles(e) {
+        //se guardan todas las imagens del input con la api Files de HTML5
         var files = e.target.files,
         filesLength = files.length;
         console.log(files);
+        //Manipular cada una de las imagenes
         for (var i = 0; i < filesLength; i++) {
           var f = files[i]
               console.log(f);
+              //Es una funcion de la API para leer el contenido en memoria
               var fileReader = new FileReader();
               fileReader.onload = (function(e) {
                 var file = e.target;
+                //Dibuaja la vista previa en el HTML Con la opcion remove para cada elemento creado
                 $("<span id=\"preview\">" +
                   "<img class=\"imageThumb\" id=\"files\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
                   "<br/><span class=\"remove large material-icons\">delete</span>" +
