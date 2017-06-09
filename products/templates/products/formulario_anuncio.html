@@ -25,7 +25,7 @@ input[type="file"] {
   display: inline-block;
   margin: 10px 10px 0 0;
 }
-.remove {
+.removeFile {
 
   display: block;
   background: rgba(211, 47, 47, 1);
@@ -34,7 +34,7 @@ input[type="file"] {
   text-align: center;
   cursor: pointer;
 }
-.remove:hover {
+.removeFile:hover {
   background: white;
   color: black;
 }
@@ -89,12 +89,12 @@ input[type="file"] {
                 <div class="col s12 m8" id="FilesDiv">
                   <!--{{ formset.management_form }}-->
                   {{formset}}
+                  <center>
+                  <div style="padding-top:10px" class="col s12 m12" id="dvPreview">
+                    <div id="aux"></div>
+                  </div>
+                  </center>
                 </div>
-                <center>
-                <div style="padding-top:10px" class="col s12 m12" id="dvPreview">
-                  <div id="aux"></div>
-                </div>
-                </center>
                 </div>
 
               <center>
@@ -199,37 +199,94 @@ $(document).ready(function() {
 </script>
 <!-- Actualizar y borrar imagenes antes de subir -->
 <script type="text/javascript">
-  $(document).ready(function() {
-    if (window.File && window.FileList && window.FileReader) {
-      $('#fileupload').change(function ReadFiles(e) {
-        //se guardan todas las imagens del input con la api Files de HTML5
-        var files = e.target.files,
-        filesLength = files.length;
-        console.log(files);
-        //Manipular cada una de las imagenes
-        for (var i = 0; i < filesLength; i++) {
-          var f = files[i]
-              console.log(f);
-              //Es una funcion de la API para leer el contenido en memoria
-              var fileReader = new FileReader();
-              fileReader.onload = (function(e) {
-                var file = e.target;
-                //Dibuaja la vista previa en el HTML Con la opcion remove para cada elemento creado
-                $("<span id=\"preview\">" +
-                  "<img class=\"imageThumb\" id=\"files\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                  "<br/><span class=\"remove large material-icons\">delete</span>" +
-                  "</span>").insertAfter("#aux");
-                  $(".remove").click(function(){
-                    $(this).parent('#preview').remove();
-                  });
-              });
-              fileReader.readAsDataURL(f);
-            }
-      });
-    } else {
-      alert('tu navegador no soporta esta opcion')
+  $.fn.fileUploader = function (filesToUpload, section) {
+    var idFileGenerator = 0;
+    this.closest('#FilesDiv').change(function (e) {
+      var output = [];
+      for (var i = 0; i < e.target.files.length; i++) {
+        //por lomenos ya se dispara la fucking funcion
+        idFileGenerator++;
+        var file = e.target.files[i];
+        //console.log(file);
+        var fileId = section + idFileGenerator;
+        filesToUpload.push({
+          id: fileId,
+          file: file
+        });
+        var removeButton = "<a class=\"removeFile large material-icons\" data-fileid=\"" + fileId + "\">delete</a>";
+        //console.log(removeButton);
+        output.push("<div><strong>", escape(file.name), "</strong> - ", file.size, " bytes. &nbsp; &nbsp; ", removeButton, "</div> ");
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          $("<span id=\"preview\">" +
+            "<img class=\"imageThumb\" id=\"#files\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+            "<a class=\"removeFile large material-icons\" data-fileid=\"" + fileId + "\">delete</a>" +
+            "</span>").insertAfter("#aux");
+        });
+        fileReader.readAsDataURL(file);
+      };
+      console.log(this);
+      $(this).children('#dvPreview').append(output.join(''));
+
+      //reset the input to null - nice little chrome bug!
+      e.target.value = null;
+    });
+
+    $(this).on('click', '.removeFile', function (e) {
+      e.preventDefault();
+      var fileId = $(this).parent().children('a').data('fileid');
+      console.log(fileId);
+      for (var i = 0; i < filesToUpload.length; i++) {
+        if (filesToUpload[i].id === fileId) {
+          filesToUpload.splice(i,1);
+        }
+      }
+      console.log(filesToUpload);
+      $(this).parent().remove();
+    });
+
+    $(this).clear = function () {
+      for (var i = 0; i < filesToUpload.length; i++) {
+        if (filesToUpload[i].id.indexOf(section) >= 0) {
+          filesToUpload.splice(i, 1);
+        }
+      }
+      $(this).children('#dvPreview').empty();
+      console.log(this);
     }
-  });
+    return this;
+  };
+
+  (function () {
+    var filesToUpload = [];
+    console.log(filesToUpload);
+    var readyFilesUploaders = $("#FilesDiv").fileUploader(filesToUpload, 'imagen_anuncio');
+    console.log(readyFilesUploaders);
+    $('#btnSubmit').click(function (e) {
+      e.preventDefault();
+      var formData = new FormData();
+      for (var i = 0; i < filesToUpload.length; i++) {
+        formData.append('files', filesToUpload[i].file);
+        console.log('--'+formData);
+      }
+      console.log(formData);
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "product:publicar" %}',
+        contentType: false,
+        data: formData,
+        success: function (data) {
+          console.log('yea');
+          readyFilesUploaders.clear();
+        },
+        error: function (data) {
+          console.log('fucj');
+        }
+      })
+    });
+  })();
 </script>
 {% endblock scripts %}
 

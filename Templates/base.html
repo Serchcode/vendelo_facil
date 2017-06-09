@@ -175,13 +175,8 @@ border-radius: 20px;
           <a id="bsearch"  href="#modal1" ><i class="material-icons">search</i></a>
 			{%if request.user.is_authenticated%}
 					 <ul class="right hide-on-med-and-down">
-<<<<<<< HEAD
-            <li id="bus">
-              <form class="col s12">
-=======
             <li id="bus">
               <form method="GET" action="{%url 'product:lista'%}">
->>>>>>> eb9a20a0b6cae9b4363a6f026437c044b8738211
               <div class="row">
               <div class="input-field col s12 m9">
               <i class="material-icons prefix">search</i>
@@ -212,13 +207,8 @@ border-radius: 20px;
 					</ul>
 					{%else%}
 					<ul class="right hide-on-med-and-down">
-<<<<<<< HEAD
-            <li id="bus">
-              <form class="col s12">
-=======
             <li id="bus">
               <form method="GET" action="{%url 'product:lista'%}">
->>>>>>> eb9a20a0b6cae9b4363a6f026437c044b8738211
               <div class="row">
               <div class="input-field col s6 m9">
               <i class="material-icons prefix">search</i>
@@ -373,34 +363,7 @@ $(id + " li").click(function(){
 </script>
 <!--script para mostrar las imagenes-->
 <script language="javascript" type="text/javascript">
-$(function () {
-    $("#fileupload").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#dvPreview");
-            dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
-                var file = $(this);
-                if (regex.test(file[0].name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $("<img />");
-                        img.attr("style", "height:100px;width: 100px");
-                        img.attr("src", e.target.result);
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
-});
+
 </script>
 <script>
    $(document).ready(function(){
