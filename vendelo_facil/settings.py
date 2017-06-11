@@ -25,7 +25,7 @@ SECRET_KEY = 'h#(v$2u(u@1%v^e9u(y3xkp$d2!bx&be7f9t_g_)$&&()3cmoi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["vendelofacil.com.mx", "www.vendelofacil.com.mx"]
 
 
 # Application definition
@@ -80,12 +80,26 @@ WSGI_APPLICATION = 'vendelo_facil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'vendelo_facil',
+            'USER': 'melo',
+            'PASSWORD': 'poweroso77',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+
 
 
 # Password validation
@@ -130,3 +144,11 @@ STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
 #STATIC_ROOT = os.path.join(BASE_DIR,"static/")
 MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\', '/')
 MEDIA_URL = '/media/'
+
+#config or EmailMessage
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'facilvendelo@gmail.com'
+EMAIL_HOST_PASSWORD = 'proterrefacil0694'
+EMAIL_PORT = 587

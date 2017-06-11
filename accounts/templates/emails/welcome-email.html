@@ -1,0 +1,112 @@
+<!-- Emails use the XHTML Strict doctype -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- The character set should be utf-8 -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width"/>
+  <!-- Link to the email's CSS, which will be inlined into the email -->
+  <link rel="stylesheet" href="{%static 'css/foundation-emails.css'%}">
+  <style>
+    <!-- Your CSS to inline should be added here -->
+  </style>
+</head>
+
+<body>
+<style type="text/css">
+  .header {
+    background: #8a8a8a;
+  }
+  .header .columns {
+    padding-bottom: 0;
+  }
+  .header p {
+    color: #fff;
+    padding-top: 15px;
+  }
+  .header .wrapper-inner {
+    padding: 20px;
+  }
+  .header .container {
+    background: transparent;
+  }
+  table.button.facebook table td {
+    background: #3B5998 !important;
+    border-color: #3B5998;
+  }
+  table.button.twitter table td {
+    background: #1daced !important;
+    border-color: #1daced;
+  }
+  table.button.google table td {
+    background: #DB4A39 !important;
+    border-color: #DB4A39;
+  }
+  .wrapper.secondary {
+    background: #f3f3f3;
+  }
+  .sidebar .menu .menu-item {
+    border-top: 1px solid #777777;
+  }
+</style>
+
+<wrapper class="header">
+  <container>
+    <row class="collapse">
+      <columns small="6">
+        <img src="http://vendelofacil.com.mx/static/media/log_50.png">
+      </columns>
+      <columns small="6">
+        <p class="text-right">Gracias</p>
+      </columns>
+    </row>
+  </container>
+</wrapper>
+
+<container>
+
+  <spacer size="16"></spacer>
+
+  <row>
+    <columns large="7">
+      <h2>Estimado {{first_name}} {{last_name}}</h2>
+      <p>Vendelo-facil se complace en dirigirse hacia usted para saludarlo y
+        aprovechar la oportunidad para agradecerle profundamente la preferencia
+        que ha mostrado por nuestros servicios. Su apoyo nos hace cada día mejores
+        personas y aumenta nuestro compromiso con su satisfacción a través de lo
+         que le ofrecemos.</p>
+      <p>Esperamos que su confianza en nosotros se incremente con el uso de nuestros servicios.
+        Queremos comunicarle también que estamos complacidos de servirlo.
+        Esperamos satisfacer sus necesidades a través del mejor servicio en el mercado.</p>
+      <p>A su vez, le damos los datos necesarios para que pueda iniciar sesión
+         </p>
+      <p>USUARIO : {{username}}</p>
+      <p>CONTRASEÑA: {{password2}}</p>
+      <callout class="secondary">
+        Nos despedimos de usted, no sin antes reiterarle nuestro agradecimiento
+         y profundo compromiso con su bienestar. Estamos disponibles cuando
+         usted así lo requiera.
+      </callout>
+      <columns large="5">
+        <p>
+          Atentamente: El equipo de Vendelo-facil
+        </p>
+      </columns>
+    </columns>
+  </row>
+  <row>
+    <columns>
+      <center>
+        <menu>
+          <item href="http://Vendelo-facil.com.mx/">Vendelo-facil</item>
+          <item href="#">Privacy</item>
+          <item href="#">Unsubscribe</item>
+        </menu>
+      </center>
+    </columns>
+  </row>
+</container>
+
+</body>
+</html>

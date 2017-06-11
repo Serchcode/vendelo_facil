@@ -91,8 +91,9 @@ class AnuncioNuevo(View):
                 return redirect('product:dash')
             else:
                 print("khe")
-                print (form.errors)
-                messages.error(request,'No se guardo')
+                
+                messages.error(request,'No se guardo tu anuncio revisa si llenaste correctamente todos los campos')
+                return redirect('product:publicar')
                 context ={
                     'form':form,
                     'formset':formset

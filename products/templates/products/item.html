@@ -2,14 +2,30 @@
 {%load static%}
 {%block content%}
 {%if messages%}
+<style>
+  .im{
+    height: 100px;
+    width: 100px;
+  }
 
-<center>
-<div class="container">
+  #anun{
+
+    width: 150px;
+    height: 150px;
+  }
+</style>
+
+
   {% for message in messages %}
-      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+      <div class="overlay">
+        <div class="modal-container">
+            <center>
+              <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+            </center>
+        </div>
+      </div>
   {% endfor %}
-</div>
-</center>
+
 {%endif%}
 
 <div class="container">
@@ -19,7 +35,9 @@
           <div class="card medium hoverable">
             <div class="card-image">
               {% for im in anuncio.imagen.all|slice:"0:1" %}
-                  <img src="{{im.imagen_anuncio.url}}" class="responsive-img">
+
+                  <img src="{{im.imagen_anuncio.url}}" style="height:200px">
+                  
               {% endfor %}
             </div>
             <div class="card-content">
@@ -34,7 +52,11 @@
           </div>
         </div>
 {%empty%}
+<center>
 <h2>no hay anuncios</h2>
+<h4>ve a tu perfil y comienza a vender ahora mismo!</h4>
+<img id="anun" src="{% static "media/logofin.png" %}" alt="">
+</center>
 {% endfor %}
   </div>
 </div>

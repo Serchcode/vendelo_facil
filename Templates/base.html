@@ -4,16 +4,13 @@
 <head>
 
 	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	  <title>{%block titulo%}Véndelo-facil{%endblock titulo%}</title>
-	  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	  <link rel="icon" href="{%static 'media/log_50.png'%}" type="image/x-icon">
-	  <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css'%}">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+
     <style type="text/css">
         .logo-custom {
       margin-top: 7px;
@@ -28,6 +25,41 @@
       width:100px;
       height:100px;
 }
+.overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  z-index: 9999;
+}
+
+
+.overlay .modal-container{
+  height: 40vh;
+  width:40%;
+  border-radius: 5px;
+  position: relative;
+}
+
+input#icon_prefix{
+  margin-top: 13px;
+  padding-left: 50px;
+  background-color: white;
+  color: black;
+  border-radius: 7px;
+  height: 38px;
+  width: 80%;
+}
+
+li#bus .row{
+  margin: 0;
+}
+
+
 
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
@@ -59,7 +91,7 @@ border-radius: 20px;
 
 .isa_error {
     color: #FFF;
-    background-color: #e53935;
+      background-color: #e53935;
 }
 
     </style>
@@ -72,7 +104,21 @@ border-radius: 20px;
       		<a href="{%url 'main:home'%}"><img id="logo" src="{%static 'media/log_50.png'%}" class="brand-logo logo-custom"></img></a>
       		<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			{%if request.user.is_authenticated%}
-					<ul class="right hide-on-med-and-down">
+					 <ul class="right hide-on-med-and-down">
+            <li id="bus"> 
+              <form method="GET" action="{%url 'product:lista'%}">
+              <div class="row">
+              <div class="input-field col s12 m9">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
+             <label for="icon_prefix">Buscar:</label>
+                </div>
+            <div class="col s12 m3">
+             <button class="waves-effect waves-light btn #43a047 green darken-1" type="submit" name="action" style="margin-bottom:3px;">Buscar</button>
+            </div>
+            </div>
+            </form>
+            </li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'profile'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="#">Mi Carrito</a></li>
@@ -91,7 +137,21 @@ border-radius: 20px;
 					</ul>
 					{%else%}
 					<ul class="right hide-on-med-and-down">
-            <li><a  href="#buscador"><i class="material-icons">search</i></a></li>
+            <li id="bus"> 
+              <form method="GET" action="{%url 'product:lista'%}">
+              <div class="row">
+              <div class="input-field col s12 m9">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" name="q" value="{{request.GET.q}}" id="myInput" type="text" class="validate">
+             <label for="icon_prefix">Buscar:</label>
+                </div>
+            <div class="col s12 m3">
+             <button class="waves-effect waves-light btn #43a047 green darken-1" type="submit" name="action" style="margin-bottom:3px;">Buscar</button>
+            </div>
+            </div>
+            </form>
+            </li>
+            <li></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Mi Cuenta</a></li>
 						<li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'main:home'%}">Home</a></li>
             <li><a class="waves-effect waves-light btn #43a047 green darken-1" href="{%url 'login'%}">Carrito</a></li>
@@ -141,21 +201,27 @@ border-radius: 20px;
 
     {%endblock footer%}
 
-    {%block scripts%}
-    {%endblock scripts%}
 <!--scripts necesarios de materialize-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="{%static 'js/materialize.min.js'%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+<script src="{% static 'js/lightbox.js' %}"></script>
+
+
   <script>
     $( document ).ready(function(){
     $(".button-collapse").sideNav();
-    });
-  </script>
-  <script>
-    $(document).ready(function(){
+    $('.slider').slider();
       $('.scrollspy').scrollSpy();
     });
   </script>
+<!--script para desaparecer mensajes-->
+  <script type="text/javascript">
+$(document).ready(function() {
+    setTimeout(function() {
+        $(".overlay").fadeOut(1000);
+    },1000);
+});
+</script>
 
 <!--este script es para que se muestren y oculten las respuestas a algun comentario
 y aplicar clases a alertas-->
@@ -184,18 +250,47 @@ var prop = 60.00;
 $("ul.obgaleria").each(function() {
 var id = "#" + $(this).attr("id");
 var ancho = 100 / $(id + " li").length;
-$("head").append("<style>" + id + "{padding: 0 0 " + (prop + ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;} " + id + " li:first-child {width: 100%;padding-bottom: " + prop + "%;}</style>");
-$(id + " li:first-child").clone().prependTo(id);
-$(id + " li:first-child img").css({
-"width": "100%"
-});
-$(id + " li").click(function() {
-$(id + " li:first-child").remove()
-$(this).clone().prependTo(id);
-$(id + " li:first-child img").addClass('materialboxed');
-$(id + " li:first-child img").materialbox();
-$(id + " li:first-child img");
+
+$("head").append("<style>" + id + "{padding: 0 0 " + (ancho) + "% 0;} " + id + " li{width:" + ancho + "%;padding: 0 0 " + ancho + "% 0;}</style>");
+$(id + " li").click(function(){
+  var url = $(this).find('img').attr('src');
+  $('.mainhref').attr('href',url);
+  $('.img_tag_principal').attr('src',url);
 });
 });
 </script>
+<!--script para mostrar las imagenes-->
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#dvPreview");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "height:100px;width: 100px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+});
+</script>
+{%block scripts%}
+
+{%endblock scripts%}
 </body>

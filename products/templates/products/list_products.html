@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-
+{%load static%}
 {%block content%}
 <style type="text/css">
   div>img{
@@ -7,19 +7,12 @@
       
       height:200px;
   }
+  
+  .imgan{
+    height: 200px;
+    width: 100px;
+  }
 </style>
-<!--  <h4>Productos diponibles</h4>
-  {% if tag %}
-      <h4>Recomendaciones para :{{tag}}</h4>
-  {% endif %}
-{% for anuncio in anuncios %}
-  <h2>{{anuncio.titulo_anuncio}}</h2>
-  <p>{{anuncio.descripcion_anuncio}}</p>
-  <h3>{{anuncio.precio}}</h3>
-  <img src="/media/{{anuncio.imagen_principal}}">
-  {% empty %}
-    <h2>No hay productos, se el primero en vender</h2>
-{% endfor %}-->
 <br>
 <br>
 <div class="container input-field">
@@ -38,7 +31,8 @@
           <div class="card medium hoverable">
             <div class="card-image">
               {% for im in anuncio.imagen.all|slice:"0:1" %}
-                <img src="{{im.imagen_anuncio.url}}">      
+
+                  <img src="{{im.imagen_anuncio.url}}" class="imgan">
               {% endfor %}
             </div>
             <div class="card-content">
@@ -56,6 +50,7 @@
 <center>
   <h2>no hay anuncios</h2>
   <h4>Se el primero en publicar</h4>
+  <img src="{% static "media/logofin.png" %}" alt="">
 </center>
 {% endfor %}
   </div>

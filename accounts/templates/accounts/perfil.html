@@ -5,11 +5,17 @@
 
 {%if messages%}
 <center>
-<div class="container">
+
   {% for message in messages %}
-      <div class="{{message.tags}}"><h5>{{message}}</h5></div>
+  		<div class="overlay">
+  			<div class="modal-container">
+  				<center>
+      				<div class="{{message.tags}}"><h5>{{message}}</h5></div>
+      			</center>
+    		</div>
+   		 </div>
   {% endfor %}
-</div>
+
 </center>
 {%endif%}
 
@@ -39,11 +45,25 @@
 					{%csrf_token%}
 					{{userform.as_p}}
 					{{profileform.as_p}}
-					<center><input class="waves-effect waves-light btn #7cb342 light-green darken-1" type="submit" value="Guardar"></center>
+					<center><button id="btnSubmit" class="btn waves-effect waves-light #43a047 green darken-1" type="submit" name="action">Guardar
+                  <i class="material-icons right">send</i>
+                </button></center>
 				</form>
 		</div>
 	</div>
 </div>
 <br>
 <br>
+{%block scripts%}
+<script>
+$(function() {
+    $("form").submit(function() {
+        $("#btnSubmit").replaceWith('<img  src="{%static 'media/lo.gif'%}" />');
+    });
+});
+</script>
+
+{%endblock scripts%}
+
+
 {%endblock content%}

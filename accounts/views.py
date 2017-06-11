@@ -5,6 +5,26 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import get_template
+from django.template import Context
+
+def welcome_email(data):
+	subject = 'Bienvenido'
+	to = [data['email']]
+	print(to)
+	from_email = 'facilvendelo@gmail.com'
+	data_for_render = data
+	messages = get_template('emails/welcome-email.html').render(Context(data_for_render))
+	msg = EmailMessage(
+		subject,
+		messages,
+		from_email=from_email,
+		to=to
+	)
+	msg.content_subtype = 'html'
+	msg.send()
+
 
 class Dashboard(View):
 	@method_decorator(login_required)
@@ -32,7 +52,7 @@ class Dashboard(View):
 			'profileform':profileform,
 			}
 			return render(request,template_name,context)
-		
+
 
 class Registration(View):
 	def get(self, request):
@@ -46,6 +66,8 @@ class Registration(View):
 	def post(self,request):
 		template_name = "accounts/registration.html"
 		new_user_form = UserRegistrationForm(request.POST)
+		data_user = request.POST
+		print(data_user)
 		if new_user_form.is_valid():
 			new_user = new_user_form.save(commit=False)
 			new_user.set_password(new_user_form.cleaned_data['password'])
@@ -53,6 +75,7 @@ class Registration(View):
 			perfil = Profile()
 			perfil.user = new_user
 			perfil.save()
+			welcome_email(data_user)
 			messages.success(request,"Su registro fue exitoso.")
 			return redirect('profile')
 		else:
